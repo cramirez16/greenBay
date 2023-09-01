@@ -28,7 +28,17 @@ namespace src.Models
         public decimal Bid { get; set; } = 0m;
         public bool IsSellable { get; set; } = true;
 
-        [ForeignKey("User")]
-        public int BuyerId { get; set; }
+        public DateTime CreationDate { get; set; }
+
+        public DateTime UpdateDate { get; set; }
+
+        [Required]
+        public int SellerId { get; set; }
+
+        [ForeignKey("SellerId")]
+        public required User Seller { get; set; }
+
+        public List<Bid>? Bids { get; set; }
+
     }
 }
