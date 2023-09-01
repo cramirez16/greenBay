@@ -33,5 +33,8 @@ namespace src.Models
         public DateTime UpdateDate { get; set; }
 
         public List<UserBid>? UserBids { get; set; }
+
+        // Navigation property for the associated Item (seller)
+        public Item Item { get; set; }
     }
 }
