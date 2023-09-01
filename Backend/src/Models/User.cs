@@ -31,5 +31,7 @@ namespace src.Models
         public DateTime CreationDate { get; set; }
 
         public DateTime UpdateDate { get; set; }
+
+        public List<UserBid>? UserBids { get; set; }
     }
 }
