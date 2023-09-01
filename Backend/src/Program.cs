@@ -26,6 +26,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+builder.WebHost.UseUrls($"http://*:{port}");
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
