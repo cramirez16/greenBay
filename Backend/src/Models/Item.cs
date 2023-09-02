@@ -36,7 +36,7 @@ namespace src.Models
         public int SellerId { get; set; }
 
         [ForeignKey("SellerId")]
-        public required User Seller { get; set; }
+        public User Seller { get; set; }
 
         public List<Bid>? Bids { get; set; }
 

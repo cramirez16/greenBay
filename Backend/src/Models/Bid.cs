@@ -24,6 +24,6 @@ namespace src.Models
         public required Item Item { get; set; }
 
         // Navigation property for the UserBid junction table
-        public List<UserBid> UserBids { get; set; }
+        // public List<UserBid> UserBids { get; set; }
     }
 }

@@ -17,6 +17,10 @@ namespace src.Data
 
         public DbSet<Item> TblItems { get; set; }
 
+        public DbSet<Bid> TblBids { get; set; }
+
+        public DbSet<UserBid> TblUsersBids { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             var user1 = new User()
@@ -42,39 +46,6 @@ namespace src.Data
                 UpdateDate = DateTime.UtcNow,
             };
 
-            modelBuilder.Entity<User>().HasData(user1, user2);
-
-            var item1 = new Item()
-            {
-                Id = 1,
-                Name = "TV Sony",
-                Description = "An amazing TV",
-                PhotoUrl = "https://s13emagst.akamaized.net/products/45635/45634164/images/res_fd42def37fbf80666320c5137faccaf1.jpeg",
-                Price = 30,
-                Bid = 0,
-                IsSellable = true,
-                SellerId = 1,
-                Seller = user1,
-                CreationDate = DateTime.UtcNow,
-                UpdateDate = DateTime.UtcNow.AddDays(1)
-            };
-            var item2 = new Item()
-            {
-                Id = 2,
-                Name = "Electrolux Vacum",
-                Description = "A wanderful vacum.",
-                PhotoUrl = "https://www.electrolux.com.my/globalassets/appliances/vacuum-clearner/z931-fr-1500x1500.png",
-                Price = 20,
-                Bid = 10,
-                IsSellable = true,
-                SellerId = 2,
-                Seller = user2,
-                CreationDate = DateTime.UtcNow,
-                UpdateDate = DateTime.UtcNow.AddDays(1)
-            };
-
-            modelBuilder.Entity<Item>().HasData(item1, item2);
-
             modelBuilder.Entity<UserBid>()
                 .HasKey(ub => new { ub.UserId, ub.BidId });
 
@@ -85,14 +56,54 @@ namespace src.Data
 
             modelBuilder.Entity<UserBid>()
                 .HasOne(ub => ub.Bid)
-                .WithMany(bid => bid.UserBids)
+                .WithMany()
                 .HasForeignKey(ub => ub.BidId);
 
-            // Configure the one-to-one relationship between User and Item
-            modelBuilder.Entity<User>()
-                .HasOne(user => user.Item)
-                .WithOne(item => item.Seller)
-                .HasForeignKey<Item>(item => item.SellerId); // Foreign key property in Item entity
+
+            modelBuilder.Entity<User>().HasData(user1, user2);
+
+            // var item1 = new Item()
+            // {
+            //     Id = 1,
+            //     Name = "TV Sony",
+            //     Description = "An amazing TV",
+            //     PhotoUrl = "https://s13emagst.akamaized.net/products/45635/45634164/images/res_fd42def37fbf80666320c5137faccaf1.jpeg",
+            //     Price = 30,
+            //     Bid = 0,
+            //     IsSellable = true,
+            //     SellerId = 1,
+            //     Seller = user1,
+            //     CreationDate = DateTime.UtcNow,
+            //     UpdateDate = DateTime.UtcNow.AddDays(1)
+            // };
+            // var item2 = new Item()
+            // {
+            //     Id = 2,
+            //     Name = "Electrolux Vacum",
+            //     Description = "A wanderful vacum.",
+            //     PhotoUrl = "https://www.electrolux.com.my/globalassets/appliances/vacuum-clearner/z931-fr-1500x1500.png",
+            //     Price = 20,
+            //     Bid = 10,
+            //     IsSellable = true,
+            //     SellerId = 2,
+            //     Seller = user2,
+            //     CreationDate = DateTime.UtcNow,
+            //     UpdateDate = DateTime.UtcNow.AddDays(1)
+            // };
+
+            // //Configure the one-to-one relationship between User and Item
+            // modelBuilder.Entity<User>()
+            //     .HasMany(user => user.ItemsForSale)
+            //     .WithOne(item => item.Seller)
+            //     .HasForeignKey(item => item.SellerId); // Foreign key property in Item entity
+
+            // modelBuilder.Entity<Item>()
+            //     .HasOne(item => item.Seller)
+            //     .WithOne()
+            //     .HasForeignKey<User>(user => user.Id); // Foreign key property in Item entity
+
+            // modelBuilder.Entity<Item>().HasData(item1, item2);
+
         }
     }
 }
