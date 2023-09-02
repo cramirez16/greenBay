@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Backend.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial_Migration : Migration
+    public partial class InitialMigrations : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -117,8 +117,17 @@ namespace Backend.Migrations
                 columns: new[] { "Id", "CreationDate", "Email", "Money", "Name", "Password", "Role", "UpdateDate" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 9, 2, 12, 40, 50, 290, DateTimeKind.Utc).AddTicks(3227), "admin@fox.hu", 100.00m, "admin", "$2a$11$5r1/aQyXtVmiKrdO1ofawuQC5S6iUu1k1BJgeHbSwu8Qw.HJd0lem", "Admin", new DateTime(2023, 9, 2, 12, 40, 50, 290, DateTimeKind.Utc).AddTicks(3231) },
-                    { 2, new DateTime(2023, 9, 2, 12, 40, 50, 633, DateTimeKind.Utc).AddTicks(1903), "testuser@abc.de", 100.00m, "testuser", "$2a$11$neucoBWYzxGfMk64OyWYTu4tY3I0agIFQ84.MqDggz59cY1Ifh5IO", "User", new DateTime(2023, 9, 2, 12, 40, 50, 633, DateTimeKind.Utc).AddTicks(1908) }
+                    { 1, new DateTime(2023, 9, 2, 13, 37, 48, 173, DateTimeKind.Utc).AddTicks(280), "admin@fox.hu", 100.00m, "admin", "$2a$11$afe.dL42f5nL7N7Y99Nh/ehOhsLHhEpe/FPrg3H0R9CtwVhfBiR2.", "Admin", new DateTime(2023, 9, 2, 13, 37, 48, 173, DateTimeKind.Utc).AddTicks(283) },
+                    { 2, new DateTime(2023, 9, 2, 13, 37, 48, 453, DateTimeKind.Utc).AddTicks(5396), "testuser@abc.de", 100.00m, "testuser", "$2a$11$lSe4wGaGZmgCkecr1O/EXeZm9LGG1jvcwLxeXyrQXRML5QmDQ986W", "User", new DateTime(2023, 9, 2, 13, 37, 48, 453, DateTimeKind.Utc).AddTicks(5399) }
+                });
+
+            migrationBuilder.InsertData(
+                table: "TblItems",
+                columns: new[] { "Id", "Bid", "CreationDate", "Description", "IsSellable", "Name", "PhotoUrl", "Price", "SellerId", "UpdateDate" },
+                values: new object[,]
+                {
+                    { 1, 0m, new DateTime(2023, 9, 2, 13, 37, 48, 453, DateTimeKind.Utc).AddTicks(6237), "An amazing TV", true, "TV Sony", "https://s13emagst.akamaized.net/products/45635/45634164/images/res_fd42def37fbf80666320c5137faccaf1.jpeg", 30m, 1, new DateTime(2023, 9, 3, 13, 37, 48, 453, DateTimeKind.Utc).AddTicks(6238) },
+                    { 2, 10m, new DateTime(2023, 9, 2, 13, 37, 48, 453, DateTimeKind.Utc).AddTicks(6251), "A wanderful vacum.", true, "Electrolux Vacum", "https://www.electrolux.com.my/globalassets/appliances/vacuum-clearner/z931-fr-1500x1500.png", 20m, 2, new DateTime(2023, 9, 3, 13, 37, 48, 453, DateTimeKind.Utc).AddTicks(6251) }
                 });
 
             migrationBuilder.CreateIndex(

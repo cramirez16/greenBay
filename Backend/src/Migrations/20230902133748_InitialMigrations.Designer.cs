@@ -12,8 +12,8 @@ using src.Data;
 namespace Backend.Migrations
 {
     [DbContext(typeof(GreenBayDbContext))]
-    [Migration("20230902124050_Initial_Migration")]
-    partial class Initial_Migration
+    [Migration("20230902133748_InitialMigrations")]
+    partial class InitialMigrations
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -94,6 +94,34 @@ namespace Backend.Migrations
                     b.HasIndex("SellerId");
 
                     b.ToTable("TblItems");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Bid = 0m,
+                            CreationDate = new DateTime(2023, 9, 2, 13, 37, 48, 453, DateTimeKind.Utc).AddTicks(6237),
+                            Description = "An amazing TV",
+                            IsSellable = true,
+                            Name = "TV Sony",
+                            PhotoUrl = "https://s13emagst.akamaized.net/products/45635/45634164/images/res_fd42def37fbf80666320c5137faccaf1.jpeg",
+                            Price = 30m,
+                            SellerId = 1,
+                            UpdateDate = new DateTime(2023, 9, 3, 13, 37, 48, 453, DateTimeKind.Utc).AddTicks(6238)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Bid = 10m,
+                            CreationDate = new DateTime(2023, 9, 2, 13, 37, 48, 453, DateTimeKind.Utc).AddTicks(6251),
+                            Description = "A wanderful vacum.",
+                            IsSellable = true,
+                            Name = "Electrolux Vacum",
+                            PhotoUrl = "https://www.electrolux.com.my/globalassets/appliances/vacuum-clearner/z931-fr-1500x1500.png",
+                            Price = 20m,
+                            SellerId = 2,
+                            UpdateDate = new DateTime(2023, 9, 3, 13, 37, 48, 453, DateTimeKind.Utc).AddTicks(6251)
+                        });
                 });
 
             modelBuilder.Entity("src.Models.User", b =>
@@ -137,24 +165,24 @@ namespace Backend.Migrations
                         new
                         {
                             Id = 1,
-                            CreationDate = new DateTime(2023, 9, 2, 12, 40, 50, 290, DateTimeKind.Utc).AddTicks(3227),
+                            CreationDate = new DateTime(2023, 9, 2, 13, 37, 48, 173, DateTimeKind.Utc).AddTicks(280),
                             Email = "admin@fox.hu",
                             Money = 100.00m,
                             Name = "admin",
-                            Password = "$2a$11$5r1/aQyXtVmiKrdO1ofawuQC5S6iUu1k1BJgeHbSwu8Qw.HJd0lem",
+                            Password = "$2a$11$afe.dL42f5nL7N7Y99Nh/ehOhsLHhEpe/FPrg3H0R9CtwVhfBiR2.",
                             Role = "Admin",
-                            UpdateDate = new DateTime(2023, 9, 2, 12, 40, 50, 290, DateTimeKind.Utc).AddTicks(3231)
+                            UpdateDate = new DateTime(2023, 9, 2, 13, 37, 48, 173, DateTimeKind.Utc).AddTicks(283)
                         },
                         new
                         {
                             Id = 2,
-                            CreationDate = new DateTime(2023, 9, 2, 12, 40, 50, 633, DateTimeKind.Utc).AddTicks(1903),
+                            CreationDate = new DateTime(2023, 9, 2, 13, 37, 48, 453, DateTimeKind.Utc).AddTicks(5396),
                             Email = "testuser@abc.de",
                             Money = 100.00m,
                             Name = "testuser",
-                            Password = "$2a$11$neucoBWYzxGfMk64OyWYTu4tY3I0agIFQ84.MqDggz59cY1Ifh5IO",
+                            Password = "$2a$11$lSe4wGaGZmgCkecr1O/EXeZm9LGG1jvcwLxeXyrQXRML5QmDQ986W",
                             Role = "User",
-                            UpdateDate = new DateTime(2023, 9, 2, 12, 40, 50, 633, DateTimeKind.Utc).AddTicks(1908)
+                            UpdateDate = new DateTime(2023, 9, 2, 13, 37, 48, 453, DateTimeKind.Utc).AddTicks(5399)
                         });
                 });
 
