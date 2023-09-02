@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using src.Data;
+using src.helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
@@ -56,6 +57,8 @@ builder.Services.AddCors(
 );
 
 builder.Services.AddTransient<JWTHandler>();
+
+builder.Services.AddAutoMapper(typeof(MapperConfig));
 
 builder.Services.AddDbContext<GreenBayDbContext>(option =>
 {
