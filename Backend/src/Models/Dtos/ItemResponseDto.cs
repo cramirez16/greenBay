@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace src.Models.Dtos
+{
+    public class ItemResponseDto
+    {
+        public int Id { get; set; }
+        public required string Name { get; set; }
+        // public required string Description { get; set; }
+        public required string PhotoUrl { get; set; }
+        // public required decimal Price { get; set; }
+        public decimal Bid { get; set; } = 0m;
+        public bool IsSellable { get; set; } = true;
+        public DateTime CreationDate { get; set; }
+        public DateTime UpdateDate { get; set; }
+
+        [Required]
+        public int SellerId { get; set; }
+
+        [ForeignKey("SellerId")]
+        public User? Seller { get; set; }
+
+        public List<Bid>? Bids { get; set; }
+    }
+}

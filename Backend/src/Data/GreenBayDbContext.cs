@@ -70,7 +70,7 @@ namespace src.Data
                     Description = "A wanderful vacum.",
                     PhotoUrl = "https://www.electrolux.com.my/globalassets/appliances/vacuum-clearner/z931-fr-1500x1500.png",
                     Price = 20,
-                    Bid = 10,
+                    Bid = 0,
                     IsSellable = true,
                     SellerId = 2,
                     CreationDate = DateTime.UtcNow,

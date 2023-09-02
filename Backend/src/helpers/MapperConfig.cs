@@ -13,6 +13,7 @@ namespace src.helpers
         public MapperConfig()
         {
             CreateMap<UserResponseDto, User>().ReverseMap();
+            CreateMap<Item, ItemResponseDto>().ReverseMap();
         }
     }
 }
