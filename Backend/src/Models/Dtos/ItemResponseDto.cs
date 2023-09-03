@@ -20,6 +20,8 @@ namespace src.Models.Dtos
         public DateTime UpdateDate { get; set; }
         public int SellerId { get; set; }
         public string? SellerName { get; set; }
+        public int BuyerId { get; set; }
+        public string? BuyerName { get; set; }
         public List<Bid>? Bids { get; set; }
     }
 }

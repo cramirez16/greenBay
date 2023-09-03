@@ -28,6 +28,8 @@ namespace src.JsonConverters
             writer.WriteString("updateDate", value.UpdateDate);
             writer.WriteNumber("sellerId", value.SellerId);
             writer.WriteString("sellerName", value.SellerName);
+            writer.WriteNumber("buyerId", value.BuyerId);
+            writer.WriteString("buyerName", value.BuyerName);
 
             // Include the Bids property
             writer.WriteStartArray("bids");

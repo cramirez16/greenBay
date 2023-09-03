@@ -39,7 +39,7 @@ namespace src.Controllers
         public async Task<IActionResult> GetItems()
         {
             List<Item>? items = await _context.TblItems
-                .Include(item => item.Seller).Include(item => item.Seller)
+                .Include(item => item.Seller)
                 .Include(item => item.Bids)
                 .Where(item => item.IsSellable)
                 .ToListAsync();
@@ -60,11 +60,41 @@ namespace src.Controllers
             return Ok(jsonResult);
         }
 
+        [HttpGet("{id}")]
+        //[Authorize(Roles = "Admin,User")]
+        public async Task<IActionResult> GetTicket([FromRoute] int id)
+        {
+            Item? item = await _context.TblItems
+                            .Include(item => item.Seller)
+                            .Include(item => item.Bids)
+                            .FirstOrDefaultAsync(item => item.Id == id);
+
+            if (item == null)
+            {
+                _logger.LogInformation("Item not found.");
+                return NotFound();
+            }
+
+            var itemResponseDto = _automapper.Map<ItemResponseDto>(item);
+
+            var serializerOptions = new JsonSerializerOptions
+            {
+                Converters = { new ItemResponseDtoConverter() },
+                WriteIndented = true, // Format the JSON for readability
+                //DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull // Ignore null values
+            };
+
+            string jsonResult = JsonSerializer.Serialize(itemResponseDto, serializerOptions);
+
+            _logger.LogInformation("Item data sent.");
+            return Ok(jsonResult);
+        }
+
         [HttpPost]
         //[Authorize(Roles = "Admin,User")]
-        public async Task<IActionResult> PostItem([FromBody] ItemRequestDto ticket)
+        public async Task<IActionResult> PostItem([FromBody] ItemRequestDto item)
         {
-            var ItemEntities = _automapper.Map<Item>(ticket);
+            var ItemEntities = _automapper.Map<Item>(item);
             await _context.TblItems.AddAsync(ItemEntities);
             await _context.SaveChangesAsync();
             _logger.LogInformation("Created new item.");

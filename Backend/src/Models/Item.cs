@@ -35,8 +35,15 @@ namespace src.Models
         [Required]
         public int SellerId { get; set; }
 
+        public int? BuyerId { get; set; }
+
+        // navigation property
         [ForeignKey("SellerId")]
         public User? Seller { get; set; }
+
+        // navigation property
+        [ForeignKey("BuyerId")]
+        public User? Buyer { get; set; }
 
         public List<Bid>? Bids { get; set; }
     }
