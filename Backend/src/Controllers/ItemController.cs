@@ -65,8 +65,8 @@ namespace src.Controllers
         public async Task<IActionResult> GetTicket([FromRoute] int id)
         {
             Item? item = await _context.TblItems
-                            // .Include(item => item.Seller)
-                            // .Include(item => item.Bids)
+                            .Include(item => item.Seller)
+                            .Include(item => item.Bids)
                             .FirstOrDefaultAsync(item => item.Id == id);
 
             if (item == null)
@@ -100,5 +100,126 @@ namespace src.Controllers
             _logger.LogInformation("Created new item.");
             return Ok();
         }
+
+        [HttpPut]
+        //[Authorize(Roles = "Admin")]
+        public async Task<IActionResult> BidItem([FromBody] BidRequestDto bidRequestDto)
+        {
+            var bider = await _context.TblUsers.FindAsync(bidRequestDto.BiderId);
+            if (bider == null)
+            {
+                _logger.LogInformation("User not found.");
+                return NotFound();
+            }
+            // --- user exists ---
+            var itemToBid = await _context.TblItems.FindAsync(bidRequestDto.ItemId);
+            if (itemToBid == null)
+            {
+                _logger.LogInformation("Item not found.");
+                return NotFound();
+            }
+            // --- user && item exists ----
+            if (!itemToBid.IsSellable)
+            {
+                // the item is not Sellabel.
+                _logger.LogInformation("Item not sellable.");
+                return Ok(new { notSallabel = true });
+            }
+            // --- user, item exists && IsSellable ----
+            if (bider.Money < bidRequestDto.BidAmount)
+            {
+                _logger.LogInformation("Bider not enought money.");
+                return Ok(new { notEnoughtMoneyToBid = true });
+            }
+            // get the maxBbid of an specific item.
+            var maxBid = await _context.TblBids
+                .Where(bid => bid.ItemId == bidRequestDto.ItemId)
+                .OrderByDescending(bid => bid.BidAmount)
+                .Select(bid => new
+                {
+                    Id = bid.Id,
+                    BidAmount = bid.BidAmount,
+                    BiderId = bid.BiderId
+                })
+                .FirstOrDefaultAsync();
+            if (maxBid != null)
+            {
+                if (bidRequestDto.BidAmount <= maxBid.BidAmount)
+                {
+                    _logger.LogInformation("Bid too low.");
+                    return Ok(new { bidLow = true });
+                }
+
+                if (bidRequestDto.BidAmount < itemToBid.Price)
+                {
+                    // discount the bid from the account of the user
+                    bider.Money -= bidRequestDto.BidAmount;
+                    _context.Entry(bider).State = EntityState.Modified;
+
+                    // update the bid list
+                    var newBid = new Bid
+                    {
+                        BidAmount = bidRequestDto.BidAmount,
+                        BiderId = bidRequestDto.BiderId,
+                        ItemId = bidRequestDto.ItemId,
+                    };
+                    _context.TblBids.Add(newBid);
+
+                    _logger.LogInformation("Bid added.");
+                    await _context.SaveChangesAsync();
+                    return Ok(new { bidSuccess = true });
+                }
+                if (bider.Money >= bidRequestDto.BidAmount)
+                {
+                    // user buy the item
+                    itemToBid.IsSellable = false;
+                    itemToBid.BuyerId = bider.Id;
+                    _context.Entry(itemToBid).State = EntityState.Modified;
+                    // update user money.
+                    bider.Money -= bidRequestDto.BidAmount;
+                    _context.Entry(bider).State = EntityState.Modified;
+                    // update the bid list
+                    var newBid = new Bid
+                    {
+                        BidAmount = bidRequestDto.BidAmount,
+                        BiderId = bidRequestDto.BiderId,
+                        ItemId = bidRequestDto.ItemId,
+                    };
+                    _context.TblBids.Add(newBid);
+
+                    _logger.LogInformation("Item Sold.");
+                    await _context.SaveChangesAsync();
+                    return Ok(new { itemSold = true });
+                }
+            }
+            else
+            {
+                // update user money.
+                bider.Money -= bidRequestDto.BidAmount;
+                _context.Entry(bider).State = EntityState.Modified;
+                // no bids for the item yet --> add the bid
+                var newBid = new Bid
+                {
+                    BidAmount = bidRequestDto.BidAmount,
+                    BiderId = bidRequestDto.BiderId,
+                    ItemId = bidRequestDto.ItemId,
+                };
+
+                // Add the new bid to the context
+                _context.TblBids.Add(newBid);
+
+                // Save the changes to the database
+                await _context.SaveChangesAsync();
+                return Ok(new { bidSuccess = true });
+            }
+
+
+
+            // _automapper.Map(ticket, ticketToUpdate);
+            // await _context.SaveChangesAsync();
+            // _logger.LogInformation("Updated ticket data.");
+            return Ok(new { whatHappenned = true });
+        }
+
     }
 }

@@ -15,6 +15,7 @@ namespace src.Models.Dtos
         public required string PhotoUrl { get; set; }
         // public required decimal Price { get; set; }
         public decimal Bid { get; set; } = 0m;
+        public required decimal Price { get; set; }
         public bool IsSellable { get; set; } = true;
         public DateTime CreationDate { get; set; }
         public DateTime UpdateDate { get; set; }

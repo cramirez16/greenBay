@@ -23,6 +23,7 @@ namespace src.JsonConverters
             writer.WriteString("name", value.Name);
             writer.WriteString("photoUrl", value.PhotoUrl);
             writer.WriteNumber("bid", value.Bid);
+            writer.WriteNumber("price", value.Price);
             writer.WriteBoolean("isSellable", value.IsSellable);
             writer.WriteString("creationDate", value.CreationDate);
             writer.WriteString("updateDate", value.UpdateDate);

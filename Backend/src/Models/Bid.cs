@@ -21,7 +21,7 @@ namespace src.Models
         [Required]
         public int ItemId { get; set; }
         [ForeignKey("ItemId")]
-        public required Item Item { get; set; }
+        public Item? Item { get; set; }
 
         // Navigation property for the UserBid junction table
         // public List<UserBid> UserBids { get; set; }
