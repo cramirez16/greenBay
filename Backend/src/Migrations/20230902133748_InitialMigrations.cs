@@ -67,7 +67,7 @@ namespace Backend.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     BidAmount = table.Column<decimal>(type: "numeric", nullable: false),
-                    BidderId = table.Column<int>(type: "integer", nullable: false),
+                    BiderId = table.Column<int>(type: "integer", nullable: false),
                     ItemId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -80,8 +80,8 @@ namespace Backend.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_TblBids_TblUsers_BidderId",
-                        column: x => x.BidderId,
+                        name: "FK_TblBids_TblUsers_BiderId",
+                        column: x => x.BiderId,
                         principalTable: "TblUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -131,9 +131,9 @@ namespace Backend.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_TblBids_BidderId",
+                name: "IX_TblBids_BiderId",
                 table: "TblBids",
-                column: "BidderId");
+                column: "BiderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TblBids_ItemId",

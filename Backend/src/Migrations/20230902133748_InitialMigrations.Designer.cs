@@ -36,7 +36,7 @@ namespace Backend.Migrations
                     b.Property<decimal>("BidAmount")
                         .HasColumnType("numeric");
 
-                    b.Property<int>("BidderId")
+                    b.Property<int>("BiderId")
                         .HasColumnType("integer");
 
                     b.Property<int>("ItemId")
@@ -44,7 +44,7 @@ namespace Backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BidderId");
+                    b.HasIndex("BiderId");
 
                     b.HasIndex("ItemId");
 
@@ -208,7 +208,7 @@ namespace Backend.Migrations
                 {
                     b.HasOne("src.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("BidderId")
+                        .HasForeignKey("BiderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
