@@ -65,8 +65,8 @@ namespace src.Controllers
         public async Task<IActionResult> GetTicket([FromRoute] int id)
         {
             Item? item = await _context.TblItems
-                            .Include(item => item.Seller)
-                            .Include(item => item.Bids)
+                            // .Include(item => item.Seller)
+                            // .Include(item => item.Bids)
                             .FirstOrDefaultAsync(item => item.Id == id);
 
             if (item == null)
