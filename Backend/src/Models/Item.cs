@@ -36,22 +36,8 @@ namespace src.Models
         public int SellerId { get; set; }
 
         [ForeignKey("SellerId")]
-        public User Seller { get; set; }
+        public User? Seller { get; set; }
 
         public List<Bid>? Bids { get; set; }
-
-        [NotMapped]
-        public decimal? LastBidAmount
-        {
-            get
-            {
-                if (Bids != null && Bids.Any())
-                {
-                    return Bids.Max(b => b.BidAmount);
-                }
-                return null; // No bids or bids list is null, so return null.
-            }
-        }
-
     }
 }
