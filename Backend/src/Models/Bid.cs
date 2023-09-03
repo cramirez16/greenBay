@@ -15,8 +15,8 @@ namespace src.Models
         [Required]
         public decimal BidAmount { get; set; }
         [Required]
-        public int BidderId { get; set; }
-        [ForeignKey("BidderId")]
+        public int BiderId { get; set; }
+        [ForeignKey("BiderId")]
         public User? User { get; set; }
         [Required]
         public int ItemId { get; set; }
