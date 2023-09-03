@@ -20,7 +20,7 @@ namespace src.helpers
             CreateMap<Bid, BidDto>();
 
             CreateMap<Item, ItemResponseDto>()
-                .ForMember(dest => dest.SellerName, opt => opt.MapFrom(src => src.Seller.Name))
+                .ForMember(dest => dest.SellerName, opt => opt.MapFrom(src => src.Seller!.Name))
                 .ForMember(dest => dest.Bids, opt => opt.MapFrom(src => src.Bids)); // Map the Bids property
         }
     }
