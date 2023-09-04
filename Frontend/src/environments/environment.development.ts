@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  SERVER_URL: 'https://native-sort-development.up.railway.app',
+  SERVER_URL: 'https://greenbaybackend-development.up.railway.app/',
 };
