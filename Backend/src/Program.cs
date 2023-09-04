@@ -96,15 +96,15 @@ builder.Services.AddAuthorization();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-// if (app.Environment.IsDevelopment())
-// {
-// This ensures that migrations are only run during development, not during tests.
-using (var scope = app.Services.CreateScope())
+if (app.Environment.IsDevelopment())
 {
-    var dbContext = scope.ServiceProvider.GetRequiredService<GreenBayDbContext>();
-    dbContext.Database.Migrate();
+    // This ensures that migrations are only run during development, not during tests.
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbContext = scope.ServiceProvider.GetRequiredService<GreenBayDbContext>();
+        dbContext.Database.Migrate();
+    }
 }
-// }
 app.UseSwagger();
 app.UseSwaggerUI();
 

@@ -25,7 +25,7 @@ jobs:
         run: npm install -g @railway/cli
 
       - name: Deploy
-        run: railway up -s remarkable-school -e production -d
+        run: railway up -s greenBay_Frontend -e production -d
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
           RAILWAY_DOCKERFILE_PATH: Dockerfile.production

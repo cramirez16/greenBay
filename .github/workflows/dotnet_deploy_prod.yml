@@ -25,6 +25,6 @@ jobs:
         run: npm install -g @railway/cli
 
       - name: Deploy
-        run: railway up -s native-sort -e production -d
+        run: railway up -s greenBay_Backend -e production -d
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
