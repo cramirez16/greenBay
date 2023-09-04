@@ -89,7 +89,7 @@
               "browserTarget": "Frontend:build:development"
             },
             "local": {
-              "browserTarget": "frontend:build:local"
+              "browserTarget": "Frontend:build:local"
             }
           },
           "defaultConfiguration": "local"
