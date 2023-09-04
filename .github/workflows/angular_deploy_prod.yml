@@ -28,4 +28,3 @@ jobs:
         run: railway up -s greenBay_Frontend -e production -d
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-          RAILWAY_DOCKERFILE_PATH: Dockerfile.production
