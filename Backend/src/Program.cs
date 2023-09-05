@@ -7,6 +7,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using src.Data;
 using src.helpers;
+using src.Repository;
+using src.Repository.IRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
@@ -73,6 +75,8 @@ builder.Services.AddDbContext<GreenBayDbContext>(option =>
         ?? config["ConnectionStrings:DefaultConnection"];
     option.UseNpgsql(connectionString);
 });
+
+builder.Services.AddScoped<IItemRepository, ItemRepository>();
 
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

@@ -12,6 +12,7 @@ using src.Data;
 using src.JsonConverters;
 using src.Models;
 using src.Models.Dtos;
+using src.Repository.IRepository;
 
 namespace src.Controllers
 {
@@ -22,28 +23,26 @@ namespace src.Controllers
         private readonly ILogger<UserController> _logger;
         private readonly IMapper _automapper;
         private readonly GreenBayDbContext _context;
+        private readonly IItemRepository _villaRepo;
 
         public ItemController(
             ILogger<UserController> logger,
             GreenBayDbContext context,
-            IMapper automapper
+            IMapper automapper,
+            IItemRepository villaRepo
         )
         {
             _automapper = automapper;
             _context = context;
             _logger = logger;
+            _villaRepo = villaRepo;
         }
 
         [HttpGet]
         //[Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> GetItems()
         {
-            List<Item>? items = await _context.TblItems
-                .Include(item => item.Seller)
-                .Include(item => item.Bids)
-                .Where(item => item.IsSellable)
-                .ToListAsync();
-
+            List<Item>? items = await _villaRepo.GetItemsAsync();
 
             var itemsDto = _automapper.Map<List<ItemResponseDto>>(items);
 
