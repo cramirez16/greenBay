@@ -9,6 +9,7 @@ using src.Data;
 using src.helpers;
 using src.Repository;
 using src.Repository.IRepository;
+using src.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
@@ -59,12 +60,14 @@ builder.Services.AddCors(
         })
 );
 
-builder.Services.AddControllers().AddJsonOptions(options =>
-    {
-        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
-    });
+// builder.Services.AddControllers().AddJsonOptions(options =>
+//     {
+//         //options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+//     });
 
 builder.Services.AddTransient<JWTHandler>();
+
+builder.Services.AddTransient<JsonSerializerService>();
 
 builder.Services.AddAutoMapper(typeof(MapperConfig));
 
@@ -76,7 +79,11 @@ builder.Services.AddDbContext<GreenBayDbContext>(option =>
     option.UseNpgsql(connectionString);
 });
 
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
 builder.Services.AddScoped<IItemRepository, ItemRepository>();
+
+builder.Services.AddScoped<IBidRepository, BidRepository>();
 
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -108,10 +115,9 @@ if (app.Environment.IsDevelopment())
         var dbContext = scope.ServiceProvider.GetRequiredService<GreenBayDbContext>();
         dbContext.Database.Migrate();
     }
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
-app.UseSwagger();
-app.UseSwaggerUI();
-
 
 var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
 builder.WebHost.UseUrls($"http://*:{port}");
