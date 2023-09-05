@@ -12,8 +12,8 @@ namespace src.Models
         [Key]
         public int Id { get; set; }
         public int UserId { get; set; }
-        public User User { get; set; } // Navigation property to User entity
+        public User? User { get; set; } // Navigation property to User entity
         public int BidId { get; set; }
-        public Bid Bid { get; set; } // Navigation property to Bid entity
+        public Bid? Bid { get; set; } // Navigation property to Bid entity
     }
 }
