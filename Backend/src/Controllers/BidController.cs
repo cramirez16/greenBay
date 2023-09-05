@@ -1,0 +1,143 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using src.Data;
+using src.JsonConverters;
+using src.Models;
+using src.Models.Dtos;
+using src.Repository.IRepository;
+
+namespace src.Controllers
+{
+    [ApiController]
+    [Route("api/[controller]")]
+    public class BidController : ControllerBase
+    {
+        private readonly ILogger<UserController> _logger;
+        private readonly IMapper _automapper;
+        private readonly IItemRepository _itemRepo;
+        private readonly IBidRepository _bidRepo;
+        private readonly IUserRepository _userRepo;
+        private readonly GreenBayDbContext _context;
+
+        public BidController(
+            ILogger<UserController> logger,
+            IMapper automapper,
+            IItemRepository itemRepo,
+            IBidRepository bidRepo,
+            IUserRepository userRepo,
+            GreenBayDbContext context
+        )
+        {
+            _automapper = automapper;
+            _logger = logger;
+            _itemRepo = itemRepo;
+            _bidRepo = bidRepo;
+            _userRepo = userRepo;
+            _context = context;
+        }
+
+        [HttpPut]
+        //[Authorize(Roles = "Admin")]
+        public async Task<IActionResult> BidItem([FromBody] BidRequestDto bidRequestDto)
+        {
+            if (bidRequestDto.BidAmount <= 0)
+            {
+                _logger.LogInformation("User not found.");
+                return BadRequest(new { bidAmountInvalid = true });
+            }
+            var bider = await _userRepo.FindUserById(bidRequestDto.BiderId);
+            if (bider == null)
+            {
+                _logger.LogInformation("User not found.");
+                return NotFound(new { userNotFound = true });
+            }
+            // --- user exists ---
+            var itemToBid = await _itemRepo.FindItemById(bidRequestDto.ItemId);
+            if (itemToBid == null)
+            {
+                _logger.LogInformation("Item not found.");
+                return NotFound(new { itemNotFound = true });
+            }
+            // --- user && item exists ----
+            if (!itemToBid.IsSellable)
+            {
+                // the item is not Sellabel.
+                _logger.LogInformation("Item not sellable.");
+                return Ok(new { notSallabel = true });
+            }
+            // --- user, item exists && IsSellable ----
+            if (bider.Money < bidRequestDto.BidAmount)
+            {
+                _logger.LogInformation("Bider not enought money.");
+                return Ok(new { notEnoughtMoneyToBid = true });
+            }
+
+            Bid? maxBid = await _bidRepo.GetMaxBidByItemId(bidRequestDto.ItemId);
+
+            if (maxBid != null)
+            {
+                if (bidRequestDto.BidAmount <= maxBid.BidAmount)
+                {
+                    _logger.LogInformation("Bid too low.");
+                    return Ok(new { bidLow = true });
+                }
+
+                if (bidRequestDto.BidAmount < itemToBid.Price)
+                {
+                    // update the bid list ---> automapper BidRequestDto ---> Bid
+                    Bid? newBid = new()
+                    {
+                        BidAmount = bidRequestDto.BidAmount,
+                        BiderId = bidRequestDto.BiderId,
+                        ItemId = bidRequestDto.ItemId,
+                    };
+                    _logger.LogInformation("Bid added.");
+                    await _bidRepo.AddBidAsync(newBid);
+                    return Ok(new { bidSuccess = true });
+                }
+                if (bider.Money >= bidRequestDto.BidAmount)
+                {
+                    // user buy the item
+                    itemToBid.IsSellable = false;
+                    itemToBid.BuyerId = bider.Id;
+                    _context.Entry(itemToBid).State = EntityState.Modified;
+                    // update user money.
+                    bider.Money -= bidRequestDto.BidAmount;
+                    _context.Entry(bider).State = EntityState.Modified;
+                    // update the bid list ---> automapper BidRequestDto ---> Bid
+                    var newBid = new Bid
+                    {
+                        BidAmount = bidRequestDto.BidAmount,
+                        BiderId = bidRequestDto.BiderId,
+                        ItemId = bidRequestDto.ItemId,
+                    };
+                    await _bidRepo.AddBidAsync(newBid);
+                    _logger.LogInformation("Item Sold.");
+                    return Ok(new { itemSold = true });
+                }
+            }
+            else
+            {
+                // update the bid list ---> automapper BidRequestDto ---> Bid
+                Bid newBid = new()
+                {
+                    BidAmount = bidRequestDto.BidAmount,
+                    BiderId = bidRequestDto.BiderId,
+                    ItemId = bidRequestDto.ItemId,
+                };
+                await _bidRepo.AddBidAsync(newBid);
+                _logger.LogInformation("Bid added.");
+                return Ok(new { bidSuccess = true });
+            }
+            return Ok(new { whatHappenned = true });
+        }
+    }
+}
