@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using src.Data;
-//using src.JsonConverters;
 using src.Models;
 using src.Models.Dtos;
 using src.Repository.IRepository;
@@ -115,6 +114,7 @@ namespace src.Controllers
                 bider.Money -= bidRequestDto.BidAmount;
                 _context.Entry(bider).State = EntityState.Modified;
 
+                // save the bid.
                 Bid newBid = _automapper.Map<Bid>(bidRequestDto);
                 await _bidRepo.AddBidAsync(newBid);
                 _logger.LogInformation("Item Sold.");

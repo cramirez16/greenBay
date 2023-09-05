@@ -1,5 +1,4 @@
 using System.Text;
-using System.Text.Json.Serialization;
 using Backend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -60,14 +59,7 @@ builder.Services.AddCors(
         })
 );
 
-// builder.Services.AddControllers().AddJsonOptions(options =>
-//     {
-//         //options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
-//     });
-
 builder.Services.AddTransient<JWTHandler>();
-
-//builder.Services.AddTransient<JsonSerializerService>();
 
 builder.Services.AddAutoMapper(typeof(MapperConfig));
 

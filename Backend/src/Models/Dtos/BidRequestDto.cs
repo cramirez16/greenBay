@@ -7,8 +7,8 @@ namespace src.Models.Dtos
 {
     public class BidRequestDto
     {
-        public required decimal BidAmount { get; set; }
         public required int BiderId { get; set; }
+        public required decimal BidAmount { get; set; }
         public required int ItemId { get; set; }
     }
 }

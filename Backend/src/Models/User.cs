@@ -37,7 +37,7 @@ namespace src.Models
         public List<Item>? ItemsForSale { get; set; }
 
         [JsonIgnore]
-        public List<UserBid>? UserBids { get; set; }
+        public List<UserBid>? UserToUserBids { get; set; }
 
     }
 }

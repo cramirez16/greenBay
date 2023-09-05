@@ -102,27 +102,27 @@ namespace Backend.Migrations
                         {
                             Id = 1,
                             Bid = 0m,
-                            CreationDate = new DateTime(2023, 9, 3, 19, 8, 58, 916, DateTimeKind.Utc).AddTicks(2331),
+                            CreationDate = new DateTime(2023, 9, 5, 20, 55, 9, 199, DateTimeKind.Utc).AddTicks(6439),
                             Description = "An amazing TV",
                             IsSellable = true,
                             Name = "TV Sony",
                             PhotoUrl = "https://s13emagst.akamaized.net/products/45635/45634164/images/res_fd42def37fbf80666320c5137faccaf1.jpeg",
                             Price = 30m,
                             SellerId = 1,
-                            UpdateDate = new DateTime(2023, 9, 4, 19, 8, 58, 916, DateTimeKind.Utc).AddTicks(2333)
+                            UpdateDate = new DateTime(2023, 9, 6, 20, 55, 9, 199, DateTimeKind.Utc).AddTicks(6440)
                         },
                         new
                         {
                             Id = 2,
                             Bid = 0m,
-                            CreationDate = new DateTime(2023, 9, 3, 19, 8, 58, 916, DateTimeKind.Utc).AddTicks(2342),
+                            CreationDate = new DateTime(2023, 9, 5, 20, 55, 9, 199, DateTimeKind.Utc).AddTicks(6452),
                             Description = "A wanderful vacum.",
                             IsSellable = true,
                             Name = "Electrolux Vacum",
                             PhotoUrl = "https://www.electrolux.com.my/globalassets/appliances/vacuum-clearner/z931-fr-1500x1500.png",
                             Price = 20m,
                             SellerId = 2,
-                            UpdateDate = new DateTime(2023, 9, 4, 19, 8, 58, 916, DateTimeKind.Utc).AddTicks(2343)
+                            UpdateDate = new DateTime(2023, 9, 6, 20, 55, 9, 199, DateTimeKind.Utc).AddTicks(6453)
                         });
                 });
 
@@ -167,24 +167,24 @@ namespace Backend.Migrations
                         new
                         {
                             Id = 1,
-                            CreationDate = new DateTime(2023, 9, 3, 19, 8, 58, 649, DateTimeKind.Utc).AddTicks(2384),
+                            CreationDate = new DateTime(2023, 9, 5, 20, 55, 8, 923, DateTimeKind.Utc).AddTicks(1070),
                             Email = "admin@fox.hu",
                             Money = 100.00m,
                             Name = "admin",
-                            Password = "$2a$11$Ax5kzfVqrkXOJ40EPGnVf.QVTNTUwULTfaYbBUBa3dcoEYdZIvIEa",
+                            Password = "$2a$11$AXqa.f8dTSJ/Vng9k7bviO0NG1U.Q2NcVUE6lziMdln5ybjXlWtBa",
                             Role = "Admin",
-                            UpdateDate = new DateTime(2023, 9, 3, 19, 8, 58, 649, DateTimeKind.Utc).AddTicks(2388)
+                            UpdateDate = new DateTime(2023, 9, 5, 20, 55, 8, 923, DateTimeKind.Utc).AddTicks(1074)
                         },
                         new
                         {
                             Id = 2,
-                            CreationDate = new DateTime(2023, 9, 3, 19, 8, 58, 916, DateTimeKind.Utc).AddTicks(1440),
+                            CreationDate = new DateTime(2023, 9, 5, 20, 55, 9, 199, DateTimeKind.Utc).AddTicks(5469),
                             Email = "testuser@abc.de",
                             Money = 100.00m,
                             Name = "testuser",
-                            Password = "$2a$11$d4T7idMx2GJmqBgKHn/5peLhX9blJRntbr1u9OFa4Egj76iFeSTzG",
+                            Password = "$2a$11$jnwuGZ8JTeGHmbBjlXlhue5omfjTd/V08mBWg6QMFsWxi2oQPVhRq",
                             Role = "User",
-                            UpdateDate = new DateTime(2023, 9, 3, 19, 8, 58, 916, DateTimeKind.Utc).AddTicks(1444)
+                            UpdateDate = new DateTime(2023, 9, 5, 20, 55, 9, 199, DateTimeKind.Utc).AddTicks(5472)
                         });
                 });
 
@@ -203,12 +203,12 @@ namespace Backend.Migrations
 
                     b.HasIndex("BidId");
 
-                    b.ToTable("TblUsersBids");
+                    b.ToTable("UserBid");
                 });
 
             modelBuilder.Entity("src.Models.Bid", b =>
                 {
-                    b.HasOne("src.Models.User", "User")
+                    b.HasOne("src.Models.User", "Bider")
                         .WithMany()
                         .HasForeignKey("BiderId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -220,9 +220,9 @@ namespace Backend.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Item");
+                    b.Navigation("Bider");
 
-                    b.Navigation("User");
+                    b.Navigation("Item");
                 });
 
             modelBuilder.Entity("src.Models.Item", b =>
@@ -245,13 +245,13 @@ namespace Backend.Migrations
             modelBuilder.Entity("src.Models.UserBid", b =>
                 {
                     b.HasOne("src.Models.Bid", "Bid")
-                        .WithMany()
+                        .WithMany("BidToUserBids")
                         .HasForeignKey("BidId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("src.Models.User", "User")
-                        .WithMany("UserBids")
+                        .WithMany("UserToUserBids")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -259,6 +259,11 @@ namespace Backend.Migrations
                     b.Navigation("Bid");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("src.Models.Bid", b =>
+                {
+                    b.Navigation("BidToUserBids");
                 });
 
             modelBuilder.Entity("src.Models.Item", b =>
@@ -270,7 +275,7 @@ namespace Backend.Migrations
                 {
                     b.Navigation("ItemsForSale");
 
-                    b.Navigation("UserBids");
+                    b.Navigation("UserToUserBids");
                 });
 #pragma warning restore 612, 618
         }

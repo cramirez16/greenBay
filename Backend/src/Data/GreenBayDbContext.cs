@@ -19,7 +19,6 @@ namespace src.Data
 
         public DbSet<Bid> TblBids { get; set; }
 
-        public DbSet<UserBid> TblUsersBids { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -79,19 +78,15 @@ namespace src.Data
             );
 
             modelBuilder.Entity<UserBid>()
-                .HasKey(ub => new
-                {
-                    ub.UserId,
-                    ub.BidId
-                });
-            modelBuilder.Entity<UserBid>()
-                .HasOne(ub => ub.User)
-                .WithMany(user => user.UserBids)
-                .HasForeignKey(ub => ub.UserId);
+                .HasKey(ub => new { ub.UserId, ub.BidId });
 
             modelBuilder.Entity<UserBid>()
-                        .HasOne(ub => ub.Bid)
-                        .WithMany()
+                        .HasOne<User>(ub => ub.User)
+                        .WithMany(u => u.UserToUserBids)
+                        .HasForeignKey(ub => ub.UserId);
+            modelBuilder.Entity<UserBid>()
+                        .HasOne<Bid>(ub => ub.Bid)
+                        .WithMany(b => b.BidToUserBids)
                         .HasForeignKey(ub => ub.BidId);
 
             //Configure the one-to-many relationship between User and Item

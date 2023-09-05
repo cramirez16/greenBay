@@ -17,7 +17,8 @@ namespace src.helpers
             // CreateMap<Item, ItemResponseDto>()
             //     .ForMember(dest => dest.SellerName,
             //                opt => opt.MapFrom(src => src.Seller.Name));
-            CreateMap<Bid, BidResponseDto>();
+            CreateMap<Bid, BidResponseDto>()
+                .ForMember(dest => dest.BiderName, opt => opt.MapFrom(src => src.Bider!.Name));
 
             CreateMap<Item, ItemResponseDto>()
                 .ForMember(dest => dest.SellerName, opt => opt.MapFrom(src => src.Seller!.Name))

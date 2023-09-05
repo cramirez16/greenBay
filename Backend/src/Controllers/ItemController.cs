@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using src.Data;
 using src.Models;
 using src.Models.Dtos;
 using src.Repository.IRepository;
