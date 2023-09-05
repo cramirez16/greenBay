@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace src.Models
@@ -17,10 +18,11 @@ namespace src.Models
         [Required]
         public int BiderId { get; set; }
         [ForeignKey("BiderId")]
-        public User? User { get; set; }
+        public User? Bider { get; set; }
         [Required]
         public int ItemId { get; set; }
         [ForeignKey("ItemId")]
+        [JsonIgnore]
         public Item? Item { get; set; }
 
         // Navigation property for the UserBid junction table

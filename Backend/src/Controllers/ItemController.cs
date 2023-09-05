@@ -1,19 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using src.Data;
-using src.JsonConverters;
 using src.Models;
 using src.Models.Dtos;
 using src.Repository.IRepository;
-using src.Services;
 
 namespace src.Controllers
 {
@@ -23,37 +18,34 @@ namespace src.Controllers
     {
         private readonly ILogger<UserController> _logger;
         private readonly IMapper _automapper;
-        private readonly IItemRepository _villaRepo;
-        private readonly JsonSerializerService _jsonSerializer;
+        private readonly IItemRepository _itemRepo;
 
         public ItemController(
             ILogger<UserController> logger,
             IMapper automapper,
-            IItemRepository villaRepo,
-            JsonSerializerService jsonSerializer
+            IItemRepository itemRepo
         )
         {
             _automapper = automapper;
             _logger = logger;
-            _villaRepo = villaRepo;
-            _jsonSerializer = jsonSerializer;
+            _itemRepo = itemRepo;
         }
 
         [HttpGet]
         //[Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> GetItems()
         {
-            List<Item>? items = await _villaRepo.GetItemsAsync();
-            var itemsDto = _automapper.Map<List<ItemResponseDto>>(items);
+            List<Item>? items = await _itemRepo.GetItemsAsync();
+            var itemsResponseDto = _automapper.Map<List<ItemResponseDto>>(items);
             _logger.LogInformation("Items list sent.");
-            return Ok(_jsonSerializer.ItemResponseDtoToJson(itemsDto));
+            return Ok(itemsResponseDto);
         }
 
         [HttpGet("{id}")]
         //[Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> GetTicket([FromRoute] int id)
         {
-            Item? item = await _villaRepo.GetItemByIdAsync(id);
+            Item? item = await _itemRepo.GetItemByIdAsync(id);
 
             if (item == null)
             {
@@ -63,7 +55,7 @@ namespace src.Controllers
 
             var itemResponseDto = _automapper.Map<ItemResponseDto>(item);
             _logger.LogInformation("Item data sent.");
-            return Ok(_jsonSerializer.ItemResponseDtoToJson(itemResponseDto));
+            return Ok(itemResponseDto);
         }
 
         [HttpPost]
@@ -71,7 +63,7 @@ namespace src.Controllers
         public async Task<IActionResult> PostItem([FromBody] ItemRequestDto itemRequestDto)
         {
             Item? ItemEntities = _automapper.Map<Item>(itemRequestDto);
-            await _villaRepo.SaveItemAsync(ItemEntities);
+            await _itemRepo.SaveItemAsync(ItemEntities);
             _logger.LogInformation("Created new item.");
             return Ok();
         }

@@ -67,7 +67,7 @@ builder.Services.AddCors(
 
 builder.Services.AddTransient<JWTHandler>();
 
-builder.Services.AddTransient<JsonSerializerService>();
+//builder.Services.AddTransient<JsonSerializerService>();
 
 builder.Services.AddAutoMapper(typeof(MapperConfig));
 

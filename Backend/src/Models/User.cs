@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 
 namespace src.Models
 {
@@ -32,8 +33,10 @@ namespace src.Models
 
         public DateTime UpdateDate { get; set; }
 
+        [JsonIgnore]
         public List<Item>? ItemsForSale { get; set; }
 
+        [JsonIgnore]
         public List<UserBid>? UserBids { get; set; }
 
     }
