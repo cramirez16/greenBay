@@ -27,5 +27,24 @@ namespace src.Repository
                 .Where(item => item.IsSellable)
                 .ToListAsync();
         }
+
+        public async Task<Item?> GetItemByIdAsync(int id)
+        {
+            return await _context.TblItems
+                            .Include(item => item.Seller)
+                            .Include(item => item.Bids)
+                            .FirstOrDefaultAsync(item => item.Id == id);
+        }
+
+        public async Task<Item?> FindItemById(int id)
+        {
+            return await _context.TblItems.FindAsync(id);
+        }
+
+        public async Task SaveItemAsync(Item item)
+        {
+            await _context.TblItems.AddAsync(item);
+            await _context.SaveChangesAsync();
+        }
     }
 }
