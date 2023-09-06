@@ -43,7 +43,7 @@ namespace src.Controllers
             _context = context;
         }
 
-        [HttpPut]
+        [HttpPost]
         [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> BidItem([FromBody] BidRequestDto bidRequestDto)
         {
@@ -56,27 +56,28 @@ namespace src.Controllers
             if (bider == null)
             {
                 _logger.LogInformation("User not found.");
-                return NotFound(new { userNotFound = true });
+                return BadRequest(new { userNotFound = true });
             }
             // --- user exists ---
             var itemToBid = await _itemRepo.FindItemById(bidRequestDto.ItemId);
             if (itemToBid == null)
             {
                 _logger.LogInformation("Item not found.");
-                return NotFound(new { itemNotFound = true });
+                return BadRequest(new { itemNotFound = true });
             }
             // --- user && item exists ----
             if (!itemToBid.IsSellable)
             {
                 // the item is not Sellabel.
                 _logger.LogInformation("Item not sellable.");
-                return Ok(new { notSallabel = true });
+                return BadRequest(new { notSallabel = true });
             }
             // --- user, item exists && IsSellable ----
             if (bider.Money < bidRequestDto.BidAmount)
             {
                 _logger.LogInformation("Bider not enought money.");
-                return Ok(new { notEnoughtMoneyToBid = true });
+                return StatusCode(StatusCodes.Status402PaymentRequired, new
+                { notEnoughtMoneyToBid = true });
             }
 
             Bid? maxBid = await _bidRepo.GetMaxBidByItemId(bidRequestDto.ItemId);

@@ -29,6 +29,6 @@ namespace src.Models.Dtos
         public DateTime UpdateDate { get; set; }
 
         [Required]
-        public int SellerId { get; set; }
+        public required int SellerId { get; set; }
     }
 }

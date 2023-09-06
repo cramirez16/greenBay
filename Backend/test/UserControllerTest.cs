@@ -3,7 +3,6 @@ using src.Controllers;
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Json;
-using BackendNUnitTest;
 using src.Data;
 using src.Models.Dtos;
 using Newtonsoft.Json;
@@ -25,7 +24,7 @@ namespace BackendNUnitTest
         protected LoginRequestDto _adminLogin;
         protected ItemRequestDto? _newItem;
         private List<UserResponseDto>? _initialData;
-        private IJWTService _jwtService;
+        private IJWTService? _jwtService;
 
         [SetUp]
         public void Setup()
@@ -45,7 +44,8 @@ namespace BackendNUnitTest
                 Bid = 0m,
                 IsSellable = true,
                 CreationDate = DateTime.UtcNow,
-                UpdateDate = DateTime.UtcNow
+                UpdateDate = DateTime.UtcNow,
+                SellerId = 1
             };
             _initialData = new List<UserResponseDto>()
             {
@@ -338,7 +338,7 @@ namespace BackendNUnitTest
 
             // Arrange
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", responseData.TokenKey);
-            var claims = _jwtService.GetClaimsFromToken(responseData.TokenKey);
+            var claims = _jwtService!.GetClaimsFromToken(responseData.TokenKey);
 
             // Act            
             var response = await client.GetAsync("api/user/" + claims?.Id);
@@ -394,7 +394,7 @@ namespace BackendNUnitTest
                 Id = 1,
                 Name = "Peter",
                 Password = userLogin.Password,
-                Email = _adminLogin.Email,
+                Email = _adminLogin.Email!,
                 Role = "Admin",
                 Money = 100m,
                 CreationDate = DateTime.UtcNow,
@@ -474,7 +474,7 @@ namespace BackendNUnitTest
 
             // Arrange
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", responseData.TokenKey);
-            var claims = _jwtService.GetClaimsFromToken(responseData.TokenKey);
+            var claims = _jwtService!.GetClaimsFromToken(responseData.TokenKey);
             // Act
             var response2 = await client.DeleteAsync("api/user/" + claims?.Id);
             // Assert
