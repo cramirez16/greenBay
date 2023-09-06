@@ -51,8 +51,24 @@ public class JWTService : IJWTService
         return jwt;
     }
 
-    public UserResponseDto? GetClaimsFromToken(string token)
+    public UserResponseDto? GetClaimsFromToken(string? token)
     {
+        if (!string.IsNullOrEmpty(token))
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var tokenSucceeded = handler.CanReadToken(token);
+
+            if (tokenSucceeded)
+            {
+                var jwtToken = handler.ReadJwtToken(token);
+
+                if (jwtToken.Claims != null && jwtToken.Claims.Any())
+                {
+                    return _mapper.Map<UserResponseDto>(jwtToken.Claims.ToList());
+                }
+            }
+        }
+
         var httpContext = _httpContextAccessor.HttpContext;
         var user = httpContext?.User;
 

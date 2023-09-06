@@ -27,6 +27,14 @@ namespace src.helpers
 
             CreateMap<Bid, BidRequestDto>().ReverseMap();
             CreateMap<List<Claim>, UserResponseDto>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src =>
+                int.Parse(src.FirstOrDefault(c => c.Type == "userId")!.Value)))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src =>
+                src.FirstOrDefault(c => c.Type == "name")!.Value))
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(src =>
+                src.FirstOrDefault(c => c.Type == "email")!.Value))
+                .ForMember(dest => dest.Role, opt => opt.MapFrom(src =>
+                src.FirstOrDefault(c => c.Type == ClaimTypes.Role)!.Value))
                 .ForMember(dest => dest.Money, opt => opt
                 .MapFrom(src => MapMoneyClaim(src)));
         }
