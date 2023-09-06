@@ -1,0 +1,10 @@
+<mat-dialog-content>
+    <h2>{{ dialog.title }}</h2>
+    <p>{{ dialog.description }}</p>
+    <div class="dialog-buttons">
+        <button mat-flat-button *ngFor="let button of dialog.buttons" color="{{ button.buttonColor }}"
+            (click)="button.func()">
+            {{ button.buttonText }}
+        </button>
+    </div>
+</mat-dialog-content>

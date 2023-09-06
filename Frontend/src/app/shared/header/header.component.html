@@ -1,1 +1,43 @@
-<p>header works!</p>
+<header class="navbar">
+    <mat-toolbar color="{{ accountService.isAdmin ? 'warn' : 'primary' }}">
+        <button mat-button routerLink="/">
+            <mat-icon>stars</mat-icon>
+            <h1 class="title">Terminator Ticket Service</h1>
+        </button>
+        <div class="nav-list"></div>
+        <!-- <a mat-button *ngIf="accountService.isAuthenticated" routerLink="/cart"><mat-icon>add_shopping_cart</mat-icon>
+        <div *ngIf="cartService.cartItemCount > 0" class="cart-count-badge">
+          {{ cartService.cartItemCount }}
+        </div>
+      </a> -->
+        <a mat-button [matMenuTriggerFor]="ticketMenu">Tickets</a>
+        <mat-menu #ticketMenu="matMenu">
+            <button mat-menu-item [routerLink]="['/tickets']">List</button>
+            <button mat-menu-item *ngIf="accountService.isAdmin" [routerLink]="['/create-ticket']">Create</button>
+        </mat-menu>
+        <a mat-button *ngIf="!accountService.isAuthenticated" routerLink="/register">Registration
+        </a>
+        <button mat-button *ngIf="!accountService.isAuthenticated" mat-button routerLink="/login">
+            Login
+        </button>
+        <button mat-icon-button [matMenuTriggerFor]="userMenu" *ngIf="accountService.isAuthenticated" color="basic">
+            <mat-icon>{{ "account_circle" }}</mat-icon>
+        </button>
+        <mat-menu #userMenu="matMenu">
+            <div class="account-name-container">
+                <mat-icon *ngIf="accountService.isAdmin" color="warn">admin_panel_settings</mat-icon>
+                <mat-icon *ngIf="!accountService.isAdmin" color="primary">person</mat-icon>
+                <span class="account-name">
+                    {{ accountService.name }}
+                </span>
+            </div>
+            <mat-divider></mat-divider>
+            <button mat-menu-item routerLink="/user-info">
+                <mat-icon color="primary">dashboard</mat-icon>My profile
+            </button>
+            <button mat-menu-item (click)="accountService.logout()" routerLink="/">
+                <mat-icon color="primary">exit_to_app</mat-icon>Logout
+            </button>
+        </mat-menu>
+    </mat-toolbar>
+</header>

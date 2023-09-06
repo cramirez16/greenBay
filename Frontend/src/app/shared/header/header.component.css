@@ -1,0 +1,62 @@
+.account-name-container {
+  display: flex;
+  min-height: 48px;
+  padding: 0 16px;
+  gap: 16px;
+  /* align-items: center; */
+}
+
+.account-name {
+  font-weight: 600;
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-list {
+  flex: 1 1 auto;
+}
+
+.title {
+  font-weight: 300;
+  font-size: 20px;
+  margin: 0;
+}
+
+/* mat-toolbar {
+    width: 100%;
+    min-height: 64px;
+  } */
+
+h1 {
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: rgba(10, 10, 10, 0.5);
+}
+
+.cart-count-badge {
+  background-color: red;
+  color: white;
+  border-radius: 50%; /* Make it a circle */
+  width: 20px; /* Adjust the size as needed */
+  height: 20px; /* Adjust the size as needed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -10px; /* Adjust the position as needed */
+  right: -15px; /* Adjust the position as needed */
+  font-size: 12px; /* Adjust the font size as needed */
+}
+@media (max-width: 450px) {
+  .mat-toolbar-single-row {
+    flex-direction: column !important;
+    align-items: flex-start;
+    height: auto;
+  }
+}
