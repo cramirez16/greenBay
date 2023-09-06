@@ -1,18 +1,26 @@
+using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using src.Models;
+using src.Models.Dtos;
+using src.Services.IServices;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace Backend.Services;
+namespace src.Services;
 
-public class JWTHandler
+public class JWTService : IJWTService
 {
     private readonly IConfiguration _configuration;
+    private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly IMapper _mapper;
 
-    public JWTHandler(IConfiguration configuration)
+    public JWTService(IConfiguration configuration, IHttpContextAccessor httpContextAccessor, IMapper mapper)
     {
         _configuration = configuration;
+        _httpContextAccessor = httpContextAccessor;
+        _mapper = mapper;
     }
 
     public string CreateToken(JwtPayLoad jwtPayLoad)
@@ -20,10 +28,10 @@ public class JWTHandler
         var claims = new List<Claim>()
         {
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            new Claim(ClaimTypes.Role, jwtPayLoad.Role),
             new Claim("userId", jwtPayLoad.UserId),
             new Claim("name", jwtPayLoad.Name),
             new Claim("email", jwtPayLoad.Email),
+            new Claim(ClaimTypes.Role, jwtPayLoad.Role),
             new Claim("money", jwtPayLoad.Money)
         };
 
@@ -42,4 +50,18 @@ public class JWTHandler
 
         return jwt;
     }
+
+    public UserResponseDto? GetClaimsFromToken(string token)
+    {
+        var httpContext = _httpContextAccessor.HttpContext;
+        var user = httpContext?.User;
+
+        if (user != null && user.Identity != null && user.Identity.IsAuthenticated)
+        {
+            return _mapper.Map<UserResponseDto>(user.Claims.ToList());
+        }
+
+        return null;
+    }
+
 }

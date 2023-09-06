@@ -31,7 +31,7 @@ namespace src.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> GetItems()
         {
             List<Item>? items = await _itemRepo.GetItemsAsync();
@@ -41,7 +41,7 @@ namespace src.Controllers
         }
 
         [HttpGet("{id}")]
-        //[Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> GetTicket([FromRoute] int id)
         {
             Item? item = await _itemRepo.GetItemByIdAsync(id);
@@ -58,7 +58,7 @@ namespace src.Controllers
         }
 
         [HttpPost]
-        //[Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> PostItem([FromBody] ItemRequestDto itemRequestDto)
         {
             Item? ItemEntities = _automapper.Map<Item>(itemRequestDto);

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using src.Models;
 using src.Models.Dtos;
+using System.Security.Claims;
 
 namespace src.helpers
 {
@@ -25,6 +26,23 @@ namespace src.helpers
                 .ForMember(dest => dest.Bids, opt => opt.MapFrom(src => src.Bids)); // Map the Bids property
 
             CreateMap<Bid, BidRequestDto>().ReverseMap();
+            CreateMap<List<Claim>, UserResponseDto>()
+                .ForMember(dest => dest.Money, opt => opt
+                .MapFrom(src => MapMoneyClaim(src)));
+        }
+        private decimal MapMoneyClaim(List<Claim> claims)
+        {
+            var moneyClaim = claims.FirstOrDefault(c => c.Type == "money")?.Value;
+            decimal money;
+
+            if (decimal.TryParse(moneyClaim, out money))
+            {
+                return money;
+            }
+            else
+            {
+                return 0m; // Default value if the claim is not found or cannot be parsed
+            }
         }
     }
 }

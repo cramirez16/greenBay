@@ -44,7 +44,7 @@ namespace src.Controllers
         }
 
         [HttpPut]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> BidItem([FromBody] BidRequestDto bidRequestDto)
         {
             if (bidRequestDto.BidAmount <= 0)
@@ -98,6 +98,7 @@ namespace src.Controllers
             }
             if (bidRequestDto.BidAmount < itemToBid.Price)
             {
+                // save the bid ---> insert data into bid table
                 Bid newBid = _automapper.Map<Bid>(bidRequestDto);
                 _logger.LogInformation("Bid added.");
                 await _bidRepo.AddBidAsync(newBid);
@@ -105,16 +106,16 @@ namespace src.Controllers
             }
             if (bider.Money >= bidRequestDto.BidAmount)
             {
-                // user buy the item
+                // user buy the item ---> update item table
                 itemToBid.IsSellable = false;
                 itemToBid.BuyerId = bider.Id;
                 _context.Entry(itemToBid).State = EntityState.Modified;
 
-                // update user money.
+                // update user money. ---> update user table
                 bider.Money -= bidRequestDto.BidAmount;
                 _context.Entry(bider).State = EntityState.Modified;
 
-                // save the bid.
+                // save the bid ---> insert data into bid table
                 Bid newBid = _automapper.Map<Bid>(bidRequestDto);
                 await _bidRepo.AddBidAsync(newBid);
                 _logger.LogInformation("Item Sold.");

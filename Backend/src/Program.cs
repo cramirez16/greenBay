@@ -1,14 +1,14 @@
 using System.Text;
-using Backend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using src.Data;
 using src.helpers;
+using src.Services;
+using src.Services.IServices;
 using src.Repository;
 using src.Repository.IRepository;
-using src.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
@@ -18,6 +18,7 @@ var config = builder.Configuration;
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddSwaggerGen(c =>
 {
     c.AddSecurityDefinition(
@@ -59,7 +60,13 @@ builder.Services.AddCors(
         })
 );
 
-builder.Services.AddTransient<JWTHandler>();
+builder.Services.AddScoped<IJWTService, JWTService>();
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+builder.Services.AddScoped<IItemRepository, ItemRepository>();
+
+builder.Services.AddScoped<IBidRepository, BidRepository>();
 
 builder.Services.AddAutoMapper(typeof(MapperConfig));
 
@@ -70,12 +77,6 @@ builder.Services.AddDbContext<GreenBayDbContext>(option =>
         ?? config["ConnectionStrings:DefaultConnection"];
     option.UseNpgsql(connectionString);
 });
-
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-
-builder.Services.AddScoped<IItemRepository, ItemRepository>();
-
-builder.Services.AddScoped<IBidRepository, BidRepository>();
 
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

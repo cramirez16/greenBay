@@ -6,11 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using src.Data;
 using src.Models.Dtos;
-using Backend.Services;
+using src.Services;
 using src.Models;
 using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
+using src.Services.IServices;
 
 namespace src.Controllers
 {
@@ -20,12 +21,12 @@ namespace src.Controllers
     {
         private readonly GreenBayDbContext _context;
         private readonly ILogger<UserController> _logger;
-        private readonly JWTHandler _tokenHandler;
+        private readonly IJWTService _tokenHandler;
         private readonly IMapper _automapper;
 
         public UserController(
             GreenBayDbContext context,
-            JWTHandler tokenHandler,
+            IJWTService tokenHandler,
             ILogger<UserController> logger,
             IMapper automapper
         )
@@ -154,7 +155,7 @@ namespace src.Controllers
         }
 
         [HttpGet()] // localhost/api/User
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> List()
         {
@@ -201,7 +202,7 @@ namespace src.Controllers
         }
 
         [HttpPut("{id}")]
-        //[Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Admin,User")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -264,7 +265,7 @@ namespace src.Controllers
         }
 
         [HttpDelete("{id}")]
-        //[Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Admin,User")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -308,7 +309,7 @@ namespace src.Controllers
         }
 
         [HttpGet("check")]
-        //[Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Admin,User")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> PasswordCheck([FromQuery] QueryParameters parameters)
