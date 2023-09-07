@@ -15,6 +15,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AccountService } from '../services/account.service';
 import { BannerComponent } from './banner/banner.component';
 import { MessagePopupComponent } from './message-popup/message-popup.component';
+import { ItemsComponent } from './items/items.component';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { MessagePopupComponent } from './message-popup/message-popup.component';
     DialogPopupComponent,
     BannerComponent,
     MessagePopupComponent,
+    CartComponent,
   ],
   imports: [
     CommonModule,
@@ -35,6 +38,7 @@ import { MessagePopupComponent } from './message-popup/message-popup.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    ItemsComponent,
   ],
   providers: [AccountService],
 })

@@ -12,12 +12,13 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgIf } from '@angular/common';
+import { NgIf, NgFor } from '@angular/common';
 
 @NgModule({
-  imports: [NgIf],
+  imports: [NgIf, NgFor],
   exports: [
     MatIconModule,
     MatButtonModule,
@@ -29,6 +30,7 @@ import { NgIf } from '@angular/common';
     MatSelectModule,
     ReactiveFormsModule,
     NgIf,
+    NgFor,
     FormsModule,
     MatDialogModule,
     MatMenuModule,
@@ -36,6 +38,7 @@ import { NgIf } from '@angular/common';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSnackBarModule,
+    MatTableModule,
   ],
 })
 export class MaterialModule {}

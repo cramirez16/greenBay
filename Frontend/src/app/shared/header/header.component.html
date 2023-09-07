@@ -12,7 +12,7 @@
       </a> -->
         <button mat-button [matMenuTriggerFor]="ticketMenu">Sell</button>
         <mat-menu #ticketMenu="matMenu">
-            <button mat-menu-item [routerLink]="['/tickets']">List</button>
+            <button mat-menu-item [routerLink]="['/items']">List</button>
             <button mat-menu-item *ngIf="accountService.isAdmin" [routerLink]="['/create-ticket']">Create</button>
         </mat-menu>
         <button mat-button *ngIf="!accountService.isAuthenticated" routerLink="/register">Registration

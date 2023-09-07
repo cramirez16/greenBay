@@ -1,0 +1,33 @@
+<div class="cart-container" *ngIf="cartItems != null">
+    <mat-card>
+        <h2>Your Cart</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Address</th>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Available</th>
+                        <th>Date</th>
+                        <th>Expired Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of cartItems">
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.photoUrl }}</td>
+                        <td>{{ item.bid }}</td>
+                        <td>{{ item.price }}</td>
+                        <td>{{ item.isSellable }}</td>
+                        <td>{{ item.sellerName }}</td>
+                        <td>{{ item.buyerName }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <button mat-raised-button color="warn" class="checkout-button" (click)="checkoutCart()">Checkout</button>
+    </mat-card>
+</div>

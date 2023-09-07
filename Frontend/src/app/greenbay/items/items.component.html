@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="grid-item" *ngFor="let item of itemsListComponent">
+        <mat-card class="example-card fixedWidth">
+            <img class="titleImage" mat-card-image src={{item.photoUrl}} alt="Eminem poster">
+            <mat-card-header>
+                <mat-card-title>
+                    <a>{{item.name}}</a> | <p>{{item.price}} $</p>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                {{item.name}} | {{item.price}} <br>
+                <mat-icon>local_activity</mat-icon>
+                {{item.isSellable}}
+                <button mat-raised-button color="primary" (click)="addToCart(item.id)">
+                    Add to cart
+                </button>
+                <!--{{ticket.day}} | {{ticket.address}}<br>
+                <button *ngIf="accountService.isAdmin" mat-raised-button color="primary"
+                    [routerLink]="['/edit-ticket', ticket.id]">Edit</button>
+                <button mat-raised-button color="warn" *ngIf="accountService.isAdmin"
+                    (click)="onDeleteTicket(ticket)">Delete</button> -->
+            </mat-card-content>
+
+        </mat-card>
+    </div>
+</div>
