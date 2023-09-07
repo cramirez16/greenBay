@@ -15,7 +15,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AccountService } from '../services/account.service';
 import { BannerComponent } from './banner/banner.component';
 import { MessagePopupComponent } from './message-popup/message-popup.component';
-import { LoginewComponent } from './loginew/loginew.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +24,6 @@ import { LoginewComponent } from './loginew/loginew.component';
     DialogPopupComponent,
     BannerComponent,
     MessagePopupComponent,
-    LoginewComponent,
   ],
   imports: [
     CommonModule,

@@ -20,9 +20,6 @@
         <button mat-button *ngIf="!accountService.isAuthenticated" routerLink="/login">
             Login
         </button>
-        <button mat-button *ngIf="!accountService.isAuthenticated" routerLink="/loginew">
-            Loginnew
-        </button>
         <button mat-icon-button [matMenuTriggerFor]="userMenu" *ngIf="accountService.isAuthenticated" color="basic">
             <mat-icon>{{ "account_circle" }}</mat-icon>
         </button>

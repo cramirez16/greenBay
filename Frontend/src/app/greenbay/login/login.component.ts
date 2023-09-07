@@ -1,21 +1,14 @@
 import { Component } from '@angular/core';
-import { AccountService } from '../../services/account.service';
-import { Router } from '@angular/router';
-import { IUserLoginResponseDto } from '../models/IUserLoginResponseDto';
-import {
-  AbstractControl,
-  FormGroup,
-  ValidationErrors,
-  Validators,
-} from '@angular/forms';
-import { FormlyFormOptions, FormlyFieldConfig } from '@ngx-formly/core';
-import { HttpErrorResponse } from '@angular/common/http';
-import { IUserLoginRequestDto } from '../models/IUserLoginRequestDto';
-import { of } from 'rxjs';
-import { MessagePopupComponent } from '../message-popup/message-popup.component';
+import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { AccountService } from '../../services/account.service';
 import { UserValidationService } from '../../services/user-validation.service';
+import { IUserLoginRequestDto } from '../models/IUserLoginRequestDto';
+import { IUserLoginResponseDto } from '../models/IUserLoginResponseDto';
 import { JwtDecoderService } from '../../services/jwt-decoder.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { MessagePopupComponent } from '../message-popup/message-popup.component';
 
 @Component({
   selector: 'app-login',
@@ -23,59 +16,64 @@ import { JwtDecoderService } from '../../services/jwt-decoder.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  loginForm = new FormGroup({});
-  loginModel: any = {};
-  loginFields: FormlyFieldConfig[];
+  email = new FormControl('', [
+    Validators.required,
+    this.userValidator.validEmail,
+  ]);
+  password = new FormControl('', [
+    Validators.required,
+    this.userValidator.validPassword,
+  ]);
 
   constructor(
     private accountService$: AccountService,
+    private jwtDecoder: JwtDecoderService,
+    private userValidator: UserValidationService,
     private router: Router,
-    private dialog: MatDialog,
-    private userValidation: UserValidationService,
-    private jwtDecoder: JwtDecoderService
+    private dialog: MatDialog
+  ) {}
+
+  getErrorMessage(
+    control: FormControl,
+    errorMessages: { [key: string]: string }
   ) {
-    this.loginForm = new FormGroup({});
-    this.loginModel = {};
-    this.loginFields = [
-      {
-        key: 'email',
-        type: 'input',
-        props: {
-          label: 'E-mail',
-          required: true,
-        },
-        validators: {
-          email: {
-            expression: this.userValidation.validEmailLogin,
-            message: (error: any, field: FormlyFieldConfig) =>
-              `"${field.formControl!.value}" is not a valid email Address`,
-          },
-        },
-        validation: {
-          messages: {
-            required: `Please enter your email`,
-          },
-        },
-      },
-      {
-        key: 'password',
-        type: 'input',
-        props: {
-          type: 'password',
-          label: 'Password',
-          required: true,
-        },
-        validation: {
-          messages: {
-            required: `Please enter your password`,
-          },
-        },
-      },
-    ];
+    for (const errorCode in errorMessages) {
+      if (control.hasError(errorCode)) {
+        return errorMessages[errorCode];
+      }
+    }
+    return null;
   }
 
-  submit(model: IUserLoginRequestDto) {
-    if (this.loginForm.valid) {
+  getEmailError() {
+    return this.getErrorMessage(this.email, {
+      required: 'You must enter your email address',
+      emailInvalid: 'Not a valid email address',
+      emailExist: 'The email already exists',
+    });
+  }
+
+  getPasswordError() {
+    return this.getErrorMessage(this.password, {
+      required: 'You must enter a password',
+      passwordLength: 'Password must contain at least 6 characters',
+      passwordLetter: 'Password must contain a letter',
+      passwordNumber: 'Password must contain a number',
+      passwordCase: 'Password must contain upper and lower case',
+    });
+  }
+  //----------------------
+  submit() {
+    this.email.markAsTouched();
+    this.password.markAsTouched();
+
+    const formIsValid = this.email.valid && this.password.valid;
+
+    if (formIsValid) {
+      const model: IUserLoginRequestDto = {
+        email: this.email.value!,
+        password: this.password.value!,
+      };
       this.accountService$.login(model).subscribe({
         next: (response: IUserLoginResponseDto) => {
           this.jwtDecoder.decode(response.tokenKey);
