@@ -1,1 +1,13 @@
-<p>banner works!</p>
+<div class="card">
+    <mat-dialog-content>
+        <h1>Thank you for registering!</h1>
+        Hello {{ name }}!
+        <br />
+        You just have been registered with <br /><strong>{{ email }}</strong><br />
+        to Terminator Ticket Service!
+        <br />
+        <button (click)="closePopUp()" mat-raised-button class="margin-above">
+            Ok
+        </button>
+    </mat-dialog-content>
+</div>

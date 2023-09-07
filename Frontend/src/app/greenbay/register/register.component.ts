@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { AccountService } from 'src/app/services/account.service';
-import { UserValidationService } from 'src/app/services/user-validation.service';
+import { AccountService } from '../../services/account.service';
+import { UserValidationService } from '../../services/user-validation.service';
 import { IUserRegisterRequestDto } from '../models/IUserRegisterRequestDto';
 import { BannerComponent } from '../banner/banner.component';
 

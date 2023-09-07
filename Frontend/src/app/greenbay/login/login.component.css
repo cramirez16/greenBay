@@ -16,6 +16,27 @@
   padding: 20px;
 }
 
+mat-card-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.ng-star-inserted {
+  padding: 5px;
+  margin: 5px !important;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  align-items: flex-end;
+}
 .margin-under {
   margin-bottom: 16px;
 }

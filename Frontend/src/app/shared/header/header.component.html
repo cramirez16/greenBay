@@ -2,7 +2,7 @@
     <mat-toolbar color="{{ accountService.isAdmin ? 'warn' : 'primary' }}">
         <button mat-button routerLink="/">
             <mat-icon>stars</mat-icon>
-            <h1 class="title">Terminator Ticket Service</h1>
+            <h1 class="title">Green Bay</h1>
         </button>
         <div class="nav-list"></div>
         <!-- <a mat-button *ngIf="accountService.isAuthenticated" routerLink="/cart"><mat-icon>add_shopping_cart</mat-icon>
@@ -10,15 +10,18 @@
           {{ cartService.cartItemCount }}
         </div>
       </a> -->
-        <a mat-button [matMenuTriggerFor]="ticketMenu">Tickets</a>
+        <button mat-button [matMenuTriggerFor]="ticketMenu">Sell</button>
         <mat-menu #ticketMenu="matMenu">
             <button mat-menu-item [routerLink]="['/tickets']">List</button>
             <button mat-menu-item *ngIf="accountService.isAdmin" [routerLink]="['/create-ticket']">Create</button>
         </mat-menu>
-        <a mat-button *ngIf="!accountService.isAuthenticated" routerLink="/register">Registration
-        </a>
-        <button mat-button *ngIf="!accountService.isAuthenticated" mat-button routerLink="/login">
+        <button mat-button *ngIf="!accountService.isAuthenticated" routerLink="/register">Registration
+        </button>
+        <button mat-button *ngIf="!accountService.isAuthenticated" routerLink="/login">
             Login
+        </button>
+        <button mat-button *ngIf="!accountService.isAuthenticated" routerLink="/loginew">
+            Loginnew
         </button>
         <button mat-icon-button [matMenuTriggerFor]="userMenu" *ngIf="accountService.isAuthenticated" color="basic">
             <mat-icon>{{ "account_circle" }}</mat-icon>
