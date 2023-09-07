@@ -62,7 +62,7 @@ export class LoginComponent {
       passwordCase: 'Password must contain upper and lower case',
     });
   }
-  //----------------------
+
   submit() {
     this.email.markAsTouched();
     this.password.markAsTouched();
@@ -74,10 +74,14 @@ export class LoginComponent {
         email: this.email.value!,
         password: this.password.value!,
       };
+      //this.accountService$ typeof Observable<IUserLoginResponseDto>
+      // await this.accountService$.login(parameter1,...) Promises<IUserLoginResponseDto>
       this.accountService$.login(model).subscribe({
         next: (response: IUserLoginResponseDto) => {
+          // response JsonString deserialize into IUserLoginResponseDto object type.
+          // decode the jwt string and store the claims into browser localStorage
           this.jwtDecoder.decode(response.tokenKey);
-          this.router.navigate(['/']);
+          this.router.navigate(['items']);
         },
         error: (response: HttpErrorResponse) => {
           const dialogData = {

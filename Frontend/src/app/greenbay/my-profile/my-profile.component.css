@@ -1,0 +1,55 @@
+/* .custom {
+  width: 100%;
+} */
+
+.container {
+  height: 100vh;
+  overflow: scroll;
+}
+
+.user-info-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 24px;
+  background-color: #eee;
+  box-sizing: border-box;
+}
+
+.userinfo-card,
+.user-delete-button,
+.user-update-button {
+  max-width: 400px;
+  min-width: 60px;
+  width: 100%;
+  padding: 20px;
+}
+
+.user-delete-button,
+.user-update-button {
+  width: 40%;
+}
+
+.userinfo-card {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  width: 100%;
+}
+.margin-under {
+  margin-bottom: 16px;
+}
+
+.buttonBottom {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.margin-right {
+  margin-right: 16px;
+}

@@ -39,6 +39,9 @@ export class AccountService {
   }
 
   login(user: IUserLoginRequestDto): Observable<IUserLoginResponseDto> {
+    // HTTP requests made using Angular's HttpClient, manual unsubscription is
+    // not needed because Angular's HttpClient manages subscriptions internally
+    // and automatically unsubscribes when necessary.
     return this.http.post<IUserLoginResponseDto>(this.baseURL + 'login', user);
   }
 
@@ -90,7 +93,7 @@ export class AccountService {
               next: () => {
                 this.deleteUser(userId);
                 this.logout();
-                this.router.navigateByUrl('');
+                this.router.navigateByUrl('/items');
                 this.dialog.closeAll();
               },
               error: (error: Error) => {
