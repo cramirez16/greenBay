@@ -1,40 +1,37 @@
-<div class="container">
-    <div class="ticket-container">
-        <mat-card class="ticket-card">
-            <mat-card-header class="margin-under">
-                <mat-card-title class="margin-under">Create Item</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <mat-form-field class="custom margin-under">
-                    <mat-label>Title</mat-label>
-                    <input matInput [(ngModel)]="item!.name" name="title" required />
-                </mat-form-field>
-                <mat-form-field class="custom margin-under">
-                    <mat-label>Description</mat-label>
-                    <input matInput [(ngModel)]="item!.description" name="description" required />
-                </mat-form-field>
-                <mat-form-field class="custom margin-under">
-                    <mat-label>Photo Url</mat-label>
-                    <textarea matInput [(ngModel)]="item.photoUrl" name="photoUrl" (input)="onUrlChange()"
-                        required></textarea>
-                </mat-form-field>
-                <img class="titleImage" mat-card-image [src]="item.photoUrl" alt="Item image" *ngIf="isImageLoaded">
-                <mat-form-field class="custom margin-under">
-                    <mat-label>Price</mat-label>
-                    <input matInput [(ngModel)]="item!.price" name="price" required />
-                </mat-form-field>
-                <mat-form-field class="custom margin-under">
-                    <mat-label>Bid</mat-label>
-                    <input matInput [(ngModel)]="item!.bid" name="price" type="bid" required />
-                </mat-form-field>
-                <!-- <mat-form-field class="custom margin-under">
-                    <mat-label>IsSellable</mat-label>
-                    <input matInput [(ngModel)]="item!.isSellable" name="isSellable" type="checkbox" />
-                </mat-form-field> -->
-                <button mat-raised-button class="margin-right" color="primary" (click)="onSubmit()">
-                    Create Item
-                </button>
-            </mat-card-content>
-        </mat-card>
-    </div>
+<div class="item-container">
+    <mat-card class="item-card">
+        <mat-card-header class="margin-under">
+            <mat-card-title class="margin-under">Create Item</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-form-field class="custom margin-under">
+                <mat-label>Title</mat-label>
+                <input matInput [(ngModel)]="item.name" name="title" required />
+            </mat-form-field>
+            <mat-form-field class="custom margin-under">
+                <mat-label>Description</mat-label>
+                <input matInput [(ngModel)]="item.description" name="description" required />
+            </mat-form-field>
+            <mat-form-field class="custom margin-under">
+                <mat-label>Photo Url</mat-label>
+                <textarea matInput [(ngModel)]="item.photoUrl" name="photoUrl" (input)="onUrlChange()"
+                    required></textarea>
+            </mat-form-field>
+            <img class="titleImage" mat-card-image [src]="item.photoUrl" alt="Item image" *ngIf="isImageLoaded">
+            <mat-form-field class="custom margin-under">
+                <mat-label>Price</mat-label>
+                <input matInput [(ngModel)]="item.price" name="price" required />
+            </mat-form-field>
+            <!-- <mat-form-field class="custom margin-under">
+                <mat-label>Bid</mat-label>
+                <input matInput [(ngModel)]="item.bid" name="price" type="bid" required />
+            </mat-form-field> -->
+            <section class="custom margin-under">
+                <mat-checkbox [(ngModel)]="item.isSellable" required>isSellable</mat-checkbox>
+            </section>
+            <button mat-raised-button class="margin-right" color="primary" (click)="onSubmit()">
+                Create Item
+            </button>
+        </mat-card-content>
+    </mat-card>
 </div>
