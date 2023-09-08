@@ -1,26 +1,25 @@
-<div class="container">
-    <div class="grid-item" *ngFor="let item of itemsListComponent">
+<mat-grid-list [cols]="gridCols" rowHeight="1:1" class="grid-item">
+    <mat-grid-tile *ngFor="let item of itemsListComponent">
         <mat-card class="example-card fixedWidth">
-            <img class="titleImage" mat-card-image src={{item.photoUrl}} alt="Item image">
             <mat-card-header>
                 <mat-card-title>
                     <a>{{item.name}}</a> | <p>{{item.price}} $</p>
                 </mat-card-title>
             </mat-card-header>
             <mat-card-content>
-                {{item.name}} | {{item.price}} <br>
-                <mat-icon>local_activity</mat-icon>
-                {{item.isSellable}}
-                <button mat-raised-button color="primary" (click)="bidItem(item.id)">
-                    Buy
-                </button>
-                <!--{{ticket.day}} | {{ticket.address}}<br>
-                <button *ngIf="accountService.isAdmin" mat-raised-button color="primary"
-                    [routerLink]="['/edit-ticket', ticket.id]">Edit</button>
-                <button mat-raised-button color="warn" *ngIf="accountService.isAdmin"
-                    (click)="onDeleteTicket(ticket)">Delete</button> -->
+                <img class="titleImage" mat-card-image src={{item.photoUrl}} alt="Item image">
             </mat-card-content>
-
+            <mat-card-footer>
+                {{item.description}}
+                <button mat-raised-button color="primary" (click)="bidItem(item.id)">
+                    Place Bid
+                </button>
+                <!-- {{item.name}} | {{item.price}} <br>
+                <button *ngIf="accountService.isAdmin" mat-raised-button color="primary"
+                    [routerLink]="['/edit-ticket', item.id]">Edit</button>
+                <button mat-raised-button color="warn" *ngIf="accountService.isAdmin"
+                    (click)="onDeleteTicket(item)">Delete</button> -->
+            </mat-card-footer>
         </mat-card>
-    </div>
-</div>
+    </mat-grid-tile>
+</mat-grid-list>

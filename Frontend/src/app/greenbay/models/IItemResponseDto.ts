@@ -3,6 +3,7 @@ import { IBidResponseDto } from './IBidResponseDto';
 export interface IItemResponseDto {
   id: number;
   name: string;
+  description: string;
   photoUrl: string;
   bid: number;
   price: number;
