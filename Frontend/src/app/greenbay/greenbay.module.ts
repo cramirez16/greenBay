@@ -18,6 +18,7 @@ import { MessagePopupComponent } from './message-popup/message-popup.component';
 import { ItemsComponent } from './items/items.component';
 import { CartComponent } from './cart/cart.component';
 import { MyProfileComponent } from './my-profile/my-profile.component';
+import { CreateItemComponent } from './create-item/create-item.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
     MessagePopupComponent,
     CartComponent,
     MyProfileComponent,
+    CreateItemComponent,
   ],
   imports: [
     CommonModule,

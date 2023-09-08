@@ -5,6 +5,7 @@ import { LoginComponent } from './greenbay/login/login.component';
 import { RegisterComponent } from './greenbay/register/register.component';
 import { ItemsComponent } from './greenbay/items/items.component';
 import { MyProfileComponent } from './greenbay/my-profile/my-profile.component';
+import { CreateItemComponent } from './greenbay/create-item/create-item.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -12,6 +13,10 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'items', component: ItemsComponent },
   { path: 'my_profile', component: MyProfileComponent },
+  {
+    path: 'create-item',
+    component: CreateItemComponent,
+  },
   { path: '**', component: LandingPageComponent },
 ];
 

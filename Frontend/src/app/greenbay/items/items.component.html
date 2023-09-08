@@ -1,7 +1,7 @@
 <div class="container">
     <div class="grid-item" *ngFor="let item of itemsListComponent">
         <mat-card class="example-card fixedWidth">
-            <img class="titleImage" mat-card-image src={{item.photoUrl}} alt="Eminem poster">
+            <img class="titleImage" mat-card-image src={{item.photoUrl}} alt="Item image">
             <mat-card-header>
                 <mat-card-title>
                     <a>{{item.name}}</a> | <p>{{item.price}} $</p>
@@ -11,8 +11,8 @@
                 {{item.name}} | {{item.price}} <br>
                 <mat-icon>local_activity</mat-icon>
                 {{item.isSellable}}
-                <button mat-raised-button color="primary" (click)="addToCart(item.id)">
-                    Add to cart
+                <button mat-raised-button color="primary" (click)="bidItem(item.id)">
+                    Buy
                 </button>
                 <!--{{ticket.day}} | {{ticket.address}}<br>
                 <button *ngIf="accountService.isAdmin" mat-raised-button color="primary"

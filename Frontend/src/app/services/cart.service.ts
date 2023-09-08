@@ -15,7 +15,7 @@ export class CartService {
   cartResponse = new BehaviorSubject<IItemResponseDto[]>([]);
   cartItemCount: number = 0;
 
-  constructor(private itemService: ItemService, private http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   addItem(itemId: number) {
     const url = `${this.baseURL}add/${itemId}`;

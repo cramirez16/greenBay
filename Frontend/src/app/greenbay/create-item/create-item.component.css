@@ -1,0 +1,34 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  overflow: scroll;
+}
+
+.ticket-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ticket-card {
+  width: 400px;
+  padding: 20px;
+}
+
+.custom {
+  width: 100%;
+}
+
+.margin-under {
+  margin-bottom: 20px;
+}
+
+.margin-right {
+  margin-right: 10px;
+}
+
+img {
+  display: block;
+  height: 150px;
+  transition: transform 0.2s ease-in-out;
+}

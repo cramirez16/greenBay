@@ -2,8 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { IItemResponseDto } from '../greenbay/models/IItemResponseDto';
-import { BehaviorSubject, of, Observable } from 'rxjs';
-import { DateRegulatorService } from './date-regulator.service';
+import { BehaviorSubject } from 'rxjs';
 import { IItemRequestDto } from '../greenbay/models/IItemRequestDto';
 
 @Injectable({
@@ -11,12 +10,12 @@ import { IItemRequestDto } from '../greenbay/models/IItemRequestDto';
 })
 export class ItemService {
   baseURL = `${environment.SERVER_URL}/api/item/`;
+  // rxjs ---> BehaviorSubjects
+  // Subject type, has initial value [],
+  // subscribers will receive the last emmited value upon subscription.
   itemsListService = new BehaviorSubject<IItemResponseDto[]>([]);
   error = new BehaviorSubject<any>({});
-  constructor(
-    private http: HttpClient,
-    private dateRegulatorService: DateRegulatorService
-  ) {}
+  constructor(private http: HttpClient) {}
 
   getItems() {
     this.http.get<any>(this.baseURL).subscribe({

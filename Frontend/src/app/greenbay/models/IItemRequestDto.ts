@@ -1,11 +1,11 @@
 export interface IItemRequestDto {
   name: string;
   description: string;
-  PhotoUrl: string;
+  photoUrl: string;
   price: number;
   bid: number;
   isSellable: boolean;
-  CreationDate: string;
-  UpdateDate: string;
-  SellerId: number;
+  sellerId: number;
+  creationDate: string;
+  updateDate: string;
 }
