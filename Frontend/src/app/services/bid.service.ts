@@ -16,11 +16,11 @@ export class BidService {
 
   constructor(private http: HttpClient, public storage: LocalStorageService) {}
 
-  bidItem(itemId: number) {
+  bidItem(itemId: number, bid: number) {
     const bidRequestDto: IBidRequestDto = {
-      bidAmount: 10,
+      bidAmount: bid,
       biderId: this.storage.get('userId'),
-      itemId: itemId,
+      itemId: this.storage.get('itemId'),
     };
 
     this.http.post<IBidResponseDto>(this.baseURL, bidRequestDto).subscribe({

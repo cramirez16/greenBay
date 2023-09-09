@@ -59,11 +59,11 @@ export class DetailedViewComponent implements OnInit {
   //   this.cartService.addItem(itemId);
   // }
 
-  bidItem(itemId: string) {
-    this.bidService.bidItem(parseInt(itemId));
+  bidItem(itemId: string, bid: number) {
+    this.bidService.bidItem(parseInt(itemId), bid);
   }
 
-  onDeleteTicket(itemId: number) {
+  onDeleteTicket(itemId: number, bid: number) {
     this.itemService.deleteItem(itemId).subscribe({
       next: () => {
         this.itemService.getItems();
