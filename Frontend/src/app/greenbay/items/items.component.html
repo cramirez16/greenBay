@@ -10,14 +10,16 @@
                 <img class="titleImage" mat-card-image src={{item.photoUrl}} alt="Item image">
             </mat-card-content>
             <mat-card-footer>
+                {{item.id}}
                 {{item.description}}
-                <button mat-raised-button color="primary" (click)="bidItem(item.id)">
+                <!-- <button mat-raised-button color="primary" (click)="bidItem(item.id)">
                     Place Bid
-                </button>
-                <!-- {{item.name}} | {{item.price}} <br>
-                <button *ngIf="accountService.isAdmin" mat-raised-button color="primary"
-                    [routerLink]="['/edit-ticket', item.id]">Edit</button>
-                <button mat-raised-button color="warn" *ngIf="accountService.isAdmin"
+                </button> -->
+                <!-- {{item.name}} | {{item.price}} <br> -->
+                <button mat-raised-button color="primary" (click)="onDetailedView(item.id)">Detailed view</button>
+
+                <!--
+                <button mat-raised-button color=" warn" *ngIf="accountService.isAdmin"
                     (click)="onDeleteTicket(item)">Delete</button> -->
             </mat-card-footer>
         </mat-card>

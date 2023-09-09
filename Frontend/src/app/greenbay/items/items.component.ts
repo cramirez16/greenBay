@@ -5,6 +5,8 @@ import { ItemService } from '../../services/item.service';
 import { MaterialModule } from 'src/app/material/material.module';
 import { CartService } from 'src/app/services/cart.service';
 import { BidService } from 'src/app/services/bid.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-items',
@@ -23,7 +25,9 @@ export class ItemsComponent implements OnInit {
     private itemService: ItemService,
     private bidService: BidService,
     private cartService: CartService,
-    public accountService: AccountService
+    public accountService: AccountService,
+    private _localStorage: LocalStorageService,
+    private router: Router
   ) {}
   ngOnInit() {
     this.updateGridParameters();
@@ -43,8 +47,9 @@ export class ItemsComponent implements OnInit {
   //   this.cartService.addItem(itemId);
   // }
 
-  bidItem(itemId: number) {
-    this.bidService.bidItem(itemId);
+  onDetailedView(itemId: number) {
+    this._localStorage.set('itemId', itemId);
+    this.router.navigate(['detailed-view']);
   }
 
   onDeleteTicket(itemId: number) {
