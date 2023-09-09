@@ -61,10 +61,10 @@ namespace src.Controllers
         [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> PostItem([FromBody] ItemRequestDto itemRequestDto)
         {
-            Item? ItemEntities = _automapper.Map<Item>(itemRequestDto);
-            await _itemRepo.SaveItemAsync(ItemEntities);
+            Item? itemEntities = _automapper.Map<Item>(itemRequestDto);
+            await _itemRepo.SaveItemAsync(itemEntities);
             _logger.LogInformation("Created new item.");
-            return Ok();
+            return Ok(_automapper.Map<ItemResponseDto>(itemEntities));
         }
     }
 }

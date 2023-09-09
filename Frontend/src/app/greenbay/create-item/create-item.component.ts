@@ -5,6 +5,10 @@ import { Router } from '@angular/router';
 import { DateRegulatorService } from '../../services/date-regulator.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { ItemValidationService } from '../../services/item-validation.service';
+import { FormControl, Validators } from '@angular/forms';
+import { BannerItemCreatedComponent } from '../banner-item-created/banner-item-created.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-create-item',
@@ -12,6 +16,24 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
   styleUrls: ['./create-item.component.css'],
 })
 export class CreateItemComponent {
+  title = new FormControl('', [
+    Validators.required,
+    this.itemValidator.validText,
+  ]);
+  description = new FormControl('', [
+    Validators.required,
+    this.itemValidator.validText,
+  ]);
+  photoUrl = new FormControl('', [
+    Validators.required,
+    this.itemValidator.validUrl,
+  ]);
+
+  price = new FormControl('', [
+    Validators.required,
+    this.itemValidator.validPrice,
+  ]);
+
   isImageLoaded: boolean = false;
   timeStamp: string = new Date().toUTCString();
   item: IItemRequestDto = {
@@ -27,25 +49,108 @@ export class CreateItemComponent {
   };
 
   constructor(
+    private itemValidator: ItemValidationService,
     private router: Router,
     private itemService: ItemService,
     private dateService: DateRegulatorService,
     private localStorageService: LocalStorageService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private dialog: MatDialog
   ) {}
 
+  // onSubmit() {
+  //   this.item.creationDate = this.dateService.convertDate(
+  //     this.item.creationDate
+  //   );
+  //   this.item.updateDate = this.item.creationDate;
+  //   this.item.sellerId = this.localStorageService.get('userId');
+  //   this.itemService.createItem(this.item).subscribe({
+  //     next: () => {
+  //       this.navigateToLandingPage();
+  //     },
+  //     error: (error) => console.log('Error creating ticket:', error),
+  //   });
+  // }
+
+  getErrorMessage(
+    control: FormControl,
+    errorMessages: { [key: string]: string }
+  ) {
+    for (const errorCode in errorMessages) {
+      if (control.hasError(errorCode)) {
+        return errorMessages[errorCode];
+      }
+    }
+    return null;
+  }
+
+  getTitleError() {
+    return this.getErrorMessage(this.title, {
+      required: 'You must enter a title',
+      nameLength: 'The title must contain at least 3 characters',
+      nameExist: 'The title already exist',
+    });
+  }
+
+  getDescriptionError() {
+    return this.getErrorMessage(this.description, {
+      required: 'You must enter a description',
+      descriptionLength: 'The description must contain at least 3 characters',
+      descriptionExist: 'The description already exist',
+    });
+  }
+
+  getPhotoUrlError() {
+    return this.getErrorMessage(this.photoUrl, {
+      required: 'You must enter your photo url',
+      photoUrlInvalid: 'Not a valid url address',
+      photoUrlExist: 'The photo url already exists',
+    });
+  }
+
+  getPriceError() {
+    return this.getErrorMessage(this.price, {
+      required: 'You must enter a price',
+      priceInvalid: 'Not a valid price, only bigger than zero allowed.',
+    });
+  }
+
   onSubmit() {
+    this.title.markAsTouched();
+    this.description.markAsTouched();
+    this.photoUrl.markAsTouched();
+    this.price.markAsTouched();
+
+    const formIsValid =
+      this.title.valid &&
+      this.description.valid &&
+      this.photoUrl.valid &&
+      this.price.valid;
+
+    if (!formIsValid) return;
+
+    this.item.name = this.title.value!;
+    this.item.description = this.description.value!;
+    this.item.photoUrl = this.photoUrl.value!;
+    this.item.price = Number(this.price.value!);
     this.item.creationDate = this.dateService.convertDate(
       this.item.creationDate
     );
     this.item.updateDate = this.item.creationDate;
     this.item.sellerId = this.localStorageService.get('userId');
     this.itemService.createItem(this.item).subscribe({
-      next: () => {
-        console.log('Item created successfully');
+      next: (response: any) => {
+        console.log(response);
+        this.bannerItem(response);
         this.navigateToLandingPage();
       },
       error: (error) => console.log('Error creating ticket:', error),
+    });
+  }
+
+  bannerItem(item: IItemRequestDto) {
+    this.dialog.open(BannerItemCreatedComponent, {
+      data: item,
     });
   }
 
@@ -55,13 +160,15 @@ export class CreateItemComponent {
 
   onUrlChange() {
     const safeUrl: SafeUrl = this.sanitizer.bypassSecurityTrustUrl(
-      this.item.photoUrl
+      this.photoUrl.value!
     );
 
-    if (this.item.photoUrl !== '') {
+    if (this.photoUrl.value! !== '') {
       // Convert the SafeUrl to a string
-      this.item.photoUrl =
-        this.sanitizer.sanitize(SecurityContext.URL, safeUrl) || '';
+      this.photoUrl.setValue(
+        this.sanitizer.sanitize(SecurityContext.URL, safeUrl) || ''
+      );
+
       this.isImageLoaded = true;
     } else {
       this.isImageLoaded = false;

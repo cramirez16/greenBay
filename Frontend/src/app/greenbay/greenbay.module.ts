@@ -20,6 +20,7 @@ import { CartComponent } from './cart/cart.component';
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { CreateItemComponent } from './create-item/create-item.component';
 import { DetailedViewComponent } from './detailed-view/detailed-view.component';
+import { BannerItemCreatedComponent } from './banner-item-created/banner-item-created.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { DetailedViewComponent } from './detailed-view/detailed-view.component';
     CartComponent,
     MyProfileComponent,
     CreateItemComponent,
+    BannerItemCreatedComponent,
   ],
   imports: [
     CommonModule,

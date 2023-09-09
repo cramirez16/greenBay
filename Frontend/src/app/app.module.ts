@@ -13,7 +13,14 @@ import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [AppRoutingModule, SharedModule, GreenbayModule, FormlyModule.forRoot(), ReactiveFormsModule, FormlyBootstrapModule],
+  imports: [
+    AppRoutingModule,
+    SharedModule,
+    GreenbayModule,
+    FormlyModule.forRoot(),
+    ReactiveFormsModule,
+    FormlyBootstrapModule,
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
