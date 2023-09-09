@@ -1,0 +1,24 @@
+<mat-card class="example-card fixedWidth">
+    <mat-card-header>
+        <mat-card-title>
+            <mat-card-title class="margin-under">Detailed View</mat-card-title>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <img class="titleImage" mat-card-image src={{item!.photoUrl}} alt="Item image">
+        <p>Title: {{item.name}}</p><br>
+        <p>Price: {{item.price}}</p><br>
+        <p>description: {{item.description}}</p><br>
+        <p>seller: {{item.sellerName}}</p><br>
+    </mat-card-content>
+    <mat-card-footer>
+        <button mat-raised-button color="primary" (click)="bidItem(itemId)">
+            Place Bid
+        </button>
+        <!-- {{item.name}} | {{item.price}} <br>
+                <button *ngIf="accountService.isAdmin" mat-raised-button color="primary"
+                    [routerLink]="['/edit-ticket', item.id]">Edit</button>
+                <button mat-raised-button color="warn" *ngIf="accountService.isAdmin"
+                    (click)="onDeleteTicket(item)">Delete</button> -->
+    </mat-card-footer>
+</mat-card>
