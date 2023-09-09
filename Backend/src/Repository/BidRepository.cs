@@ -27,7 +27,8 @@ namespace src.Repository
                 {
                     Id = bid.Id,
                     BidAmount = bid.BidAmount,
-                    BiderId = bid.BiderId
+                    BiderId = bid.BiderId,
+                    ItemId = bid.ItemId
                 })
                 .FirstOrDefaultAsync();
         }

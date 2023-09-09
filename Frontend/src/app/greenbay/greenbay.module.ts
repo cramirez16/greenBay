@@ -21,6 +21,7 @@ import { MyProfileComponent } from './my-profile/my-profile.component';
 import { CreateItemComponent } from './create-item/create-item.component';
 import { DetailedViewComponent } from './detailed-view/detailed-view.component';
 import { BannerItemCreatedComponent } from './banner-item-created/banner-item-created.component';
+import { BannerBidComponent } from './banner-bid/banner-bid.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { BannerItemCreatedComponent } from './banner-item-created/banner-item-cr
     MyProfileComponent,
     CreateItemComponent,
     BannerItemCreatedComponent,
+    BannerBidComponent,
   ],
   imports: [
     CommonModule,

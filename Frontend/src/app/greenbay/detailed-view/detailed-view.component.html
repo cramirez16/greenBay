@@ -8,23 +8,22 @@
         <mat-card-content>
             <img class="titleImage" mat-card-image src={{item!.photoUrl}} alt="Item image">
             <p>Title: {{item.name}}</p><br>
-            <p>Price: {{item.price}}</p><br>
+            <p>Price: <strong>{{item.price}}$</strong></p><br>
             <p>description: {{item.description}}</p><br>
             <p>seller: {{item.sellerName}}</p><br>
         </mat-card-content>
         <mat-card-footer>
             <mat-form-field class="custom margin-under">
-                <mat-label>Bid</mat-label>
-                <input matInput [(ngModel)]="item.bid" name="bid" required />
+                <mat-label>Please enter a bid</mat-label>
+                <input matInput [formControl]="bid" required />
+                <mat-error *ngIf="bid.invalid">{{ getBidError() }}</mat-error>
             </mat-form-field>
-            <button mat-raised-button color="primary" (click)="bidItem(itemId, item.bid)">
-                Place Bid
-            </button>
-            <!-- {{item.name}} | {{item.price}} <br>
-                <button *ngIf="accountService.isAdmin" mat-raised-button color="primary"
-                    [routerLink]="['/edit-ticket', item.id]">Edit</button>
-                <button mat-raised-button color="warn" *ngIf="accountService.isAdmin"
-                    (click)="onDeleteTicket(item)">Delete</button> -->
+            <span class="footer">
+                <button class="bluebutton" mat-button (click)="bidItem()">
+                    Place Bid
+                </button>
+                <button class="redbutton" mat-button (click)="onBackClick()">Back</button>
+            </span>
         </mat-card-footer>
     </mat-card>
 </div>

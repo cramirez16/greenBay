@@ -1,11 +1,17 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IItemResponseDto } from '../models/IItemResponseDto';
 import { AccountService } from '../../services/account.service';
 import { ItemService } from '../../services/item.service';
 import { MaterialModule } from 'src/app/material/material.module';
-import { CartService } from 'src/app/services/cart.service';
 import { BidService } from 'src/app/services/bid.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { Router } from '@angular/router';
+import { FormControl, Validators } from '@angular/forms';
+import { ItemValidationService } from '../../services/item-validation.service';
+import { MatDialog } from '@angular/material/dialog';
+import { IBidRequestDto } from '../models/IBidRequestDto';
+import { BannerBidComponent } from '../banner-bid/banner-bid.component';
+import { IBidResponseDto } from '../models/IBidResponseDto';
 
 @Component({
   selector: 'app-detailed-view',
@@ -15,6 +21,10 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
   imports: [MaterialModule],
 })
 export class DetailedViewComponent implements OnInit {
+  bid = new FormControl('', [
+    Validators.required,
+    this.itemValidator.validPrice,
+  ]);
   // Store items list component which we can display after get the list from the server.
   item: IItemResponseDto = {
     id: 0,
@@ -38,16 +48,37 @@ export class DetailedViewComponent implements OnInit {
   constructor(
     private itemService: ItemService,
     private bidService: BidService,
-    private cartService: CartService,
     public accountService: AccountService,
-    public _localStorage: LocalStorageService
+    public _localStorage: LocalStorageService,
+    private router: Router,
+    private itemValidator: ItemValidationService,
+    private dialog: MatDialog
   ) {}
+
+  getErrorMessage(
+    control: FormControl,
+    errorMessages: { [key: string]: string }
+  ) {
+    for (const errorCode in errorMessages) {
+      if (control.hasError(errorCode)) {
+        return errorMessages[errorCode];
+      }
+    }
+    return null;
+  }
+
+  getBidError() {
+    return this.getErrorMessage(this.bid, {
+      required: 'You must enter a bid',
+      bidInvalid: 'Not a valid bid, only bigger than zero allowed.',
+    });
+  }
+
   ngOnInit() {
     this.itemId = this._localStorage.get('itemId');
     this.itemService.getItemtById(this.itemId).subscribe({
       next: (response: any) => {
         this.item = response as IItemResponseDto;
-        console.log(this.item);
       },
       error: (e) => {
         console.log(e.error);
@@ -55,20 +86,57 @@ export class DetailedViewComponent implements OnInit {
     });
   }
 
-  // addToCart(itemId: number) {
-  //   this.cartService.addItem(itemId);
-  // }
+  bidItem() {
+    this.bid.markAsTouched();
 
-  bidItem(itemId: string, bid: number) {
-    this.bidService.bidItem(parseInt(itemId), bid);
+    if (!this.bid.valid) return;
+
+    this.item.bid = Number(this.bid.value!);
+
+    this.bidService.bidItem(this.item.bid).subscribe({
+      next: (response: any) => {
+        if (response.bidLow) {
+          this.bannerItem({
+            bidAmount: this.item.bid,
+            message: 'Bid too Low!',
+          });
+          this.onBackClick();
+        }
+        if (response.bidSuccess) {
+          this.bannerItem({
+            bidAmount: this.item.bid,
+            message: 'Bid done!',
+          });
+          this.onBackClick();
+        }
+        if (response.itemSold) {
+          this.bannerItem({
+            bidAmount: this.item.bid,
+            message: 'Congratulations, you bought the item!',
+          });
+          this.onBackClick();
+        }
+      },
+      error: (error) => {
+        if (error.error.notEnoughtMoneyToBid) {
+          this.bannerItem({
+            bidAmount: this.item.bid,
+            message: 'Insufficient funds!',
+          });
+          console.log('Error creating ticket:', error);
+          this.onBackClick();
+        }
+      },
+    });
   }
 
-  onDeleteTicket(itemId: number, bid: number) {
-    this.itemService.deleteItem(itemId).subscribe({
-      next: () => {
-        this.itemService.getItems();
-      },
-      error: (error: any) => console.log(error),
+  bannerItem(bid: { bidAmount: number; message: string }) {
+    this.dialog.open(BannerBidComponent, {
+      data: bid,
     });
+  }
+
+  onBackClick() {
+    this.router.navigate(['items']);
   }
 }

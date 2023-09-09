@@ -82,21 +82,17 @@ namespace src.Controllers
 
             Bid? maxBid = await _bidRepo.GetMaxBidByItemId(bidRequestDto.ItemId);
 
-            if (maxBid == null)
+            if (maxBid != null)
             {
-                // bid list is empty, add the bid.
-                Bid newBid = _automapper.Map<Bid>(bidRequestDto);
-                await _bidRepo.AddBidAsync(newBid);
-                _logger.LogInformation("Bid added.");
-                return Ok(new { bidSuccess = true });
+                Console.WriteLine($"--------maxBidId: {maxBid.Id}, Amount: {maxBid.BidAmount}, ItemId: {maxBid.ItemId}");
+                // bid list is not empty    
+                if (bidRequestDto.BidAmount <= maxBid.BidAmount)
+                {
+                    _logger.LogInformation("Bid too low.");
+                    return Ok(new { bidLow = true });
+                }
             }
 
-            // bid list is not empty    
-            if (bidRequestDto.BidAmount <= maxBid.BidAmount)
-            {
-                _logger.LogInformation("Bid too low.");
-                return Ok(new { bidLow = true });
-            }
             if (bidRequestDto.BidAmount < itemToBid.Price)
             {
                 // save the bid ---> insert data into bid table
@@ -105,6 +101,7 @@ namespace src.Controllers
                 await _bidRepo.AddBidAsync(newBid);
                 return Ok(new { bidSuccess = true });
             }
+
             if (bider.Money >= bidRequestDto.BidAmount)
             {
                 // user buy the item ---> update item table
@@ -121,6 +118,15 @@ namespace src.Controllers
                 await _bidRepo.AddBidAsync(newBid);
                 _logger.LogInformation("Item Sold.");
                 return Ok(new { itemSold = true });
+            }
+
+            if (maxBid == null)
+            {
+                // bid list is empty, add the bid.
+                Bid newBid = _automapper.Map<Bid>(bidRequestDto);
+                await _bidRepo.AddBidAsync(newBid);
+                _logger.LogInformation("Bid added.");
+                return Ok(new { bidSuccess = true });
             }
 
             _logger.LogInformation("BidController WhatHappened?");

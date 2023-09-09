@@ -140,7 +140,6 @@ export class CreateItemComponent {
     this.item.sellerId = this.localStorageService.get('userId');
     this.itemService.createItem(this.item).subscribe({
       next: (response: any) => {
-        console.log(response);
         this.bannerItem(response);
         this.navigateToLandingPage();
       },
