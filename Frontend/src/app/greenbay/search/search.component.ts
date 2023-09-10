@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { IItemResponseDto } from '../models/IItemResponseDto';
 import { AccountService } from '../../services/account.service';
 import { ItemService } from '../../services/item.service';
 import { MaterialModule } from 'src/app/material/material.module';
-import { BidService } from 'src/app/services/bid.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
@@ -12,14 +11,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { BannerBidComponent } from '../banner-bid/banner-bid.component';
 
 @Component({
-  selector: 'app-detailed-view',
-  templateUrl: './detailed-view.component.html',
-  styleUrls: ['./detailed-view.component.css'],
+  selector: 'app-search',
+  templateUrl: './search.component.html',
+  styleUrls: ['./search.component.css'],
   standalone: true,
   imports: [MaterialModule],
 })
-export class DetailedViewComponent implements OnInit {
-  bid = new FormControl('', [
+export class SearchComponent {
+  searchId = new FormControl('', [
     Validators.required,
     this.itemValidator.validPrice,
   ]);
@@ -45,7 +44,6 @@ export class DetailedViewComponent implements OnInit {
 
   constructor(
     private itemService: ItemService,
-    private bidService: BidService,
     public accountService: AccountService,
     public _localStorage: LocalStorageService,
     private router: Router,
@@ -65,64 +63,28 @@ export class DetailedViewComponent implements OnInit {
     return null;
   }
 
-  getBidError() {
-    return this.getErrorMessage(this.bid, {
-      required: 'You must enter a bid',
-      bidInvalid: 'Not a valid bid, only bigger than zero allowed.',
+  getSearchIdError() {
+    return this.getErrorMessage(this.searchId, {
+      required: 'You must enter an id',
+      bidInvalid: 'Invalid id, only integers and positive values are allowed.',
     });
   }
 
-  ngOnInit() {
-    this.itemId = this._localStorage.get('itemId');
-    this.itemService.getItemById(this.itemId).subscribe({
+  searchById() {
+    this.searchId.markAsTouched();
+    if (!this.searchId.valid) return;
+
+    this.itemService.getItemById(this.searchId.value!).subscribe({
       next: (response: any) => {
+        console.log(response);
         this.item = response as IItemResponseDto;
       },
-      error: (e) => {
-        console.log(e.error);
-      },
-    });
-  }
-
-  bidItem() {
-    this.bid.markAsTouched();
-
-    if (!this.bid.valid) return;
-
-    this.item.bid = Number(this.bid.value!);
-
-    this.bidService.bidItem(this.item.bid).subscribe({
-      next: (response: any) => {
-        if (response.bidLow) {
-          this.bannerItem({
-            bidAmount: this.item.bid,
-            message: 'Bid too Low!',
-          });
-          this.onBackClick();
-        }
-        if (response.bidSuccess) {
-          this.bannerItem({
-            bidAmount: this.item.bid,
-            message: 'Bid done!',
-          });
-          this.onBackClick();
-        }
-        if (response.itemSold) {
-          this.bannerItem({
-            bidAmount: this.item.bid,
-            message: 'Congratulations, you bought the item!',
-          });
-          this.onBackClick();
-        }
-      },
       error: (error) => {
-        if (error.error.notEnoughtMoneyToBid) {
+        if (error.error.itemNotFound) {
           this.bannerItem({
-            bidAmount: this.item.bid,
-            message: 'Insufficient funds!',
+            bidAmount: parseInt(this.searchId.value!),
+            message: 'Item not found!',
           });
-          console.log('Error creating ticket:', error);
-          this.onBackClick();
         }
       },
     });

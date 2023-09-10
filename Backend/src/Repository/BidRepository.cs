@@ -37,5 +37,13 @@ namespace src.Repository
             _context.TblBids.Add(newBid);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<Dictionary<int, string>> GetBidderNamesAsync(List<int> bidderIds)
+        {
+            return await _context.TblUsers
+                            .Where(user => bidderIds.Contains(user.Id))
+                            .ToDictionaryAsync(user => user.Id, user => user.Name);
+        }
+
     }
 }

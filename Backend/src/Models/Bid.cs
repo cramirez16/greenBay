@@ -18,11 +18,13 @@ namespace src.Models
         [Required]
         public int BiderId { get; set; }
         [ForeignKey("BiderId")]
+        [Required]
         public User? Bider { get; set; }
         [Required]
         public int ItemId { get; set; }
         [ForeignKey("ItemId")]
         [JsonIgnore]
+        [Required]
         public Item? Item { get; set; }
 
         // Navigation property for the UserBid junction table

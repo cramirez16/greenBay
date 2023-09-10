@@ -14,5 +14,5 @@ export interface IItemResponseDto {
   sellerName: string;
   buyerId: number;
   buyerName?: string;
-  bidsList: IBidResponseDto[];
+  bids: IBidResponseDto[];
 }

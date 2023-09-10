@@ -1,0 +1,33 @@
+<div class="item-container">
+    <mat-card class="example-card fixedWidth">
+        <mat-card-header>
+            <mat-card-title>
+                <mat-card-title class="margin-under">Search Item By Id</mat-card-title>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <img class="titleImage" mat-card-image src={{item!.photoUrl}} alt="Item image">
+            <p>Title: {{item.name}}</p><br>
+            <p>Price: <strong>{{item.price}}$</strong></p><br>
+            <p>Description: {{item.description}}</p><br>
+            <label for="photoUrl">PhotoUrl</label>
+            <textarea name="photoUrl">{{item.photoUrl}}</textarea><br>
+            <p>Seller Name: {{item.sellerName}}</p><br>
+            <p *ngIf="!item.isSellable">Buyer Name: {{item.buyerName}}</p>
+            <p *ngFor="let bid of item.bids">Bids: {{bid.biderId}}{{bid.biderName}}</p>
+        </mat-card-content>
+        <mat-card-footer>
+            <mat-form-field class="custom margin-under">
+                <mat-label>Please enter an Id</mat-label>
+                <input matInput [formControl]="searchId" required />
+                <mat-error *ngIf="searchId.invalid">{{ getSearchIdError() }}</mat-error>
+            </mat-form-field>
+            <span class="footer">
+                <button class="bluebutton" mat-button (click)="searchById()">
+                    Search
+                </button>
+                <button class="redbutton" mat-button (click)="onBackClick()">Back</button>
+            </span>
+        </mat-card-footer>
+    </mat-card>
+</div>

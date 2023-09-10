@@ -5,15 +5,11 @@
             <h1 class="title">Green Bay</h1>
         </button>
         <div class="nav-list"></div>
-        <!-- <a mat-button *ngIf="accountService.isAuthenticated" routerLink="/cart"><mat-icon>add_shopping_cart</mat-icon>
-        <div *ngIf="cartService.cartItemCount > 0" class="cart-count-badge">
-          {{ cartService.cartItemCount }}
-        </div>
-      </a> -->
-        <button mat-button [matMenuTriggerFor]="sellMenu">Sell</button>
+        <button mat-button *ngIf="accountService.isAuthenticated" [matMenuTriggerFor]="sellMenu">Sell</button>
         <mat-menu #sellMenu="matMenu">
             <button mat-menu-item [routerLink]="['/items']">List</button>
-            <button mat-menu-item *ngIf="accountService.isAuthenticated" [routerLink]="['/create-item']">Create</button>
+            <button mat-menu-item [routerLink]="['/search']">Search</button>
+            <button mat-menu-item [routerLink]="['/create-item']">Create</button>
         </mat-menu>
         <button mat-button *ngIf="!accountService.isAuthenticated" routerLink="/register">Registration
         </button>

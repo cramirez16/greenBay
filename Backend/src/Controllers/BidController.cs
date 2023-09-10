@@ -84,7 +84,6 @@ namespace src.Controllers
 
             if (maxBid != null)
             {
-                Console.WriteLine($"--------maxBidId: {maxBid.Id}, Amount: {maxBid.BidAmount}, ItemId: {maxBid.ItemId}");
                 // bid list is not empty    
                 if (bidRequestDto.BidAmount <= maxBid.BidAmount)
                 {

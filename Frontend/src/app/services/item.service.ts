@@ -13,7 +13,7 @@ export class ItemService {
   // rxjs ---> BehaviorSubjects
   // Subject type, has initial value [],
   // subscribers will receive the last emmited value upon subscription.
-  //itemsListService = new BehaviorSubject<IItemResponseDto[]>([]);
+  // itemsListService = new BehaviorSubject<IItemResponseDto[]>([]);
   itemsListService = new BehaviorSubject<{
     itemsPaginated: IItemResponseDto[];
     totalElements: number;
@@ -51,7 +51,7 @@ export class ItemService {
     return this.http.post(this.baseURL, itemRequestDTO);
   }
 
-  getItemtById(id: string) {
+  getItemById(id: string) {
     return this.http.get(this.baseURL + id);
   }
 

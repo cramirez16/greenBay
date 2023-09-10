@@ -25,8 +25,10 @@ namespace src.Models
         [Required]
         public required decimal Price { get; set; }
 
+
         public decimal Bid { get; set; } = 0m;
-        public bool IsSellable { get; set; } = true;
+        [Required]
+        public required bool IsSellable { get; set; } = true;
 
         public DateTime CreationDate { get; set; }
 
@@ -39,6 +41,7 @@ namespace src.Models
 
         // navigation property
         [ForeignKey("SellerId")]
+        [Required]
         public User? Seller { get; set; }
 
         // navigation property

@@ -21,6 +21,7 @@ export class ItemsComponent implements OnInit {
   pageSize: number = 1;
   totalElements!: number;
   pageEvent: PageEvent = new PageEvent();
+  // grid parameters.
   displayedColumns: string[] = ['name', 'description', 'photoUrl'];
   gridCols: number = 3;
 
@@ -62,10 +63,12 @@ export class ItemsComponent implements OnInit {
       error: (error: any) => console.log(error),
     });
   }
+
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {
     this.updateGridParameters();
   }
+
   updateGridParameters() {
     if (window.innerWidth < 780) {
       this.gridCols = 1; // Adjust the number of columns for smaller screens
@@ -75,6 +78,7 @@ export class ItemsComponent implements OnInit {
       this.gridCols = 3; // Default number of columns for larger screens
     }
   }
+
   handlePageEvent(e: PageEvent) {
     this.pageEvent = e;
     this.pageSize = e.pageSize;

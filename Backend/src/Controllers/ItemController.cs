@@ -19,16 +19,19 @@ namespace src.Controllers
         private readonly ILogger<UserController> _logger;
         private readonly IMapper _automapper;
         private readonly IItemRepository _itemRepo;
+        private readonly IBidRepository _ibidRepo;
 
         public ItemController(
             ILogger<UserController> logger,
             IMapper automapper,
-            IItemRepository itemRepo
+            IItemRepository itemRepo,
+            IBidRepository ibidRepo
         )
         {
             _automapper = automapper;
             _logger = logger;
             _itemRepo = itemRepo;
+            _ibidRepo = ibidRepo;
         }
 
         [HttpGet]
@@ -42,18 +45,33 @@ namespace src.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize(Roles = "Admin,User")]
-        public async Task<IActionResult> GetTicket([FromRoute] int id)
+        // [Authorize(Roles = "Admin,User")]
+        public async Task<IActionResult> GetItemById([FromRoute] int id)
         {
             Item? item = await _itemRepo.GetItemByIdAsync(id);
 
             if (item == null)
             {
                 _logger.LogInformation("Item not found.");
-                return NotFound();
+                return NotFound(new { itemNotFound = true });
             }
 
             var itemResponseDto = _automapper.Map<ItemResponseDto>(item);
+
+            var biderIds = itemResponseDto.Bids!.Select(bid => bid.BiderId).ToList();
+
+            // Retrieve bidder names using the repository 
+            var bidderNames = await _ibidRepo.GetBidderNamesAsync(biderIds);
+
+            // Update BidResponseDto objects with bidder names
+            foreach (var bid in itemResponseDto.Bids!)
+            {
+                if (bidderNames.TryGetValue(bid.BiderId, out var bidderName))
+                {
+                    bid.BiderName = bidderName;
+                }
+            }
+
             _logger.LogInformation("Item data sent.");
             return Ok(itemResponseDto);
         }

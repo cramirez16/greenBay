@@ -7,6 +7,7 @@ import { ItemsComponent } from './greenbay/items/items.component';
 import { MyProfileComponent } from './greenbay/my-profile/my-profile.component';
 import { CreateItemComponent } from './greenbay/create-item/create-item.component';
 import { DetailedViewComponent } from './greenbay/detailed-view/detailed-view.component';
+import { SearchComponent } from './greenbay/search/search.component';
 
 const routes: Routes = [
   { path: '', component: LandingPageComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'items', component: ItemsComponent },
   { path: 'my_profile', component: MyProfileComponent },
+  { path: 'search', component: SearchComponent },
   {
     path: 'create-item',
     component: CreateItemComponent,

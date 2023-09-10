@@ -16,12 +16,12 @@ import { AccountService } from '../services/account.service';
 import { BannerComponent } from './banner/banner.component';
 import { MessagePopupComponent } from './message-popup/message-popup.component';
 import { ItemsComponent } from './items/items.component';
-import { CartComponent } from './cart/cart.component';
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { CreateItemComponent } from './create-item/create-item.component';
 import { DetailedViewComponent } from './detailed-view/detailed-view.component';
 import { BannerItemCreatedComponent } from './banner-item-created/banner-item-created.component';
 import { BannerBidComponent } from './banner-bid/banner-bid.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,6 @@ import { BannerBidComponent } from './banner-bid/banner-bid.component';
     DialogPopupComponent,
     BannerComponent,
     MessagePopupComponent,
-    CartComponent,
     MyProfileComponent,
     CreateItemComponent,
     BannerItemCreatedComponent,
@@ -49,6 +48,7 @@ import { BannerBidComponent } from './banner-bid/banner-bid.component';
     HttpClientModule,
     ItemsComponent,
     DetailedViewComponent,
+    SearchComponent,
   ],
   providers: [AccountService],
 })
