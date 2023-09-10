@@ -9,6 +9,6 @@ namespace src.Models.Specifications
     {
         public int TotalPages { get; set; } // How many Pages.
         public int PageSize { get; set; }  // Records per page.
-        public int TotalCount { get; set; } // Total number of records.
+        public int TotalCount { get; set; } // Total number of records
     }
 }

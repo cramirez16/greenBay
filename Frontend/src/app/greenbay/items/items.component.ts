@@ -3,10 +3,9 @@ import { IItemResponseDto } from '../models/IItemResponseDto';
 import { AccountService } from '../../services/account.service';
 import { ItemService } from '../../services/item.service';
 import { MaterialModule } from 'src/app/material/material.module';
-import { CartService } from 'src/app/services/cart.service';
-import { BidService } from 'src/app/services/bid.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { Router } from '@angular/router';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-items',
@@ -18,13 +17,15 @@ import { Router } from '@angular/router';
 export class ItemsComponent implements OnInit {
   // Store items list component which we can display after get the list from the server.
   itemsListComponent: IItemResponseDto[] = [];
+  pageNumber: number = 1;
+  pageSize: number = 1;
+  totalElements!: number;
+  pageEvent: PageEvent = new PageEvent();
   displayedColumns: string[] = ['name', 'description', 'photoUrl'];
   gridCols: number = 3;
 
   constructor(
     private itemService: ItemService,
-    private bidService: BidService,
-    private cartService: CartService,
     public accountService: AccountService,
     private _localStorage: LocalStorageService,
     private router: Router
@@ -33,19 +34,20 @@ export class ItemsComponent implements OnInit {
     this.updateGridParameters();
     // listen for get list success/error ( in the service )
     this.itemService.itemsListService.subscribe(
-      (itemsListResponse: IItemResponseDto[]) => {
-        this.itemsListComponent = itemsListResponse.filter(
+      (itemsListResponse: {
+        itemsPaginated: IItemResponseDto[];
+        totalElements: number;
+      }) => {
+        this.itemsListComponent = itemsListResponse.itemsPaginated.filter(
           (item) => item.isSellable
         );
+        this.totalElements = itemsListResponse.totalElements;
       }
     );
     // Calls getItems function in service to trigger get method.
-    this.itemService.getItems();
+    // (pageNumber, pageSize)
+    this.itemService.getItemsPaginated(this.pageNumber, this.pageSize);
   }
-
-  // addToCart(itemId: number) {
-  //   this.cartService.addItem(itemId);
-  // }
 
   onDetailedView(itemId: number) {
     this._localStorage.set('itemId', itemId);
@@ -72,5 +74,12 @@ export class ItemsComponent implements OnInit {
     } else {
       this.gridCols = 3; // Default number of columns for larger screens
     }
+  }
+  handlePageEvent(e: PageEvent) {
+    this.pageEvent = e;
+    this.pageSize = e.pageSize;
+    this.pageNumber = e.pageIndex + 1;
+    this.updateGridParameters();
+    this.itemService.getItemsPaginated(this.pageNumber, this.pageSize);
   }
 }

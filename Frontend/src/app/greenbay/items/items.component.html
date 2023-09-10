@@ -16,3 +16,6 @@
         </mat-card>
     </mat-grid-tile>
 </mat-grid-list>
+<mat-paginator [length]="totalElements" [pageSize]="pageSize" [showFirstLastButtons]="true"
+    [pageSizeOptions]="[1, 2, 3, 4]" (page)="handlePageEvent($event)" aria-label="Select page">
+</mat-paginator>

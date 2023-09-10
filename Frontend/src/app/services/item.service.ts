@@ -13,7 +13,11 @@ export class ItemService {
   // rxjs ---> BehaviorSubjects
   // Subject type, has initial value [],
   // subscribers will receive the last emmited value upon subscription.
-  itemsListService = new BehaviorSubject<IItemResponseDto[]>([]);
+  //itemsListService = new BehaviorSubject<IItemResponseDto[]>([]);
+  itemsListService = new BehaviorSubject<{
+    itemsPaginated: IItemResponseDto[];
+    totalElements: number;
+  }>({ itemsPaginated: [], totalElements: 0 });
   error = new BehaviorSubject<any>({});
   constructor(private http: HttpClient) {}
 
@@ -26,6 +30,21 @@ export class ItemService {
         this.error.next(e);
       },
     });
+  }
+
+  getItemsPaginated(pageNumber: number, pageSize: number) {
+    this.http
+      .get<any>(
+        `${this.baseURL}paginated?PageNumber=${pageNumber}&PageSize=${pageSize}`
+      )
+      .subscribe({
+        next: (a) => {
+          this.itemsListService.next(a);
+        },
+        error: (e) => {
+          this.error.next(e);
+        },
+      });
   }
 
   createItem(itemRequestDTO: IItemRequestDto) {

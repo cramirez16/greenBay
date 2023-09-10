@@ -72,11 +72,12 @@ namespace src.Controllers
         [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> GetItemsPaginated([FromQuery] Parameters parameters)
         {
+
             PagedList<Item> items = await _itemRepo.GetItemsPaginatedAsync(parameters);
             // List<Item>? items = await _itemRepo.GetItemsAsync();
             var itemsResponseDto = _automapper.Map<List<ItemResponseDto>>(items);
             _logger.LogInformation("Items list pagenated sent.");
-            return Ok(new { itemsPaginated = itemsResponseDto, totalPages = items.MetaData.TotalPages });
+            return Ok(new { itemsPaginated = itemsResponseDto, totalElements = items.MetaData.TotalCount });
         }
     }
 }
