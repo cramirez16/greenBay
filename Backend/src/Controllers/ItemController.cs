@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using src.Models;
 using src.Models.Dtos;
+using src.Models.Specifications;
 using src.Repository.IRepository;
 
 namespace src.Controllers
@@ -65,6 +66,17 @@ namespace src.Controllers
             await _itemRepo.SaveItemAsync(itemEntities);
             _logger.LogInformation("Created new item.");
             return Ok(_automapper.Map<ItemResponseDto>(itemEntities));
+        }
+
+        [HttpGet("Paginated")] // /api/item/paginated
+        [Authorize(Roles = "Admin,User")]
+        public async Task<IActionResult> GetItemsPaginated([FromQuery] Parameters parameters)
+        {
+            PagedList<Item> items = await _itemRepo.GetItemsPaginatedAsync(parameters);
+            // List<Item>? items = await _itemRepo.GetItemsAsync();
+            var itemsResponseDto = _automapper.Map<List<ItemResponseDto>>(items);
+            _logger.LogInformation("Items list pagenated sent.");
+            return Ok(new { itemsPaginated = itemsResponseDto, totalPages = items.MetaData.TotalPages });
         }
     }
 }

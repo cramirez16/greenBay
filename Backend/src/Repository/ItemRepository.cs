@@ -1,11 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using src.Data;
 using src.Models;
+using src.Models.Specifications;
 using src.Repository.IRepository;
 
 namespace src.Repository
@@ -45,6 +47,16 @@ namespace src.Repository
         {
             await _context.TblItems.AddAsync(item);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<PagedList<Item>> GetItemsPaginatedAsync(Parameters parameters)
+        {
+            var query = await _context.TblItems
+               .Include(item => item.Seller)
+               .Include(item => item.Bids)
+               .Where(item => item.IsSellable)
+               .ToListAsync();
+            return PagedList<Item>.ToPagedList(query, parameters.PageNumber, parameters.PageSize);
         }
     }
 }
