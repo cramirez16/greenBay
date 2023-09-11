@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { IUserRegisterRequestDto } from '../models/IUserRegisterRequestDto';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 

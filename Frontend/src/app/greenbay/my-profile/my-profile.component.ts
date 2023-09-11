@@ -2,11 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { UserValidationService } from '../../services/user-validation.service';
 import { AccountService } from '../../services/account.service';
-import {
-  MatSnackBar,
-  MatSnackBarRef,
-  MAT_SNACK_BAR_DATA,
-} from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { IUserRegisterRequestDto } from '../models/IUserRegisterRequestDto';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { Router } from '@angular/router';

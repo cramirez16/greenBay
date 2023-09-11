@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { BannerBidComponent } from './banner-bid.component';
 
 describe('BannerBidComponent', () => {
@@ -8,7 +7,7 @@ describe('BannerBidComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [BannerBidComponent]
+      declarations: [BannerBidComponent],
     });
     fixture = TestBed.createComponent(BannerBidComponent);
     component = fixture.componentInstance;

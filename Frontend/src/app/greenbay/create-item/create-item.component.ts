@@ -58,20 +58,6 @@ export class CreateItemComponent {
     private dialog: MatDialog
   ) {}
 
-  // onSubmit() {
-  //   this.item.creationDate = this.dateService.convertDate(
-  //     this.item.creationDate
-  //   );
-  //   this.item.updateDate = this.item.creationDate;
-  //   this.item.sellerId = this.localStorageService.get('userId');
-  //   this.itemService.createItem(this.item).subscribe({
-  //     next: () => {
-  //       this.navigateToLandingPage();
-  //     },
-  //     error: (error) => console.log('Error creating ticket:', error),
-  //   });
-  // }
-
   getErrorMessage(
     control: FormControl,
     errorMessages: { [key: string]: string }

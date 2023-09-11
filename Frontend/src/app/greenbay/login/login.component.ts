@@ -88,11 +88,6 @@ export class LoginComponent {
             title: '',
             description: '',
           };
-          // if (response.error.emailNotValidated) {
-          //   dialogData.title = 'Login failed';
-          //   dialogData.description =
-          //     'Email not confirmed yet, please check you email account.';
-          // } else {
           dialogData.title = response.status === 0 ? '' : 'Login failed';
           dialogData.description =
             response.status === 0 ? 'Network Error' : 'Wrong credentials';

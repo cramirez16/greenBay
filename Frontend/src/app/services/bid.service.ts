@@ -1,8 +1,7 @@
-import { Injectable, computed, signal } from '@angular/core';
-import { ItemService } from './item.service';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { IBidResponseDto } from '../greenbay/models/IBidResponseDto';
 import { IBidRequestDto } from '../greenbay/models/IBidRequestDto';
 import { LocalStorageService } from './local-storage.service';
