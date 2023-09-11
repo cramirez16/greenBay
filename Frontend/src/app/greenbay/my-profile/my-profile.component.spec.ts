@@ -1,7 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MyProfileComponent } from './my-profile.component';
 import { HttpClientModule } from '@angular/common/http';
-import { MatDialog } from '@angular/material/dialog';
+import { MaterialModule } from '../../material/material.module';
+import {
+  BrowserAnimationsModule,
+  NoopAnimationsModule,
+} from '@angular/platform-browser/animations';
 
 describe('MyProfileComponent', () => {
   let component: MyProfileComponent;
@@ -10,7 +14,12 @@ describe('MyProfileComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [MyProfileComponent],
-      imports: [HttpClientModule, MatDialog],
+      imports: [
+        HttpClientModule,
+        MaterialModule,
+        NoopAnimationsModule,
+        BrowserAnimationsModule,
+      ],
     });
     fixture = TestBed.createComponent(MyProfileComponent);
     component = fixture.componentInstance;

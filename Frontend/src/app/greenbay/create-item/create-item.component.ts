@@ -3,7 +3,7 @@ import { ItemService } from '../../services/item.service';
 import { IItemRequestDto } from '../models/IItemRequestDto';
 import { Router } from '@angular/router';
 import { DateRegulatorService } from '../../services/date-regulator.service';
-import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { LocalStorageService } from '../../services/local-storage.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ItemValidationService } from '../../services/item-validation.service';
 import { FormControl, Validators } from '@angular/forms';

@@ -2,8 +2,8 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { IItemResponseDto } from '../models/IItemResponseDto';
 import { AccountService } from '../../services/account.service';
 import { ItemService } from '../../services/item.service';
-import { MaterialModule } from 'src/app/material/material.module';
-import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { MaterialModule } from '../../material/material.module';
+import { LocalStorageService } from '../../services/local-storage.service';
 import { Router } from '@angular/router';
 import { PageEvent } from '@angular/material/paginator';
 
