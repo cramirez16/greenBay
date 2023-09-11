@@ -6,20 +6,26 @@
             </mat-card-title>
         </mat-card-header>
         <mat-card-content>
-            <img class="titleImage" mat-card-image src={{item!.photoUrl}} alt="Item image">
+            <div class="containerImage">
+                <img *ngIf="item!.photoUrl" src={{item.photoUrl}} alt="Item image">
+            </div>
             <p>Title: {{item.name}}</p><br>
             <p>Price: <strong>{{item.price}}$</strong></p><br>
             <p>Description: {{item.description}}</p><br>
-            <label for="photoUrl">PhotoUrl</label>
-            <textarea name="photoUrl">{{item.photoUrl}}</textarea><br>
+            <div><label for="photoUrl">PhotoUrl</label></div>
+            <textarea class="fixedWidth" cols="39" rows="2" name="photoUrl" readonly>{{item.photoUrl}}</textarea><br>
             <p>Seller Name: {{item.sellerName}}</p><br>
-            <p *ngIf="!item.isSellable">Buyer Name: {{item.buyerName}}</p>
-            <p *ngFor="let bid of item.bids">Bids: {{bid.biderId}}{{bid.biderName}}</p>
+            <p>Buyer Name: <span *ngIf="item!.isSellable">{{item.buyerName}}</span></p><br>
+            <p>Bids:</p><br>
+            <div class="bidListBody">
+                <p class="bidList" *ngFor="let bid of item.bids">{{bid.biderName}}-->{{bid.bidAmount}}$</p>
+            </div>
+
         </mat-card-content>
         <mat-card-footer>
             <mat-form-field class="custom margin-under">
                 <mat-label>Please enter an Id</mat-label>
-                <input matInput [formControl]="searchId" required />
+                <input class="fixedWidth" matInput [formControl]="searchId" required />
                 <mat-error *ngIf="searchId.invalid">{{ getSearchIdError() }}</mat-error>
             </mat-form-field>
             <span class="footer">

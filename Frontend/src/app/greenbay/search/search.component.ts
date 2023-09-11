@@ -39,8 +39,6 @@ export class SearchComponent {
     bids: [],
   };
   itemId: string = '';
-  displayedColumns: string[] = ['name', 'description', 'photoUrl'];
-  gridCols: number = 3;
 
   constructor(
     private itemService: ItemService,
