@@ -116,7 +116,7 @@ namespace src.Controllers
                 Bid newBid = _automapper.Map<Bid>(bidRequestDto);
                 await _bidRepo.AddBidAsync(newBid);
                 _logger.LogInformation("Item Sold.");
-                return Ok(new { itemSold = true });
+                return Ok(new { itemSold = true, userMoney = bider.Money });
             }
 
             if (maxBid == null)

@@ -1,21 +1,28 @@
-<mat-grid-list [cols]="gridCols" rowHeight="1:1" class="grid-item">
-    <mat-grid-tile *ngFor="let item of itemsListComponent">
-        <mat-card class="example-card fixedWidth">
-            <mat-card-header>
-                <mat-card-title>
-                    <a>{{item.name}}</a> | <p>{{item.price}} $</p>
-                </mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <img class="titleImage" mat-card-image src={{item.photoUrl}} alt="Item image"
-                    (click)="onDetailedView(item.id)">
-            </mat-card-content>
-            <mat-card-footer>
-                id:{{item.id}} | {{item.description}}
-            </mat-card-footer>
-        </mat-card>
-    </mat-grid-tile>
-</mat-grid-list>
-<mat-paginator [length]="totalElements" [pageSize]="pageSize" [showFirstLastButtons]="true"
-    [pageSizeOptions]="[1, 2, 3, 4]" (page)="handlePageEvent($event)" aria-label="Select page">
-</mat-paginator>
+<div class="main-container">
+    <div class="paginatorContainer">
+        <span>GreenBay dollars: {{userMoney}}</span>
+        <span>
+            <mat-paginator [length]="totalElements" [pageSize]="pageSize" [showFirstLastButtons]="true"
+                [pageSizeOptions]="[1, 2, 3, 4]" (page)="handlePageEvent($event)" aria-label="Select page">
+            </mat-paginator>
+        </span>
+    </div>
+    <mat-grid-list class="grid-item" [cols]="gridCols" rowHeight="1:1">
+        <mat-grid-tile *ngFor="let item of itemsListComponent">
+            <mat-card class="example-card fixedWidth">
+                <mat-card-header>
+                    <mat-card-title>
+                        <a>{{item.name}}</a> | <p>{{item.price}} $</p>
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <img class="titleImage" mat-card-image src={{item.photoUrl}} alt="Item image"
+                        (click)="onDetailedView(item.id)">
+                </mat-card-content>
+                <mat-card-footer>
+                    id:{{item.id}} | {{item.description}}
+                </mat-card-footer>
+            </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

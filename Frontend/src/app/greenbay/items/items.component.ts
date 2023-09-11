@@ -17,6 +17,7 @@ import { PageEvent } from '@angular/material/paginator';
 export class ItemsComponent implements OnInit {
   // Store items list component which we can display after get the list from the server.
   itemsListComponent: IItemResponseDto[] = [];
+  userMoney: number = this._localStorage.get('money');
   pageNumber: number = 1;
   pageSize: number = 1;
   totalElements!: number;
@@ -43,6 +44,7 @@ export class ItemsComponent implements OnInit {
           (item) => item.isSellable
         );
         this.totalElements = itemsListResponse.totalElements;
+        this.userMoney = this._localStorage.get('money');
       }
     );
     // Calls getItems function in service to trigger get method.

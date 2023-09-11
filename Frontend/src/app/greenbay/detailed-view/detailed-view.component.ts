@@ -112,6 +112,8 @@ export class DetailedViewComponent implements OnInit {
             bidAmount: this.item.bid,
             message: 'Congratulations, you bought the item!',
           });
+          console.log(response);
+          this._localStorage.set('money', `${response.userMoney}`);
           this.onBackClick();
         }
       },

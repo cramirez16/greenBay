@@ -1,6 +1,19 @@
+.main-container {
+  height: calc(100% - 64px - 30px);
+  overflow: scroll;
+  /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.main-container::-webkit-scrollbar {
+  display: none;
+}
+
 .grid-item {
+  padding: 64px;
   background: lightblue;
-  padding-top: 100px;
 }
 
 .fixedWidth {
@@ -52,6 +65,19 @@ mat-card-img {
   object-fit: cover; /*this makes the image in src fit to the size specified below*/
   width: 100%; /* Here you can use wherever you want to specify the width and also the height of the <img>*/
   height: 80%;
+}
+
+.paginatorContainer {
+  position: absolute;
+  bottom: 30px;
+  height: 56px;
+  width: calc(100% - 1%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 1%;
+  background-color: var(--mat-paginator-container-background-color);
+  z-index: 50;
 }
 
 /* @media (min-width: 1300px) {
