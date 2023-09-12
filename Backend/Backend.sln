@@ -5,7 +5,11 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backend", "src\Backend.csproj", "{A9B35BAA-EDA6-43D2-A207-15788E191178}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendNUnitTest", "test\BackendNUnitTest.csproj", "{9E877541-2AAD-49F7-8418-101E5AF51D73}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendIntegrationTests", "test\IntegrationTests\BackendIntegrationTests.csproj", "{9E877541-2AAD-49F7-8418-101E5AF51D73}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{9EED4632-64FA-4A3F-AD19-0514EEF5ACE5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackendUnitTests", "test\UnitTests\BackendUnitTests.csproj", "{5053C37E-5AD3-4E9E-AE37-9B250200F9B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,5 +28,12 @@ Global
 		{9E877541-2AAD-49F7-8418-101E5AF51D73}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E877541-2AAD-49F7-8418-101E5AF51D73}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E877541-2AAD-49F7-8418-101E5AF51D73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5053C37E-5AD3-4E9E-AE37-9B250200F9B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5053C37E-5AD3-4E9E-AE37-9B250200F9B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5053C37E-5AD3-4E9E-AE37-9B250200F9B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5053C37E-5AD3-4E9E-AE37-9B250200F9B0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5053C37E-5AD3-4E9E-AE37-9B250200F9B0} = {9EED4632-64FA-4A3F-AD19-0514EEF5ACE5}
 	EndGlobalSection
 EndGlobal
