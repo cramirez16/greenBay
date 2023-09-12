@@ -1,5 +1,5 @@
-<div class="register-container">
-    <mat-card class="register-card">
+<div class="login-container">
+    <mat-card class="login-card">
         <mat-card-header class="margin-under">
             <mat-card-title class="margin-under">Login</mat-card-title>
         </mat-card-header>
@@ -14,10 +14,12 @@
                 <input matInput type="password" [formControl]="password" required />
                 <mat-error *ngIf="password.invalid">{{ getPasswordError() }}</mat-error>
             </mat-form-field>
-            <button mat-raised-button class="margin-right" color="primary" (click)="submit()">
-                Login
-            </button>
-            <button mat-button routerLink="/">Back</button>
+            <div class="button-container">
+                <button mat-raised-button class="margin-right" color="primary" (click)="submit()">
+                    Login
+                </button>
+                <button mat-button routerLink="/">Back</button>
+            </div>
         </mat-card-content>
     </mat-card>
 </div>

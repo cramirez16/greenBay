@@ -2,7 +2,7 @@
   width: 100%;
 }
 
-.register-container {
+.login-container {
   display: flex;
   width: 100%;
   align-items: center;
@@ -15,11 +15,11 @@
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
-.register-container::-webkit-scrollbar {
+.login-container::-webkit-scrollbar {
   display: none;
 }
 
-.register-card {
+.login-card {
   max-width: 400px;
   padding: 20px;
 }
@@ -32,12 +32,19 @@
   margin-right: 16px;
 }
 
+.button-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
 @media (max-width: 450px) {
-  .register-container {
+  .login-container {
     height: calc(100vh - 144px - 30px);
   }
 
-  .register-card {
+  .login-card {
     max-width: 300px;
     padding: 20px;
   }

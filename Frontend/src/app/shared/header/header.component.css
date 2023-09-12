@@ -36,7 +36,9 @@ h1 {
 }
 
 button:hover {
-  background-color: rgba(10, 10, 10, 0.5);
+  /* background-color: rgba(10, 10, 10, 0.5); */
+  background-color: rgb(231, 207, 135);
+  color: black;
 }
 
 .cart-count-badge {

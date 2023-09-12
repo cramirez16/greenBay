@@ -1,0 +1,4 @@
+To generate a project dependency graph:
+install: npm install -g ts-depgraph
+run: ts-depgraph
+view: depgraph.html
