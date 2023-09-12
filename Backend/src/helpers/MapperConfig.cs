@@ -13,13 +13,16 @@ namespace src.helpers
     {
         public MapperConfig()
         {
+            // <src,des>
             CreateMap<UserResponseDto, User>().ReverseMap();
 
             CreateMap<Bid, BidResponseDto>()
                 .ForMember(dest => dest.BiderName, opt => opt.MapFrom(src => src.Bider!.Name));
 
+            CreateMap<ItemRequestDto, Item>();
+
             CreateMap<Item, ItemResponseDto>()
-             .ForMember(dest => dest.SellerName, opt => opt.MapFrom(src => src.Seller!.Name))
+                 .ForMember(dest => dest.SellerName, opt => opt.MapFrom(src => src.Seller!.Name))
              .ForMember(dest => dest.Bids, opt => opt.MapFrom(src => src.Bids)); // Map the Bids property
 
             CreateMap<Bid, BidRequestDto>().ReverseMap();

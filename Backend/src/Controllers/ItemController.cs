@@ -45,7 +45,7 @@ namespace src.Controllers
         }
 
         [HttpGet("{id}")]
-        // [Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> GetItemById([FromRoute] int id)
         {
             Item? item = await _itemRepo.GetItemByIdAsync(id);
@@ -90,9 +90,11 @@ namespace src.Controllers
         [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> GetItemsPaginated([FromQuery] Parameters parameters)
         {
-
-            PagedList<Item> items = await _itemRepo.GetItemsPaginatedAsync(parameters);
+            // whitout pagination
             // List<Item>? items = await _itemRepo.GetItemsAsync();
+
+            // with pagination
+            PagedList<Item> items = await _itemRepo.GetItemsPaginatedAsync(parameters);
             var itemsResponseDto = _automapper.Map<List<ItemResponseDto>>(items);
             _logger.LogInformation("Items list pagenated sent.");
             return Ok(new { itemsPaginated = itemsResponseDto, totalElements = items.MetaData.TotalCount });
