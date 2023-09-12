@@ -25,7 +25,6 @@ namespace src.Models
         [Required]
         public required decimal Price { get; set; }
 
-
         public decimal Bid { get; set; } = 0m;
         [Required]
         public required bool IsSellable { get; set; } = true;

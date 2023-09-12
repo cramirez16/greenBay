@@ -12,6 +12,8 @@ using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
 using src.Services.IServices;
+using src.Models.Specifications;
+using src.Repository.IRepository;
 
 namespace src.Controllers
 {
@@ -23,18 +25,21 @@ namespace src.Controllers
         private readonly ILogger<UserController> _logger;
         private readonly IJWTService _tokenHandler;
         private readonly IMapper _automapper;
+        private readonly IUserRepository _userRepo;
 
         public UserController(
             GreenBayDbContext context,
             IJWTService tokenHandler,
             ILogger<UserController> logger,
-            IMapper automapper
+            IMapper automapper,
+            IUserRepository userRepo
         )
         {
             _context = context;
             _tokenHandler = tokenHandler;
             _logger = logger;
             _automapper = automapper;
+            _userRepo = userRepo;
         }
 
         [HttpPost("login")]
@@ -59,9 +64,7 @@ namespace src.Controllers
             }
 
             // Read from the database the user data with the email = loginDto.Email 
-            User? userByEmail = await _context.TblUsers.FirstOrDefaultAsync(
-                user => user.Email == loginDto.Email
-            );
+            User? userByEmail = await _userRepo.FindUserByEmail(loginDto.Email);
 
             // Given the username is not existing, 
             // the user can't sign in and the application displays a message about it
@@ -119,9 +122,8 @@ namespace src.Controllers
                 return BadRequest(new { missingPassword = true });
             }
 
-            var userByEmail = await _context.TblUsers.FirstOrDefaultAsync(
-                user => user.Email == request.Email
-            );
+            var userByEmail = await _userRepo.FindUserByEmail(request.Email);
+
             if (userByEmail != null)
             {
                 _logger.LogInformation("Register rejected, email already exists.");
@@ -140,8 +142,9 @@ namespace src.Controllers
                 CreationDate = DateTime.UtcNow,
                 UpdateDate = DateTime.UtcNow,
             };
-            await _context.TblUsers.AddAsync(createdUser);
-            await _context.SaveChangesAsync();
+
+            await _userRepo.AddUser(createdUser);
+            await _userRepo.SaveToDbAsync();
 
             var createdUserDto = new RegisterResponseDto
             {
@@ -157,11 +160,12 @@ namespace src.Controllers
         [HttpGet()] // localhost/api/User
         [Authorize(Roles = "Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> List()
+        public async Task<ActionResult<IEnumerable<UserResponseDto>>> List()
         {
-            var users = await _context.TblUsers.ToListAsync();
+            IEnumerable<User> users = await _userRepo.GetUsers();
+
             _logger.LogInformation("User list sent.");
-            return Ok(_automapper.Map<List<UserResponseDto>>(users));
+            return Ok(_automapper.Map<IEnumerable<UserResponseDto>>(users));
         }
 
         [HttpGet("{id}")] // localhost/api/User/{id}
@@ -169,7 +173,7 @@ namespace src.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetUser([FromRoute] int id)
+        public async Task<ActionResult<UserResponseDto>> GetUser([FromRoute] int id)
         {
             // id never is null, if id is not in the url, the request never arrive to this endpoint.
             // get localhost/api/User/{id} , no id => get localhost/api/User
@@ -178,7 +182,8 @@ namespace src.Controllers
                 claim => claim.Type == "userId"
             );
 
-            User? userById = await _context.TblUsers.FindAsync(id);
+            User? userById = await _userRepo.FindUserById(id);
+
             if (userById == null)
             {
                 _logger.LogInformation("User not found.");
@@ -215,7 +220,7 @@ namespace src.Controllers
                 claim => claim.Type == "userId"
             );
 
-            var userById = await _context.TblUsers.FindAsync(id);
+            var userById = await _userRepo.FindUserById(id);
 
             if (userById == null)
             {
@@ -238,9 +243,8 @@ namespace src.Controllers
                 return Forbid();
             }
 
-            var userByEmail = await _context.TblUsers.FirstOrDefaultAsync(
-                userFound => userFound.Email == user.Email
-            );
+            var userByEmail = await _userRepo.FindUserByEmail(user.Email);
+
             if (userByEmail != null && userByEmail.Id != id)
             {
                 _logger.LogInformation("Update user data fail, new email already in use.");
@@ -259,9 +263,9 @@ namespace src.Controllers
                 userById.Role = user.Role;
             }
 
-            await _context.SaveChangesAsync();
+            await _userRepo.SaveToDbAsync();
             _logger.LogInformation("Update user data was succes.");
-            return Ok();
+            return Ok(new { userUpdated = true });
         }
 
         [HttpDelete("{id}")]
@@ -271,7 +275,7 @@ namespace src.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
-            User? userById = await _context.TblUsers.FindAsync(id);
+            User? userById = await _userRepo.FindUserById(id);
             if (userById == null)
             {
                 _logger.LogInformation("Delete user data fail, user not found.");
@@ -296,16 +300,11 @@ namespace src.Controllers
                 _logger.LogInformation("Delete user forbidden.");
                 return Forbid();
             }
-            _context.TblUsers.Remove(userById);
-            _context.SaveChanges();
+            _userRepo.DeleteUser(userById);
+            _userRepo.SaveToDb();
+
             _logger.LogInformation("User delete suscefully.");
             return NoContent();
-        }
-
-        public class QueryParameters
-        {
-            public required int Id { get; set; }
-            public required string Password { get; set; }
         }
 
         [HttpGet("check")]
@@ -314,7 +313,7 @@ namespace src.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public async Task<IActionResult> PasswordCheck([FromQuery] QueryParameters parameters)
         {
-            var userFound = await _context.TblUsers.FindAsync(parameters.Id);
+            var userFound = await _userRepo.FindUserById(parameters.Id);
             if (userFound == null)
             {
                 _logger.LogInformation("Check password fail, user not found.");
@@ -341,7 +340,7 @@ namespace src.Controllers
                 return Forbid();
             }
             _logger.LogInformation("Password checked successfully");
-            return Ok();
+            return Ok(new { passwordChecked = true });
         }
     }
 }

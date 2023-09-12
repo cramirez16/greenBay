@@ -9,5 +9,11 @@ namespace src.Repository.IRepository
     public interface IUserRepository
     {
         Task<User?> FindUserById(int id);
+        Task<User?> FindUserByEmail(string email);
+        Task AddUser(User newUser);
+        Task SaveToDbAsync();
+        Task<IEnumerable<User>> GetUsers();
+        void SaveToDb();
+        void DeleteUser(User user);
     }
 }

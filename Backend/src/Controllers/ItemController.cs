@@ -34,70 +34,114 @@ namespace src.Controllers
             _ibidRepo = ibidRepo;
         }
 
-        [HttpGet]
+        [HttpGet] //http://localhost:5000/api/item
         [Authorize(Roles = "Admin,User")]
-        public async Task<IActionResult> GetItems()
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<ItemResponseDto>>> GetItems()
+        // Using IEnumerable (readonly) instead List ( add & remove methods not needed). 
         {
-            List<Item>? items = await _itemRepo.GetItemsAsync();
-            var itemsResponseDto = _automapper.Map<List<ItemResponseDto>>(items);
-            _logger.LogInformation("Items list sent.");
-            return Ok(itemsResponseDto);
+            try
+            {
+                IEnumerable<Item>? items = await _itemRepo.GetItemsAsync();
+                var itemsResponseDto = _automapper.Map<IEnumerable<ItemResponseDto>>(items);
+                _logger.LogInformation("Items list sent.");
+                return Ok(itemsResponseDto);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status503ServiceUnavailable, "An unexpected error occurred. Please try again later.");
+            }
+
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id}")] //http://localhost:5000/api/item/{id}
         [Authorize(Roles = "Admin,User")]
-        public async Task<IActionResult> GetItemById([FromRoute] int id)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<ItemResponseDto>> GetItemById([FromRoute] int id)
         {
-            Item? item = await _itemRepo.GetItemByIdAsync(id);
-
-            if (item == null)
+            try
             {
-                _logger.LogInformation("Item not found.");
-                return NotFound(new { itemNotFound = true });
-            }
+                Item? item = await _itemRepo.GetItemByIdAsync(id);
 
-            var itemResponseDto = _automapper.Map<ItemResponseDto>(item);
-
-            var biderIds = itemResponseDto.Bids!.Select(bid => bid.BiderId).ToList();
-
-            // Retrieve bidder names using the repository 
-            var bidderNames = await _ibidRepo.GetBidderNamesAsync(biderIds);
-
-            // Update BidResponseDto objects with bidder names
-            foreach (var bid in itemResponseDto.Bids!)
-            {
-                if (bidderNames.TryGetValue(bid.BiderId, out var bidderName))
+                if (item == null)
                 {
-                    bid.BiderName = bidderName;
+                    _logger.LogInformation("Item not found.");
+                    return NotFound(new { itemNotFound = true });
                 }
+
+                var itemResponseDto = _automapper.Map<ItemResponseDto>(item);
+
+                var biderIds = itemResponseDto.Bids!.Select(bid => bid.BiderId).ToList();
+
+                // Retrieve bidder names using the repository 
+                var bidderNames = await _ibidRepo.GetBidderNamesAsync(biderIds);
+
+                // Update BidResponseDto objects with bidder names
+                foreach (var bid in itemResponseDto.Bids!)
+                {
+                    if (bidderNames.TryGetValue(bid.BiderId, out var bidderName))
+                    {
+                        bid.BiderName = bidderName;
+                    }
+                }
+
+                _logger.LogInformation("Item data sent.");
+                return Ok(itemResponseDto);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status503ServiceUnavailable, "An unexpected error occurred. Please try again later.");
             }
 
-            _logger.LogInformation("Item data sent.");
-            return Ok(itemResponseDto);
         }
 
         [HttpPost]
         [Authorize(Roles = "Admin,User")]
-        public async Task<IActionResult> PostItem([FromBody] ItemRequestDto itemRequestDto)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //in body { 'itemRequestDto', object }, url: http://localhost:5000/api/item 
+        public async Task<ActionResult<ItemResponseDto>> PostItem([FromBody] ItemRequestDto itemRequestDto)
         {
-            Item? itemEntities = _automapper.Map<Item>(itemRequestDto);
-            await _itemRepo.SaveItemAsync(itemEntities);
-            _logger.LogInformation("Created new item.");
-            return Ok(_automapper.Map<ItemResponseDto>(itemEntities));
+            try
+            {
+                Item? itemEntities = _automapper.Map<Item>(itemRequestDto);
+                await _itemRepo.SaveItemAsync(itemEntities);
+                _logger.LogInformation("Created new item.");
+                return Ok(_automapper.Map<ItemResponseDto>(itemEntities));
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status503ServiceUnavailable, "An unexpected error occurred. Please try again later.");
+            }
         }
 
-        [HttpGet("Paginated")] // /api/item/paginated
+        [HttpGet("Paginated")]
         [Authorize(Roles = "Admin,User")]
-        public async Task<IActionResult> GetItemsPaginated([FromQuery] Parameters parameters)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //url: http://localhost:5000/api/item/paginated?pageNumber=1&pageSize=3
+        public async Task<ActionResult<IEnumerable<ItemResponseDto>>> GetItemsPaginated([FromQuery] Parameters parameters)
         {
-            // whitout pagination
-            // List<Item>? items = await _itemRepo.GetItemsAsync();
+            if (parameters.PageNumber <= 0 || parameters.PageSize <= 0)
+            {
+                return BadRequest(new { parametersError = "Invalid parameters" });
+            }
+            try
+            {
+                // whitout pagination
+                // List<Item>? items = await _itemRepo.GetItemsAsync();
 
-            // with pagination
-            PagedList<Item> items = await _itemRepo.GetItemsPaginatedAsync(parameters);
-            var itemsResponseDto = _automapper.Map<List<ItemResponseDto>>(items);
-            _logger.LogInformation("Items list pagenated sent.");
-            return Ok(new { itemsPaginated = itemsResponseDto, totalElements = items.MetaData.TotalCount });
+                // with pagination
+                PagedList<Item> items = await _itemRepo.GetItemsPaginatedAsync(parameters);
+                var itemsResponseDto = _automapper.Map<IEnumerable<ItemResponseDto>>(items);
+                _logger.LogInformation("Items list pagenated sent.");
+                return Ok(new { itemsPaginated = itemsResponseDto, totalElements = items.MetaData.TotalCount });
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status503ServiceUnavailable, "An unexpected error occurred. Please try again later.");
+            }
         }
     }
 }
