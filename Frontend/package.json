@@ -10,7 +10,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "jest --verbose",
     "test:coverage": "jest --coverage",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "test:jest--u": "jest --updateSnapshot"
   },
   "private": true,
   "dependencies": {
