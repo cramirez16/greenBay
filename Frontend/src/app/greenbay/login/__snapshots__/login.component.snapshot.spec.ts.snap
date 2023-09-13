@@ -2,13 +2,13 @@
 
 exports[`[snapshot] LoginComponent [snapshot] should renders markup to snapshot 1`] = `
 <app-login
-  accountService$={[Function Object]}
-  dialog={[Function Object]}
+  _accountService={[Function Object]}
+  _dialog={[Function Object]}
+  _jwtDecoder={[Function MockJwtDecoderService]}
+  _router={[Function MockRouter]}
+  _userValidator={[Function UserValidationService]}
   email={[Function FormControl2]}
-  jwtDecoder={[Function MockJwtDecoderService]}
   password={[Function FormControl2]}
-  router={[Function MockRouter]}
-  userValidator={[Function UserValidationService]}
 >
   <div
     class="login-container"
