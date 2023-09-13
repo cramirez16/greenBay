@@ -18,20 +18,57 @@ import { MessagePopupComponent } from '../message-popup/message-popup.component'
 export class LoginComponent {
   email = new FormControl('', [
     Validators.required,
-    this.userValidator.validEmail,
+    this._userValidator.validEmail,
   ]);
   password = new FormControl('', [
     Validators.required,
-    this.userValidator.validPassword,
+    this._userValidator.validPassword,
   ]);
 
   constructor(
-    private accountService$: AccountService,
-    private jwtDecoder: JwtDecoderService,
-    private userValidator: UserValidationService,
-    private router: Router,
-    private dialog: MatDialog
+    private _accountService: AccountService,
+    private _jwtDecoder: JwtDecoderService,
+    private _userValidator: UserValidationService,
+    private _router: Router,
+    private _dialog: MatDialog
   ) {}
+
+  submit() {
+    this.email.markAsTouched();
+    this.password.markAsTouched();
+
+    const formIsValid = this.email.valid && this.password.valid;
+
+    if (formIsValid) {
+      const model: IUserLoginRequestDto = {
+        email: this.email.value!,
+        password: this.password.value!,
+      };
+      //this.accountService$ typeof Observable<IUserLoginResponseDto>
+      // await this.accountService$.login(parameter1,...) Promises<IUserLoginResponseDto>
+      this._accountService.login(model).subscribe({
+        next: (response: IUserLoginResponseDto) => {
+          // response JsonString deserialize into IUserLoginResponseDto object type.
+          // decode the jwt string and store the claims into browser localStorage
+          this._jwtDecoder.decode(response.tokenKey);
+          this._router.navigate(['items']);
+        },
+        error: (response: HttpErrorResponse) => {
+          const dialogData = {
+            title: '',
+            description: '',
+          };
+          dialogData.title = response.status === 0 ? '' : 'Login failed';
+          dialogData.description =
+            response.status === 0 ? 'Network Error' : 'Wrong credentials';
+          // }
+          this._dialog.open(MessagePopupComponent, {
+            data: dialogData,
+          });
+        },
+      });
+    }
+  }
 
   getErrorMessage(
     control: FormControl,
@@ -61,42 +98,5 @@ export class LoginComponent {
       passwordNumber: 'Password must contain a number',
       passwordCase: 'Password must contain upper and lower case',
     });
-  }
-
-  submit() {
-    this.email.markAsTouched();
-    this.password.markAsTouched();
-
-    const formIsValid = this.email.valid && this.password.valid;
-
-    if (formIsValid) {
-      const model: IUserLoginRequestDto = {
-        email: this.email.value!,
-        password: this.password.value!,
-      };
-      //this.accountService$ typeof Observable<IUserLoginResponseDto>
-      // await this.accountService$.login(parameter1,...) Promises<IUserLoginResponseDto>
-      this.accountService$.login(model).subscribe({
-        next: (response: IUserLoginResponseDto) => {
-          // response JsonString deserialize into IUserLoginResponseDto object type.
-          // decode the jwt string and store the claims into browser localStorage
-          this.jwtDecoder.decode(response.tokenKey);
-          this.router.navigate(['items']);
-        },
-        error: (response: HttpErrorResponse) => {
-          const dialogData = {
-            title: '',
-            description: '',
-          };
-          dialogData.title = response.status === 0 ? '' : 'Login failed';
-          dialogData.description =
-            response.status === 0 ? 'Network Error' : 'Wrong credentials';
-          // }
-          this.dialog.open(MessagePopupComponent, {
-            data: dialogData,
-          });
-        },
-      });
-    }
   }
 }

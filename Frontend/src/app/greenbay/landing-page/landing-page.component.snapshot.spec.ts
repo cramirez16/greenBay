@@ -16,7 +16,7 @@ describe('LandingPageComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should renders markup to snapshot', () => {
+  it('[snapshot] should renders markup to snapshot', () => {
     expect(fixture).toMatchSnapshot();
   });
 });
