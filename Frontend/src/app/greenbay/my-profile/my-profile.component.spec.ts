@@ -12,6 +12,13 @@ describe('MyProfileComponent', () => {
   let fixture: ComponentFixture<MyProfileComponent>;
 
   beforeEach(() => {
+    // mockMatDialog = {
+    //   open: jest.fn(),
+    // } as unknown as MatDialog;
+
+    // mockMatSnackBar = {
+    //   open: jest.fn(),
+    // } as unknown as MatSnackBar;
     TestBed.configureTestingModule({
       declarations: [MyProfileComponent],
       imports: [
@@ -20,6 +27,10 @@ describe('MyProfileComponent', () => {
         NoopAnimationsModule,
         BrowserAnimationsModule,
       ],
+      // providers: [
+      //   { provide: MatDialog, useValue: mockMatDialog },
+      //   { provide: MatSnackBar, useValue: mockMatSnackBar },
+      // ],
     });
     fixture = TestBed.createComponent(MyProfileComponent);
     component = fixture.componentInstance;

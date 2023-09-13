@@ -6,6 +6,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { IUserRegisterRequestDto } from '../models/IUserRegisterRequestDto';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { Router } from '@angular/router';
+import {
+  DialogContent,
+  DialogPopupComponent,
+} from '../dialog-popup/dialog-popup.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-my-profile',
@@ -16,14 +21,14 @@ export class MyProfileComponent implements OnInit {
   snackBarRef: any;
   name = new FormControl('', [
     Validators.required,
-    this.userValidator.validName,
+    this._userValidator.validName,
   ]);
   email = new FormControl('', [
     Validators.required,
-    this.userValidator.validEmail,
+    this._userValidator.validEmail,
   ]);
   oldPassword = new FormControl('', [Validators.required]);
-  password = new FormControl('', [this.userValidator.validPassword]);
+  password = new FormControl('', [this._userValidator.validPassword]);
   confirmPassword = new FormControl('', [
     (control) => {
       if (this.password.value !== '' && !control.value) {
@@ -31,18 +36,19 @@ export class MyProfileComponent implements OnInit {
       }
       return null;
     },
-    this.userValidator.validPasswordMatch(this.password),
+    this._userValidator.validPasswordMatch(this.password),
   ]);
 
   updateSuccess = false;
 
   constructor(
-    private userValidator: UserValidationService,
-    private accountService: AccountService,
-    private storage: LocalStorageService,
+    private _userValidator: UserValidationService,
+    private _accountService: AccountService,
+    private _storage: LocalStorageService,
     private _snackBar: MatSnackBar,
     //private snackBarRef: MatSnackBarRef<MyProfileComponent>,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   getErrorMessage(
@@ -124,8 +130,8 @@ export class MyProfileComponent implements OnInit {
     this.name.markAsTouched();
     this.email.markAsTouched();
     this.oldPassword.markAsTouched();
-    this.accountService
-      .checkPassword(this.storage.get('userId'), this.oldPassword.value!)
+    this._accountService
+      .checkPassword(this._storage.get('userId'), this.oldPassword.value!)
       .subscribe({
         next: async () => {
           let updatedPasswordIsValid = true;
@@ -140,21 +146,21 @@ export class MyProfileComponent implements OnInit {
 
           if (userInfoIsValid && updatedPasswordIsValid) {
             const updatedUser = {
-              id: this.storage.get('userId'),
+              id: this._storage.get('userId'),
               name: this.name.value,
               password:
                 this.password.value !== '' && this.confirmPassword.value !== ''
                   ? this.password.value
                   : this.oldPassword.value,
               email: this.email.value,
-              role: this.storage.get('isAdmin') === 'true' ? 'Admin' : 'User',
+              role: this._storage.get('isAdmin') === 'true' ? 'Admin' : 'User',
             } as IUserRegisterRequestDto;
 
-            this.accountService
-              .updateUser(this.storage.get('userId')!, updatedUser)
+            this._accountService
+              .updateUser(this._storage.get('userId')!, updatedUser)
               .subscribe({
                 next: () => {
-                  this.storage.set('name', this.email.value!);
+                  this._storage.set('name', this.email.value!);
                 },
                 error: () => {
                   this.email.setErrors({ emailExist: true });
@@ -177,17 +183,58 @@ export class MyProfileComponent implements OnInit {
       });
   }
 
-  deleteUserConfirm() {
-    this.accountService.deleteUser(this.storage.get('userId'));
-  }
-
   ngOnInit() {
-    this.accountService.getUserInfo(this.storage.get('userId')!).subscribe({
+    this._accountService.getUserInfo(this._storage.get('userId')!).subscribe({
       next: (response: any) => {
         this.name.setValue(response.name);
         this.email.setValue(response.email);
       },
       error: (res) => {},
+    });
+  }
+
+  deleteUser() {
+    const deleteDialog: DialogContent = {
+      title: 'Remove account',
+      description:
+        'Please confirm that you want to remove your account and all your personal data.',
+      buttons: [
+        {
+          buttonText: 'Remove',
+          buttonColor: 'warn',
+          func: () => {
+            this._accountService
+              .deleteUser(this._storage.get('userId')!)
+              .subscribe({
+                next: () => {
+                  this._accountService.logout();
+                  this.router.navigateByUrl('/');
+                  this.dialog.closeAll();
+                },
+                error: (error: Error) => {
+                  this.dialog.closeAll();
+                  this._snackBar.open(
+                    `Something went wrong. Try again later.`,
+                    '',
+                    {
+                      duration: 10000,
+                    }
+                  );
+                },
+              });
+          },
+        },
+        {
+          buttonText: 'Cancel',
+          buttonColor: 'primary',
+          func: () => {
+            this.dialog.closeAll();
+          },
+        },
+      ],
+    };
+    this.dialog.open(DialogPopupComponent, {
+      data: deleteDialog,
     });
   }
 }

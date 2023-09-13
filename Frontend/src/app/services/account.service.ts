@@ -1,9 +1,6 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from './local-storage.service';
-import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from '../../environments/environment';
 import { IUserRegisterRequestDto } from '../greenbay/models/IUserRegisterRequestDto';
 import { IUserRegisterResponseDto } from '../greenbay/models/IUserRegisterResponseDto';
@@ -11,23 +8,13 @@ import { Observable } from 'rxjs';
 import { IUserLoginRequestDto } from '../greenbay/models/IUserLoginRequestDto';
 import { IUserLoginResponseDto } from '../greenbay/models/IUserLoginResponseDto';
 import { IUserResponseDto } from '../greenbay/models/IUserResponseDto';
-import {
-  DialogContent,
-  DialogPopupComponent,
-} from '../greenbay/dialog-popup/dialog-popup.component';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AccountService {
   baseURL = `${environment.SERVER_URL}/api/user/`;
-  constructor(
-    private http: HttpClient,
-    private storage: LocalStorageService,
-    private dialog: MatDialog,
-    private router: Router,
-    private snackBar: MatSnackBar
-  ) {}
+  constructor(private http: HttpClient, private storage: LocalStorageService) {}
 
   register(
     user: IUserRegisterRequestDto
@@ -78,48 +65,7 @@ export class AccountService {
     return this.storage.get('isAdmin') === true;
   }
 
-  deleteUser(userId: number) {
-    const deleteUrl = `${this.baseURL}${userId}`;
-    const deleteDialog: DialogContent = {
-      title: 'Remove account',
-      description:
-        'Please confirm that you want to remove your account and all your personal data.',
-      buttons: [
-        {
-          buttonText: 'Remove',
-          buttonColor: 'warn',
-          func: () => {
-            this.http.delete(deleteUrl).subscribe({
-              next: () => {
-                this.deleteUser(userId);
-                this.logout();
-                this.router.navigateByUrl('/items');
-                this.dialog.closeAll();
-              },
-              error: (error: Error) => {
-                this.dialog.closeAll();
-                this.snackBar.open(
-                  `Something went wrong. Try again later.`,
-                  '',
-                  {
-                    duration: 10000,
-                  }
-                );
-              },
-            });
-          },
-        },
-        {
-          buttonText: 'Cancel',
-          buttonColor: 'primary',
-          func: () => {
-            this.dialog.closeAll();
-          },
-        },
-      ],
-    };
-    this.dialog.open(DialogPopupComponent, {
-      data: deleteDialog,
-    });
+  deleteUser(userId: number): Observable<object> {
+    return this.http.delete(this.baseURL + userId);
   }
 }
