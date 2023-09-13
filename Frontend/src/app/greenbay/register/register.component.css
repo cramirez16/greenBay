@@ -32,6 +32,13 @@
   margin-right: 16px;
 }
 
+.button-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-evenly;
+}
+
 @media (max-width: 450px) {
   .register-container {
     height: calc(100vh - 144px - 30px);

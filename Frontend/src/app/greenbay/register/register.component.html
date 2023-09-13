@@ -26,10 +26,12 @@
                     {{ getPasswordMatchError() }}
                 </mat-error>
             </mat-form-field>
-            <button mat-raised-button class="margin-right" color="primary" (click)="sendForm()">
-                Send registration
-            </button>
-            <button mat-button (click)="navigateToLandingPage()">Back</button>
+            <div class="button-container">
+                <button mat-raised-button class="margin-right" color="primary" (click)="sendForm()">
+                    Send registration
+                </button>
+                <button mat-button (click)="navigateToLandingPage()">Back</button>
+            </div>
         </mat-card-content>
     </mat-card>
 </div>
