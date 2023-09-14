@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { ItemValidationService } from '../../services/item-validation.service';
 import { MatDialog } from '@angular/material/dialog';
-import { BannerBidComponent } from '../banner-bid/banner-bid.component';
+import { GenericBannerComponent } from '../generic-banner/generic-banner.component';
 
 @Component({
   selector: 'app-search',
@@ -80,7 +80,7 @@ export class SearchComponent {
       error: (error) => {
         if (error.error.itemNotFound) {
           this.bannerItem({
-            bidAmount: parseInt(this.searchId.value!),
+            itemId: parseInt(this.searchId.value!),
             message: 'Item not found!',
           });
         }
@@ -88,9 +88,11 @@ export class SearchComponent {
     });
   }
 
-  bannerItem(bid: { bidAmount: number; message: string }) {
-    this.dialog.open(BannerBidComponent, {
-      data: bid,
+  bannerItem(templateText: { itemId: number; message: string }) {
+    const message1 = `Id = \n${templateText.itemId}\n`;
+    const message2 = `${templateText.message}\n`;
+    this.dialog.open(GenericBannerComponent, {
+      data: { titleSection: message1, messageSection: message2 },
     });
   }
 

@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { AccountService } from '../../services/account.service';
 import { UserValidationService } from '../../services/user-validation.service';
 import { IUserRegisterRequestDto } from '../models/IUserRegisterRequestDto';
-import { BannerComponent } from '../banner/banner.component';
+import { GenericBannerComponent } from '../generic-banner/generic-banner.component';
 
 @Component({
   selector: 'app-register',
@@ -124,8 +124,10 @@ export class RegisterComponent {
   }
 
   bannerUser(user: IUserRegisterRequestDto) {
-    this.dialog.open(BannerComponent, {
-      data: user,
+    const message1 = `Thank you for registering!\nHello ${user.name}\n`;
+    const message2 = `You just have been registered with\n${user.email}\nto GreenBay Service!\n`;
+    this.dialog.open(GenericBannerComponent, {
+      data: { titleSection: message1, messageSection: message2 },
     });
   }
 }

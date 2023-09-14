@@ -7,8 +7,8 @@ import { LocalStorageService } from '../../services/local-storage.service';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ItemValidationService } from '../../services/item-validation.service';
 import { FormControl, Validators } from '@angular/forms';
-import { BannerItemCreatedComponent } from '../banner-item-created/banner-item-created.component';
 import { MatDialog } from '@angular/material/dialog';
+import { GenericBannerComponent } from '../generic-banner/generic-banner.component';
 
 @Component({
   selector: 'app-create-item',
@@ -134,8 +134,10 @@ export class CreateItemComponent {
   }
 
   bannerItem(item: IItemRequestDto) {
-    this.dialog.open(BannerItemCreatedComponent, {
-      data: item,
+    const message1 = `You just have been add a new item\ntitle: ${item.name}\n`;
+    const message2 = `${item.description}\nto GreenBay Service!\nThank you for add a new item!\n`;
+    this.dialog.open(GenericBannerComponent, {
+      data: { titleSection: message1, messageSection: message2 },
     });
   }
 

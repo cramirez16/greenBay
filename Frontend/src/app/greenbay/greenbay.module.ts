@@ -13,15 +13,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { AccountService } from '../services/account.service';
-import { BannerComponent } from './banner/banner.component';
 import { MessagePopupComponent } from './message-popup/message-popup.component';
 import { ItemsComponent } from './items/items.component';
 import { MyProfileComponent } from './my-profile/my-profile.component';
 import { CreateItemComponent } from './create-item/create-item.component';
 import { DetailedViewComponent } from './detailed-view/detailed-view.component';
-import { BannerItemCreatedComponent } from './banner-item-created/banner-item-created.component';
-import { BannerBidComponent } from './banner-bid/banner-bid.component';
 import { SearchComponent } from './search/search.component';
+import { GenericBannerComponent } from './generic-banner/generic-banner.component';
 
 @NgModule({
   declarations: [
@@ -29,12 +27,10 @@ import { SearchComponent } from './search/search.component';
     RegisterComponent,
     LandingPageComponent,
     DialogPopupComponent,
-    BannerComponent,
     MessagePopupComponent,
     MyProfileComponent,
     CreateItemComponent,
-    BannerItemCreatedComponent,
-    BannerBidComponent,
+    GenericBannerComponent,
   ],
   imports: [
     CommonModule,

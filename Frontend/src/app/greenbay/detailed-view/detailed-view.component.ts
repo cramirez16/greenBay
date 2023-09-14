@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 import { FormControl, Validators } from '@angular/forms';
 import { ItemValidationService } from '../../services/item-validation.service';
 import { MatDialog } from '@angular/material/dialog';
-import { BannerBidComponent } from '../banner-bid/banner-bid.component';
+import { GenericBannerComponent } from '../generic-banner/generic-banner.component';
 
 @Component({
   selector: 'app-detailed-view',
@@ -131,8 +131,10 @@ export class DetailedViewComponent implements OnInit {
   }
 
   bannerItem(bid: { bidAmount: number; message: string }) {
-    this.dialog.open(BannerBidComponent, {
-      data: bid,
+    const message1 = `Bid amount: ${bid.bidAmount}\n`;
+    const message2 = `${bid.message}\n`;
+    this.dialog.open(GenericBannerComponent, {
+      data: { titleSection: message1, messageSection: message2 },
     });
   }
 
