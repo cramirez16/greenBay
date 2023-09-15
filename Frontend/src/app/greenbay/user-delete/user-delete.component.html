@@ -1,0 +1,22 @@
+<div class="user-info-container">
+    <mat-card class="userinfo-card">
+        <mat-card-title class="margin-under">Personal Data</mat-card-title>
+        <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput [formControl]="name" readonly />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>E-mail</mat-label>
+            <input matInput [formControl]="email" readonly />
+        </mat-form-field>
+        <mat-divider class="margin-under" />
+        <mat-card-title class="margin-under">Password</mat-card-title>
+        <h3>Please confirm that you want to delete / unregister from our services.</h3>
+        <mat-card-footer class="buttonBottom">
+            <button mat-raised-button color="warn" class="user-delete-button" (click)="deleteUser()">
+                Delete Account
+            </button>
+            <button mat-button routerLink="/">Cancel</button>
+        </mat-card-footer>
+    </mat-card>
+</div>

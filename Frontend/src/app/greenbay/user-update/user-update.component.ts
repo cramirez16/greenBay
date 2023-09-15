@@ -2,23 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { UserValidationService } from '../../services/user-validation.service';
 import { AccountService } from '../../services/account.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { IUserRegisterRequestDto } from '../models/IUserRegisterRequestDto';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { Router } from '@angular/router';
-import {
-  DialogContent,
-  DialogPopupComponent,
-} from '../dialog-popup/dialog-popup.component';
 import { MatDialog } from '@angular/material/dialog';
+import { GenericBannerComponent } from '../generic-banner/generic-banner.component';
 
 @Component({
-  selector: 'app-my-profile',
-  templateUrl: './my-profile.component.html',
-  styleUrls: ['./my-profile.component.css'],
+  selector: 'app-user-update',
+  templateUrl: './user-update.component.html',
+  styleUrls: ['./user-update.component.css'],
 })
-export class MyProfileComponent implements OnInit {
-  snackBarRef: any;
+export class UserUpdateComponent implements OnInit {
   name = new FormControl('', [
     Validators.required,
     this._userValidator.validName,
@@ -40,13 +35,10 @@ export class MyProfileComponent implements OnInit {
   ]);
 
   updateSuccess = false;
-
   constructor(
     private _userValidator: UserValidationService,
     private _accountService: AccountService,
     private _storage: LocalStorageService,
-    private _snackBar: MatSnackBar,
-    //private snackBarRef: MatSnackBarRef<MyProfileComponent>,
     private router: Router,
     private dialog: MatDialog
   ) {}
@@ -117,15 +109,6 @@ export class MyProfileComponent implements OnInit {
       passwordMismatch: 'Passwords do not match',
     });
   }
-
-  openSnackBar(mensaje: string, accion: string) {
-    this!.snackBarRef = this!._snackBar.open(mensaje, accion, {
-      duration: 5000, // KYBC.Time in milliseconds.
-      verticalPosition: 'bottom', // KYBC.Posible values: 'top' | 'bottom'.
-      horizontalPosition: 'center', // KYBC.Posible values: 'start' | 'center' | 'end' | 'left' | 'right'.
-    });
-  }
-
   updateUser() {
     this.name.markAsTouched();
     this.email.markAsTouched();
@@ -170,10 +153,9 @@ export class MyProfileComponent implements OnInit {
             this.oldPassword.reset();
             this.password.reset();
             this.confirmPassword.reset();
-            this.openSnackBar('Account user data updated!', '');
-            this.snackBarRef.afterDismissed().subscribe(() => {
-              this.router.navigateByUrl('/items');
-            });
+
+            this.bannerUser();
+            this.router.navigateByUrl('/items');
           }
         },
         error: () => {
@@ -193,48 +175,10 @@ export class MyProfileComponent implements OnInit {
     });
   }
 
-  deleteUser() {
-    const deleteDialog: DialogContent = {
-      title: 'Remove account',
-      description:
-        'Please confirm that you want to remove your account and all your personal data.',
-      buttons: [
-        {
-          buttonText: 'Remove',
-          buttonColor: 'warn',
-          func: () => {
-            this._accountService
-              .deleteUser(this._storage.get('userId')!)
-              .subscribe({
-                next: () => {
-                  this._accountService.logout();
-                  this.router.navigateByUrl('/');
-                  this.dialog.closeAll();
-                },
-                error: (error: Error) => {
-                  this.dialog.closeAll();
-                  this._snackBar.open(
-                    `Something went wrong. Try again later.`,
-                    '',
-                    {
-                      duration: 10000,
-                    }
-                  );
-                },
-              });
-          },
-        },
-        {
-          buttonText: 'Cancel',
-          buttonColor: 'primary',
-          func: () => {
-            this.dialog.closeAll();
-          },
-        },
-      ],
-    };
-    this.dialog.open(DialogPopupComponent, {
-      data: deleteDialog,
+  bannerUser() {
+    const message1 = `'Account user data updated!'\n`;
+    this.dialog.open(GenericBannerComponent, {
+      data: { titleSection: message1, messageSection: '' },
     });
   }
 }
