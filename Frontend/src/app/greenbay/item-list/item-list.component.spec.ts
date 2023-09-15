@@ -7,7 +7,7 @@ import {
   NoopAnimationsModule,
 } from '@angular/platform-browser/animations';
 
-describe('ItemsComponent', () => {
+describe('ItemListComponent', () => {
   let component: ItemListComponent;
   let fixture: ComponentFixture<ItemListComponent>;
 

@@ -11,11 +11,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { MessagePopupComponent } from '../message-popup/message-popup.component';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
+  selector: 'app-user-login',
+  templateUrl: './user-login.component.html',
+  styleUrls: ['./user-login.component.css'],
 })
-export class LoginComponent {
+export class UserLoginComponent {
   email = new FormControl('', [
     Validators.required,
     this._userValidator.validEmail,

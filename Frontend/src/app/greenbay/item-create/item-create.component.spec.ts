@@ -7,7 +7,7 @@ import {
 } from '@angular/platform-browser/animations';
 import { MaterialModule } from '../../material/material.module';
 
-describe('CreateItemComponent', () => {
+describe('ItemCreateComponent', () => {
   let component: ItemCreateComponent;
   let fixture: ComponentFixture<ItemCreateComponent>;
 

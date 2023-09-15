@@ -12,7 +12,7 @@ import { IUserLoginRequestDto } from '../models/IUserLoginRequestDto';
 import { Observable, of, throwError } from 'rxjs';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { LoginComponent } from './login.component';
+import { UserLoginComponent } from './user-login.component';
 import { UserValidationService } from '../../services/user-validation.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
@@ -79,9 +79,9 @@ class MockJwtDecoderService {
   }
 }
 
-describe('LoginComponent Suscefull Login', () => {
-  let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
+describe('UserLoginComponent Suscefull Login', () => {
+  let component: UserLoginComponent;
+  let fixture: ComponentFixture<UserLoginComponent>;
   let accountService: AccountService;
   //const mockAccountService = new MockAccountService();
   let httpMock: HttpTestingController;
@@ -101,7 +101,7 @@ describe('LoginComponent Suscefull Login', () => {
     } as unknown as MatDialog;
 
     await TestBed.configureTestingModule({
-      declarations: [LoginComponent],
+      declarations: [UserLoginComponent],
       imports: [
         ReactiveFormsModule,
         MaterialModule,
@@ -121,7 +121,7 @@ describe('LoginComponent Suscefull Login', () => {
     }).compileComponents();
 
     httpMock = TestBed.inject(HttpTestingController);
-    fixture = TestBed.createComponent(LoginComponent);
+    fixture = TestBed.createComponent(UserLoginComponent);
     component = fixture.componentInstance;
 
     accountService = TestBed.inject(AccountService);
@@ -204,8 +204,8 @@ class MockAccountService {
 //------------------------------------------------------
 
 describe('LoginComponent with Network Error', () => {
-  let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
+  let component: UserLoginComponent;
+  let fixture: ComponentFixture<UserLoginComponent>;
   let mockAccountService: MockAccountService;
   let mockMatDialog: MatDialog;
 
@@ -225,7 +225,7 @@ describe('LoginComponent with Network Error', () => {
 
     await TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, MaterialModule, RouterTestingModule],
-      declarations: [LoginComponent],
+      declarations: [UserLoginComponent],
       providers: [
         LocalStorageService,
         UserValidationService,
@@ -236,7 +236,7 @@ describe('LoginComponent with Network Error', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LoginComponent);
+    fixture = TestBed.createComponent(UserLoginComponent);
     component = fixture.componentInstance;
   });
 
@@ -272,8 +272,8 @@ describe('LoginComponent with Network Error', () => {
 //------------------------------------------------------
 
 describe('LoginComponent with Unauthorized', () => {
-  let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
+  let component: UserLoginComponent;
+  let fixture: ComponentFixture<UserLoginComponent>;
   let mockAccountService: MockAccountService;
   let mockMatDialog: MatDialog;
 
@@ -292,7 +292,7 @@ describe('LoginComponent with Unauthorized', () => {
 
     await TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, MaterialModule, RouterTestingModule],
-      declarations: [LoginComponent],
+      declarations: [UserLoginComponent],
       providers: [
         LocalStorageService,
         UserValidationService,
@@ -303,7 +303,7 @@ describe('LoginComponent with Unauthorized', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LoginComponent);
+    fixture = TestBed.createComponent(UserLoginComponent);
     component = fixture.componentInstance;
   });
 

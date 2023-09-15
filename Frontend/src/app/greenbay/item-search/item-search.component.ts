@@ -11,7 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { GenericBannerComponent } from '../generic-banner/generic-banner.component';
 
 @Component({
-  selector: 'app-search',
+  selector: 'app-item-search',
   templateUrl: './item-search.component.html',
   styleUrls: ['./item-search.component.css'],
   standalone: true,

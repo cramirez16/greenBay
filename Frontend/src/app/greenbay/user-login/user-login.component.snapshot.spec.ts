@@ -12,7 +12,7 @@ import { IUserLoginRequestDto } from '../models/IUserLoginRequestDto';
 import { Observable, of, throwError } from 'rxjs';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { LoginComponent } from './login.component';
+import { UserLoginComponent } from './user-login.component';
 import { UserValidationService } from '../../services/user-validation.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
@@ -89,9 +89,9 @@ class MockJwtDecoderService {
   }
 }
 
-describe('[snapshot] LoginComponent', () => {
-  let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
+describe('[snapshot] UserLoginComponent', () => {
+  let component: UserLoginComponent;
+  let fixture: ComponentFixture<UserLoginComponent>;
   //let accountService: AccountService;
   //const mockAccountService = new MockAccountService();
   //let httpMock: HttpTestingController;
@@ -115,7 +115,7 @@ describe('[snapshot] LoginComponent', () => {
     } as unknown as MatDialog;
 
     TestBed.configureTestingModule({
-      declarations: [LoginComponent],
+      declarations: [UserLoginComponent],
       imports: [
         ReactiveFormsModule,
         MaterialModule,
@@ -134,7 +134,7 @@ describe('[snapshot] LoginComponent', () => {
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(LoginComponent);
+    fixture = TestBed.createComponent(UserLoginComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

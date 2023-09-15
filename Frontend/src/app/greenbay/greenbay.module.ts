@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginComponent } from './user-login/login.component';
+import { UserLoginComponent } from './user-login/user-login.component';
 import { MaterialModule } from '../material/material.module';
 import { FormlyModule } from '@ngx-formly/core';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
@@ -24,7 +24,7 @@ import { UserUpdateComponent } from './user-update/user-update.component';
 
 @NgModule({
   declarations: [
-    LoginComponent,
+    UserLoginComponent,
     RegisterComponent,
     LandingPageComponent,
     DialogPopupComponent,

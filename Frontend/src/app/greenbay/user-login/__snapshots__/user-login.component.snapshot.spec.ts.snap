@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`[snapshot] LoginComponent [snapshot] should renders markup to snapshot 1`] = `
+exports[`[snapshot] UserLoginComponent [snapshot] should renders markup to snapshot 1`] = `
 <app-login
   _accountService={[Function Object]}
   _dialog={[Function Object]}
