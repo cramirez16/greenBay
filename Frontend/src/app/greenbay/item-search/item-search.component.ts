@@ -12,12 +12,12 @@ import { GenericBannerComponent } from '../generic-banner/generic-banner.compone
 
 @Component({
   selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css'],
+  templateUrl: './item-search.component.html',
+  styleUrls: ['./item-search.component.css'],
   standalone: true,
   imports: [MaterialModule],
 })
-export class SearchComponent {
+export class ItemSearchComponent {
   searchId = new FormControl('', [
     Validators.required,
     this.itemValidator.validPrice,
