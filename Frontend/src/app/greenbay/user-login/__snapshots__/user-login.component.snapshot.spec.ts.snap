@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`[snapshot] UserLoginComponent [snapshot] should renders markup to snapshot 1`] = `
-<app-login
+<app-user-login
   _accountService={[Function Object]}
   _dialog={[Function Object]}
   _jwtDecoder={[Function MockJwtDecoderService]}
@@ -190,5 +190,5 @@ exports[`[snapshot] UserLoginComponent [snapshot] should renders markup to snaps
       </mat-card-content>
     </mat-card>
   </div>
-</app-login>
+</app-user-login>
 `;
