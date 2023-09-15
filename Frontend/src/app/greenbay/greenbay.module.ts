@@ -16,7 +16,7 @@ import { AccountService } from '../services/account.service';
 import { MessagePopupComponent } from './message-popup/message-popup.component';
 import { ItemListComponent } from './item-list/item-list.component';
 import { ItemCreateComponent } from './item-create/item-create.component';
-import { DetailedViewComponent } from './item-detailed-view/detailed-view.component';
+import { ItemDetailedViewComponent } from './item-detailed-view/item-detailed-view.component';
 import { ItemSearchComponent } from './item-search/item-search.component';
 import { GenericBannerComponent } from './generic-banner/generic-banner.component';
 import { UserDeleteComponent } from './user-delete/user-delete.component';
@@ -45,7 +45,7 @@ import { UserUpdateComponent } from './user-update/user-update.component';
     BrowserAnimationsModule,
     HttpClientModule,
     ItemListComponent,
-    DetailedViewComponent,
+    ItemDetailedViewComponent,
     ItemSearchComponent,
   ],
   providers: [AccountService],

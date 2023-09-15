@@ -12,13 +12,13 @@ import { MatDialog } from '@angular/material/dialog';
 import { GenericBannerComponent } from '../generic-banner/generic-banner.component';
 
 @Component({
-  selector: 'app-detailed-view',
-  templateUrl: './detailed-view.component.html',
-  styleUrls: ['./detailed-view.component.css'],
+  selector: 'app-item-detailed-view',
+  templateUrl: './item-detailed-view.component.html',
+  styleUrls: ['./item-detailed-view.component.css'],
   standalone: true,
   imports: [MaterialModule],
 })
-export class DetailedViewComponent implements OnInit {
+export class ItemDetailedViewComponent implements OnInit {
   bid = new FormControl('', [
     Validators.required,
     this.itemValidator.validPrice,

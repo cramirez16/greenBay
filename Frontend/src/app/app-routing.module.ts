@@ -5,7 +5,7 @@ import { LoginComponent } from './greenbay/user-login/login.component';
 import { RegisterComponent } from './greenbay/user-register/register.component';
 import { ItemListComponent } from './greenbay/item-list/item-list.component';
 import { ItemCreateComponent } from './greenbay/item-create/item-create.component';
-import { DetailedViewComponent } from './greenbay/item-detailed-view/detailed-view.component';
+import { ItemDetailedViewComponent } from './greenbay/item-detailed-view/item-detailed-view.component';
 import { ItemSearchComponent } from './greenbay/item-search/item-search.component';
 import { UserDeleteComponent } from './greenbay/user-delete/user-delete.component';
 import { UserUpdateComponent } from './greenbay/user-update/user-update.component';
@@ -24,7 +24,7 @@ const routes: Routes = [
   },
   {
     path: 'detailed-view',
-    component: DetailedViewComponent,
+    component: ItemDetailedViewComponent,
   },
   { path: '**', component: LandingPageComponent },
 ];

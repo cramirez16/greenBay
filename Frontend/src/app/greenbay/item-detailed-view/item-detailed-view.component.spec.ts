@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { DetailedViewComponent } from './detailed-view.component';
+import { ItemDetailedViewComponent } from './item-detailed-view.component';
 import { HttpClientModule } from '@angular/common/http';
 import {
   NoopAnimationsModule,
@@ -8,21 +8,21 @@ import {
 import { MaterialModule } from '../../material/material.module';
 
 describe('DetailedViewComponent', () => {
-  let component: DetailedViewComponent;
-  let fixture: ComponentFixture<DetailedViewComponent>;
+  let component: ItemDetailedViewComponent;
+  let fixture: ComponentFixture<ItemDetailedViewComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [],
       imports: [
-        DetailedViewComponent,
+        ItemDetailedViewComponent,
         HttpClientModule,
         MaterialModule,
         NoopAnimationsModule,
         BrowserAnimationsModule,
       ],
     });
-    fixture = TestBed.createComponent(DetailedViewComponent);
+    fixture = TestBed.createComponent(ItemDetailedViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
