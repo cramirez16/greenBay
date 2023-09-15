@@ -8,13 +8,13 @@ import { Router } from '@angular/router';
 import { PageEvent } from '@angular/material/paginator';
 
 @Component({
-  selector: 'app-items',
-  templateUrl: './items.component.html',
-  styleUrls: ['./items.component.css'],
+  selector: 'app-item-list',
+  templateUrl: './item-list.component.html',
+  styleUrls: ['./item-list.component.css'],
   standalone: true,
   imports: [MaterialModule],
 })
-export class ItemsComponent implements OnInit {
+export class ItemListComponent implements OnInit {
   // Store items list component which we can display after get the list from the server.
   itemsListComponent: IItemResponseDto[] = [];
   userMoney: number = this._localStorage.get('money');

@@ -14,10 +14,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { AccountService } from '../services/account.service';
 import { MessagePopupComponent } from './message-popup/message-popup.component';
-import { ItemsComponent } from './item-list/items.component';
+import { ItemListComponent } from './item-list/item-list.component';
 import { CreateItemComponent } from './item-create/create-item.component';
 import { DetailedViewComponent } from './item-detailed-view/detailed-view.component';
-import { SearchComponent } from './item-search/item-search.component';
+import { ItemSearchComponent } from './item-search/item-search.component';
 import { GenericBannerComponent } from './generic-banner/generic-banner.component';
 import { UserDeleteComponent } from './user-delete/user-delete.component';
 import { UserUpdateComponent } from './user-update/user-update.component';
@@ -44,9 +44,9 @@ import { UserUpdateComponent } from './user-update/user-update.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    ItemsComponent,
+    ItemListComponent,
     DetailedViewComponent,
-    Item - SearchComponent,
+    ItemSearchComponent,
   ],
   providers: [AccountService],
 })
