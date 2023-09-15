@@ -6,7 +6,7 @@ import { FormlyModule } from '@ngx-formly/core';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
 import { DialogPopupComponent } from './dialog-popup/dialog-popup.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
-import { RegisterComponent } from './user-register/register.component';
+import { UserRegisterComponent } from './user-register/user-register.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -25,7 +25,7 @@ import { UserUpdateComponent } from './user-update/user-update.component';
 @NgModule({
   declarations: [
     UserLoginComponent,
-    RegisterComponent,
+    UserRegisterComponent,
     LandingPageComponent,
     DialogPopupComponent,
     MessagePopupComponent,

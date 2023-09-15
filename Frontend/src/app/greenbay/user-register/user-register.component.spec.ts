@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RegisterComponent } from './register.component';
+import { UserRegisterComponent } from './user-register.component';
 import { MaterialModule } from '../../material/material.module';
 import { HttpClientModule } from '@angular/common/http';
 import {
@@ -7,13 +7,13 @@ import {
   NoopAnimationsModule,
 } from '@angular/platform-browser/animations';
 
-describe('RegisterComponent', () => {
-  let component: RegisterComponent;
-  let fixture: ComponentFixture<RegisterComponent>;
+describe('UserRegisterComponent', () => {
+  let component: UserRegisterComponent;
+  let fixture: ComponentFixture<UserRegisterComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [RegisterComponent],
+      declarations: [UserRegisterComponent],
       imports: [
         MaterialModule,
         HttpClientModule,
@@ -21,7 +21,7 @@ describe('RegisterComponent', () => {
         BrowserAnimationsModule,
       ],
     });
-    fixture = TestBed.createComponent(RegisterComponent);
+    fixture = TestBed.createComponent(UserRegisterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

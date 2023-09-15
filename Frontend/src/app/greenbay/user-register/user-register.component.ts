@@ -8,11 +8,11 @@ import { IUserRegisterRequestDto } from '../models/IUserRegisterRequestDto';
 import { GenericBannerComponent } from '../generic-banner/generic-banner.component';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
+  selector: 'app-user-register',
+  templateUrl: './user-register.component.html',
+  styleUrls: ['./user-register.component.css'],
 })
-export class RegisterComponent {
+export class UserRegisterComponent {
   name = new FormControl('', [
     Validators.required,
     this.userValidator.validName,
