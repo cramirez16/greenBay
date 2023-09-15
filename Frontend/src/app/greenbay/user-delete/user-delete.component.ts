@@ -58,13 +58,6 @@ export class UserDeleteComponent implements OnInit {
                 },
                 error: (error: Error) => {
                   this.dialog.closeAll();
-                  // this._snackBar.open(
-                  //   `Something went wrong. Try again later.`,
-                  //   '',
-                  //   {
-                  //     duration: 10000,
-                  //   }
-                  // );
                 },
               });
           },

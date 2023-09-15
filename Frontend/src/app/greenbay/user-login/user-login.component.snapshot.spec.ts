@@ -1,26 +1,13 @@
-import {
-  ComponentFixture,
-  TestBed,
-  fakeAsync,
-  tick,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AccountService } from '../../services/account.service';
-import { IUserLoginResponseDto } from '../models/IUserLoginResponseDto';
 import { LocalStorageService } from '../../services/local-storage.service';
-import { HttpErrorResponse } from '@angular/common/http';
 import { IUserLoginRequestDto } from '../models/IUserLoginRequestDto';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { UserLoginComponent } from './user-login.component';
-import { UserValidationService } from '../../services/user-validation.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { MessagePopupComponent } from '../message-popup/message-popup.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MaterialModule } from '../../material/material.module';
 import { Router } from '@angular/router';
 import { JwtDecoderService } from '../../services/jwt-decoder.service';

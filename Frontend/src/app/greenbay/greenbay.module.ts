@@ -13,7 +13,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { AccountService } from '../services/account.service';
-import { MessagePopupComponent } from './message-popup/message-popup.component';
 import { ItemListComponent } from './item-list/item-list.component';
 import { ItemCreateComponent } from './item-create/item-create.component';
 import { ItemDetailedViewComponent } from './item-detailed-view/item-detailed-view.component';
@@ -28,7 +27,6 @@ import { UserUpdateComponent } from './user-update/user-update.component';
     UserRegisterComponent,
     LandingPageComponent,
     DialogPopupComponent,
-    MessagePopupComponent,
     ItemCreateComponent,
     GenericBannerComponent,
     UserDeleteComponent,

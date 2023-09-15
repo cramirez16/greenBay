@@ -8,7 +8,7 @@ import { IUserLoginRequestDto } from '../models/IUserLoginRequestDto';
 import { IUserLoginResponseDto } from '../models/IUserLoginResponseDto';
 import { JwtDecoderService } from '../../services/jwt-decoder.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { MessagePopupComponent } from '../message-popup/message-popup.component';
+import { GenericBannerComponent } from '../generic-banner/generic-banner.component';
 
 @Component({
   selector: 'app-user-login',
@@ -62,12 +62,21 @@ export class UserLoginComponent {
           dialogData.description =
             response.status === 0 ? 'Network Error' : 'Wrong credentials';
           // }
-          this._dialog.open(MessagePopupComponent, {
-            data: dialogData,
-          });
+          this.bannerUser(dialogData);
+          // this._dialog.open(MessagePopupComponent, {
+          //   data: dialogData,
+          // });
         },
       });
     }
+  }
+
+  bannerUser(dialogData: { title: string; description: string }) {
+    const message1 = dialogData.title;
+    const message2 = dialogData.description;
+    this._dialog.open(GenericBannerComponent, {
+      data: { titleSection: message1, messageSection: message2 },
+    });
   }
 
   getErrorMessage(

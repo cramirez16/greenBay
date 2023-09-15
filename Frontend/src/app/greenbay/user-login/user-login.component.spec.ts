@@ -1,9 +1,4 @@
-import {
-  ComponentFixture,
-  TestBed,
-  fakeAsync,
-  tick,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { AccountService } from '../../services/account.service';
 import { IUserLoginResponseDto } from '../models/IUserLoginResponseDto';
 import { LocalStorageService } from '../../services/local-storage.service';
@@ -20,10 +15,10 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { MessagePopupComponent } from '../message-popup/message-popup.component';
 import { MaterialModule } from '../../material/material.module';
 import { Router } from '@angular/router';
 import { JwtDecoderService } from '../../services/jwt-decoder.service';
+import { GenericBannerComponent } from '../generic-banner/generic-banner.component';
 
 export class MockRouter {
   navigate() {
@@ -256,12 +251,12 @@ describe('LoginComponent with Network Error', () => {
 
     // expected display dialog content on error handling.
     const dialogData = {
-      title: '',
-      description: 'Network Error',
+      titleSection: '',
+      messageSection: 'Network Error',
     };
 
     // Assertion
-    expect(mockMatDialog.open).toHaveBeenCalledWith(MessagePopupComponent, {
+    expect(mockMatDialog.open).toHaveBeenCalledWith(GenericBannerComponent, {
       data: dialogData,
     });
   });
@@ -323,12 +318,12 @@ describe('LoginComponent with Unauthorized', () => {
 
     // expected display dialog content on error handling.
     const dialogData = {
-      title: 'Login failed',
-      description: 'Wrong credentials',
+      titleSection: 'Login failed',
+      messageSection: 'Wrong credentials',
     };
 
     // Assertion
-    expect(mockMatDialog.open).toHaveBeenCalledWith(MessagePopupComponent, {
+    expect(mockMatDialog.open).toHaveBeenCalledWith(GenericBannerComponent, {
       data: dialogData,
     });
   });
