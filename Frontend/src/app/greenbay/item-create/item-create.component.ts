@@ -11,11 +11,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { GenericBannerComponent } from '../generic-banner/generic-banner.component';
 
 @Component({
-  selector: 'app-create-item',
-  templateUrl: './create-item.component.html',
-  styleUrls: ['./create-item.component.css'],
+  selector: 'app-item-create',
+  templateUrl: './item-create.component.html',
+  styleUrls: ['./item-create.component.css'],
 })
-export class CreateItemComponent {
+export class ItemCreateComponent {
   title = new FormControl('', [
     Validators.required,
     this.itemValidator.validText,

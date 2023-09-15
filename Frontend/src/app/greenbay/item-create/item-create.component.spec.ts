@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CreateItemComponent } from './create-item.component';
+import { ItemCreateComponent } from './item-create.component';
 import { HttpClientModule } from '@angular/common/http';
 import {
   NoopAnimationsModule,
@@ -8,12 +8,12 @@ import {
 import { MaterialModule } from '../../material/material.module';
 
 describe('CreateItemComponent', () => {
-  let component: CreateItemComponent;
-  let fixture: ComponentFixture<CreateItemComponent>;
+  let component: ItemCreateComponent;
+  let fixture: ComponentFixture<ItemCreateComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CreateItemComponent],
+      declarations: [ItemCreateComponent],
       imports: [
         HttpClientModule,
         MaterialModule,
@@ -21,7 +21,7 @@ describe('CreateItemComponent', () => {
         BrowserAnimationsModule,
       ],
     });
-    fixture = TestBed.createComponent(CreateItemComponent);
+    fixture = TestBed.createComponent(ItemCreateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
