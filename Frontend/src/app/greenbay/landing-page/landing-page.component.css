@@ -80,7 +80,7 @@ mat-card {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(231, 207, 135, 0.7);
+  background-color: rgb(242, 242, 242);
   color: #3f51b5;
 }
 
