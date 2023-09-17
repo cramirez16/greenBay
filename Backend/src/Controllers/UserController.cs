@@ -21,21 +21,18 @@ namespace src.Controllers
     [Route("api/[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly GreenBayDbContext _context;
         private readonly ILogger<UserController> _logger;
         private readonly IJWTService _tokenHandler;
         private readonly IMapper _automapper;
         private readonly IUserRepository _userRepo;
 
         public UserController(
-            GreenBayDbContext context,
             IJWTService tokenHandler,
             ILogger<UserController> logger,
             IMapper automapper,
             IUserRepository userRepo
         )
         {
-            _context = context;
             _tokenHandler = tokenHandler;
             _logger = logger;
             _automapper = automapper;
