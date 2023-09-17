@@ -24,15 +24,15 @@ namespace src.Controllers
         private readonly IItemRepository _itemRepo;
         private readonly IBidRepository _bidRepo;
         private readonly IUserRepository _userRepo;
-        private readonly GreenBayDbContext _context;
+        //private readonly GreenBayDbContext _context;
 
         public BidController(
             ILogger<UserController> logger,
             IMapper automapper,
             IItemRepository itemRepo,
             IBidRepository bidRepo,
-            IUserRepository userRepo,
-            GreenBayDbContext context
+            IUserRepository userRepo
+        //GreenBayDbContext context
         )
         {
             _automapper = automapper;
@@ -40,7 +40,7 @@ namespace src.Controllers
             _itemRepo = itemRepo;
             _bidRepo = bidRepo;
             _userRepo = userRepo;
-            _context = context;
+            //_context = context;
         }
 
         [HttpPost]
@@ -113,11 +113,13 @@ namespace src.Controllers
                     // user buy the item ---> update item table
                     itemToBid.IsSellable = false;
                     itemToBid.BuyerId = bider.Id;
-                    _context.Entry(itemToBid).State = EntityState.Modified;
+                    _bidRepo.UpdateEntity(itemToBid);
+                    //_context.Entry(itemToBid).State = EntityState.Modified;
 
                     // update user money. ---> update user table
                     bider.Money -= bidRequestDto.BidAmount;
-                    _context.Entry(bider).State = EntityState.Modified;
+                    _bidRepo.UpdateEntity(bider);
+                    //_context.Entry(bider).State = EntityState.Modified;
 
                     // save the bid ---> insert data into bid table
                     Bid newBid = _automapper.Map<Bid>(bidRequestDto);

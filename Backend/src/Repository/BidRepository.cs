@@ -45,5 +45,11 @@ namespace src.Repository
                             .ToDictionaryAsync(user => user.Id, user => user.Name);
         }
 
+        public void UpdateEntity(object entity)
+        {
+            _context.Entry(entity).State = EntityState.Modified;
+            return;
+        }
+
     }
 }
