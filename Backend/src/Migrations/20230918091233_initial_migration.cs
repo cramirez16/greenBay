@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Backend.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigrations : Migration
+    public partial class initial_migration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -72,7 +72,7 @@ namespace Backend.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    BidAmount = table.Column<decimal>(type: "numeric", nullable: false),
+                    BidAmount = table.Column<decimal>(type: "numeric(10,2)", nullable: false),
                     BiderId = table.Column<int>(type: "integer", nullable: false),
                     ItemId = table.Column<int>(type: "integer", nullable: false)
                 },
@@ -93,38 +93,13 @@ namespace Backend.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "UserBid",
-                columns: table => new
-                {
-                    UserId = table.Column<int>(type: "integer", nullable: false),
-                    BidId = table.Column<int>(type: "integer", nullable: false),
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserBid", x => new { x.UserId, x.BidId });
-                    table.ForeignKey(
-                        name: "FK_UserBid_TblBids_BidId",
-                        column: x => x.BidId,
-                        principalTable: "TblBids",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UserBid_TblUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "TblUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.InsertData(
                 table: "TblUsers",
                 columns: new[] { "Id", "CreationDate", "Email", "Money", "Name", "Password", "Role", "UpdateDate" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 9, 5, 20, 55, 8, 923, DateTimeKind.Utc).AddTicks(1070), "admin@fox.hu", 100.00m, "admin", "$2a$11$AXqa.f8dTSJ/Vng9k7bviO0NG1U.Q2NcVUE6lziMdln5ybjXlWtBa", "Admin", new DateTime(2023, 9, 5, 20, 55, 8, 923, DateTimeKind.Utc).AddTicks(1074) },
-                    { 2, new DateTime(2023, 9, 5, 20, 55, 9, 199, DateTimeKind.Utc).AddTicks(5469), "testuser@abc.de", 100.00m, "testuser", "$2a$11$jnwuGZ8JTeGHmbBjlXlhue5omfjTd/V08mBWg6QMFsWxi2oQPVhRq", "User", new DateTime(2023, 9, 5, 20, 55, 9, 199, DateTimeKind.Utc).AddTicks(5472) }
+                    { 1, new DateTime(2023, 9, 18, 9, 12, 33, 105, DateTimeKind.Utc).AddTicks(7886), "admin@fox.hu", 100.00m, "admin", "$2a$11$Poj.2plMPexV7CH4OUB3Bufu0pPE2N27d72IvMDsFy4tT6bXb2Uyy", "Admin", new DateTime(2023, 9, 18, 9, 12, 33, 105, DateTimeKind.Utc).AddTicks(7892) },
+                    { 2, new DateTime(2023, 9, 18, 9, 12, 33, 373, DateTimeKind.Utc).AddTicks(5951), "testuser@abc.de", 100.00m, "testuser", "$2a$11$eGcR6Uv7Yq8dh9N2BMVGS.SutNMiPlRd8ZbrCySbcKT.w61CKLhDe", "User", new DateTime(2023, 9, 18, 9, 12, 33, 373, DateTimeKind.Utc).AddTicks(5957) }
                 });
 
             migrationBuilder.InsertData(
@@ -132,8 +107,8 @@ namespace Backend.Migrations
                 columns: new[] { "Id", "Bid", "BuyerId", "CreationDate", "Description", "IsSellable", "Name", "PhotoUrl", "Price", "SellerId", "UpdateDate" },
                 values: new object[,]
                 {
-                    { 1, 0m, null, new DateTime(2023, 9, 5, 20, 55, 9, 199, DateTimeKind.Utc).AddTicks(6439), "An amazing TV", true, "TV Sony", "https://s13emagst.akamaized.net/products/45635/45634164/images/res_fd42def37fbf80666320c5137faccaf1.jpeg", 30m, 1, new DateTime(2023, 9, 6, 20, 55, 9, 199, DateTimeKind.Utc).AddTicks(6440) },
-                    { 2, 0m, null, new DateTime(2023, 9, 5, 20, 55, 9, 199, DateTimeKind.Utc).AddTicks(6452), "A wanderful vacum.", true, "Electrolux Vacum", "https://www.electrolux.com.my/globalassets/appliances/vacuum-clearner/z931-fr-1500x1500.png", 20m, 2, new DateTime(2023, 9, 6, 20, 55, 9, 199, DateTimeKind.Utc).AddTicks(6453) }
+                    { 1, 0m, null, new DateTime(2023, 9, 18, 9, 12, 33, 373, DateTimeKind.Utc).AddTicks(6853), "An amazing TV", true, "TV Sony", "https://s13emagst.akamaized.net/products/45635/45634164/images/res_fd42def37fbf80666320c5137faccaf1.jpeg", 30m, 1, new DateTime(2023, 9, 19, 9, 12, 33, 373, DateTimeKind.Utc).AddTicks(6854) },
+                    { 2, 0m, null, new DateTime(2023, 9, 18, 9, 12, 33, 373, DateTimeKind.Utc).AddTicks(6871), "A wanderful vacum.", true, "Electrolux Vacum", "https://www.electrolux.com.my/globalassets/appliances/vacuum-clearner/z931-fr-1500x1500.png", 20m, 2, new DateTime(2023, 9, 19, 9, 12, 33, 373, DateTimeKind.Utc).AddTicks(6871) }
                 });
 
             migrationBuilder.CreateIndex(
@@ -155,19 +130,11 @@ namespace Backend.Migrations
                 name: "IX_TblItems_SellerId",
                 table: "TblItems",
                 column: "SellerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserBid_BidId",
-                table: "UserBid",
-                column: "BidId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "UserBid");
-
             migrationBuilder.DropTable(
                 name: "TblBids");
 

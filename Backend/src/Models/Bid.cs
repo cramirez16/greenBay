@@ -17,17 +17,19 @@ namespace src.Models
         public decimal BidAmount { get; set; }
         [Required]
         public int BiderId { get; set; }
+
+        [Required]
+        public int ItemId { get; set; }
+
+        // navigation properties
         [ForeignKey("BiderId")]
         [Required]
         public User? Bider { get; set; }
-        [Required]
-        public int ItemId { get; set; }
+
         [ForeignKey("ItemId")]
         [JsonIgnore]
         [Required]
         public Item? Item { get; set; }
 
-        // Navigation property for the UserBid junction table
-        public List<UserBid>? BidToUserBids { get; set; }
     }
 }

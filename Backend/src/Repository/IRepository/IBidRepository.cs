@@ -11,6 +11,6 @@ namespace src.Repository.IRepository
         Task<Bid?> GetMaxBidByItemId(int itemId);
         Task AddBidAsync(Bid newBid);
         Task<Dictionary<int, string>> GetBidderNamesAsync(List<int> bidderIds);
-        public void UpdateEntity(object entity);
+        public void UpdateEntity<TEntity>(TEntity entity) where TEntity : class;
     }
 }

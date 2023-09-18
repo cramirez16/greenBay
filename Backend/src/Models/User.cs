@@ -33,11 +33,13 @@ namespace src.Models
 
         public DateTime UpdateDate { get; set; }
 
-        [JsonIgnore]
-        public List<Item>? ItemsForSale { get; set; }
+        // [JsonIgnore]
+        public List<Item>? SellingItems { get; set; }
 
-        [JsonIgnore]
-        public List<UserBid>? UserToUserBids { get; set; }
+        public List<Item>? BoughtItems { get; set; }
+
+        // [JsonIgnore]
+        public List<Bid>? Bids { get; set; }
 
     }
 }

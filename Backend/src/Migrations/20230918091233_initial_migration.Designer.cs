@@ -12,8 +12,8 @@ using src.Data;
 namespace Backend.Migrations
 {
     [DbContext(typeof(GreenBayDbContext))]
-    [Migration("20230905205509_InitialMigrations")]
-    partial class InitialMigrations
+    [Migration("20230918091233_initial_migration")]
+    partial class initial_migration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,7 +34,7 @@ namespace Backend.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<decimal>("BidAmount")
-                        .HasColumnType("numeric");
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<int>("BiderId")
                         .HasColumnType("integer");
@@ -105,27 +105,27 @@ namespace Backend.Migrations
                         {
                             Id = 1,
                             Bid = 0m,
-                            CreationDate = new DateTime(2023, 9, 5, 20, 55, 9, 199, DateTimeKind.Utc).AddTicks(6439),
+                            CreationDate = new DateTime(2023, 9, 18, 9, 12, 33, 373, DateTimeKind.Utc).AddTicks(6853),
                             Description = "An amazing TV",
                             IsSellable = true,
                             Name = "TV Sony",
                             PhotoUrl = "https://s13emagst.akamaized.net/products/45635/45634164/images/res_fd42def37fbf80666320c5137faccaf1.jpeg",
                             Price = 30m,
                             SellerId = 1,
-                            UpdateDate = new DateTime(2023, 9, 6, 20, 55, 9, 199, DateTimeKind.Utc).AddTicks(6440)
+                            UpdateDate = new DateTime(2023, 9, 19, 9, 12, 33, 373, DateTimeKind.Utc).AddTicks(6854)
                         },
                         new
                         {
                             Id = 2,
                             Bid = 0m,
-                            CreationDate = new DateTime(2023, 9, 5, 20, 55, 9, 199, DateTimeKind.Utc).AddTicks(6452),
+                            CreationDate = new DateTime(2023, 9, 18, 9, 12, 33, 373, DateTimeKind.Utc).AddTicks(6871),
                             Description = "A wanderful vacum.",
                             IsSellable = true,
                             Name = "Electrolux Vacum",
                             PhotoUrl = "https://www.electrolux.com.my/globalassets/appliances/vacuum-clearner/z931-fr-1500x1500.png",
                             Price = 20m,
                             SellerId = 2,
-                            UpdateDate = new DateTime(2023, 9, 6, 20, 55, 9, 199, DateTimeKind.Utc).AddTicks(6453)
+                            UpdateDate = new DateTime(2023, 9, 19, 9, 12, 33, 373, DateTimeKind.Utc).AddTicks(6871)
                         });
                 });
 
@@ -170,49 +170,31 @@ namespace Backend.Migrations
                         new
                         {
                             Id = 1,
-                            CreationDate = new DateTime(2023, 9, 5, 20, 55, 8, 923, DateTimeKind.Utc).AddTicks(1070),
+                            CreationDate = new DateTime(2023, 9, 18, 9, 12, 33, 105, DateTimeKind.Utc).AddTicks(7886),
                             Email = "admin@fox.hu",
                             Money = 100.00m,
                             Name = "admin",
-                            Password = "$2a$11$AXqa.f8dTSJ/Vng9k7bviO0NG1U.Q2NcVUE6lziMdln5ybjXlWtBa",
+                            Password = "$2a$11$Poj.2plMPexV7CH4OUB3Bufu0pPE2N27d72IvMDsFy4tT6bXb2Uyy",
                             Role = "Admin",
-                            UpdateDate = new DateTime(2023, 9, 5, 20, 55, 8, 923, DateTimeKind.Utc).AddTicks(1074)
+                            UpdateDate = new DateTime(2023, 9, 18, 9, 12, 33, 105, DateTimeKind.Utc).AddTicks(7892)
                         },
                         new
                         {
                             Id = 2,
-                            CreationDate = new DateTime(2023, 9, 5, 20, 55, 9, 199, DateTimeKind.Utc).AddTicks(5469),
+                            CreationDate = new DateTime(2023, 9, 18, 9, 12, 33, 373, DateTimeKind.Utc).AddTicks(5951),
                             Email = "testuser@abc.de",
                             Money = 100.00m,
                             Name = "testuser",
-                            Password = "$2a$11$jnwuGZ8JTeGHmbBjlXlhue5omfjTd/V08mBWg6QMFsWxi2oQPVhRq",
+                            Password = "$2a$11$eGcR6Uv7Yq8dh9N2BMVGS.SutNMiPlRd8ZbrCySbcKT.w61CKLhDe",
                             Role = "User",
-                            UpdateDate = new DateTime(2023, 9, 5, 20, 55, 9, 199, DateTimeKind.Utc).AddTicks(5472)
+                            UpdateDate = new DateTime(2023, 9, 18, 9, 12, 33, 373, DateTimeKind.Utc).AddTicks(5957)
                         });
-                });
-
-            modelBuilder.Entity("src.Models.UserBid", b =>
-                {
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("BidId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("integer");
-
-                    b.HasKey("UserId", "BidId");
-
-                    b.HasIndex("BidId");
-
-                    b.ToTable("UserBid");
                 });
 
             modelBuilder.Entity("src.Models.Bid", b =>
                 {
                     b.HasOne("src.Models.User", "Bider")
-                        .WithMany()
+                        .WithMany("Bids")
                         .HasForeignKey("BiderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -231,11 +213,11 @@ namespace Backend.Migrations
             modelBuilder.Entity("src.Models.Item", b =>
                 {
                     b.HasOne("src.Models.User", "Buyer")
-                        .WithMany()
+                        .WithMany("BoughtItems")
                         .HasForeignKey("BuyerId");
 
                     b.HasOne("src.Models.User", "Seller")
-                        .WithMany("ItemsForSale")
+                        .WithMany("SellingItems")
                         .HasForeignKey("SellerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -245,30 +227,6 @@ namespace Backend.Migrations
                     b.Navigation("Seller");
                 });
 
-            modelBuilder.Entity("src.Models.UserBid", b =>
-                {
-                    b.HasOne("src.Models.Bid", "Bid")
-                        .WithMany("BidToUserBids")
-                        .HasForeignKey("BidId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("src.Models.User", "User")
-                        .WithMany("UserToUserBids")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Bid");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("src.Models.Bid", b =>
-                {
-                    b.Navigation("BidToUserBids");
-                });
-
             modelBuilder.Entity("src.Models.Item", b =>
                 {
                     b.Navigation("Bids");
@@ -276,9 +234,11 @@ namespace Backend.Migrations
 
             modelBuilder.Entity("src.Models.User", b =>
                 {
-                    b.Navigation("ItemsForSale");
+                    b.Navigation("Bids");
 
-                    b.Navigation("UserToUserBids");
+                    b.Navigation("BoughtItems");
+
+                    b.Navigation("SellingItems");
                 });
 #pragma warning restore 612, 618
         }

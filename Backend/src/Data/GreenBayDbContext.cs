@@ -77,23 +77,51 @@ namespace src.Data
                 }
             );
 
-            modelBuilder.Entity<UserBid>()
-                .HasKey(ub => new { ub.UserId, ub.BidId });
+            // modelBuilder.Entity<UserBid>()
+            //     .HasKey(ub => new { ub.UserId, ub.BidId });
 
-            modelBuilder.Entity<UserBid>()
-                        .HasOne<User>(ub => ub.User)
-                        .WithMany(u => u.UserToUserBids)
-                        .HasForeignKey(ub => ub.UserId);
-            modelBuilder.Entity<UserBid>()
-                        .HasOne<Bid>(ub => ub.Bid)
-                        .WithMany(b => b.BidToUserBids)
-                        .HasForeignKey(ub => ub.BidId);
+            // modelBuilder.Entity<UserBid>()
+            //             .HasOne<User>(ub => ub.User)
+            //             .WithMany(u => u.UserToUserBids)
+            //             .HasForeignKey(ub => ub.UserId);
+            // modelBuilder.Entity<UserBid>()
+            //             .HasOne<Bid>(ub => ub.Bid)
+            //             .WithMany(b => b.BidToUserBids)
+            //             .HasForeignKey(ub => ub.BidId);
 
             //Configure the one-to-many relationship between User and Item
-            modelBuilder.Entity<User>()
-                    .HasMany(user => user.ItemsForSale)
-                    .WithOne(item => item.Seller)
-                    .HasForeignKey(item => item.SellerId); // Foreign key property in Item entity
+
+            modelBuilder.Entity<User>(user =>
+            {
+                user.HasKey(u => u.Id);
+            });
+
+
+            modelBuilder.Entity<Item>(item =>
+            {
+                item.HasKey(i => i.Id);
+                item.HasOne<User>(i => i.Seller)
+                    .WithMany(u => u.SellingItems)
+                    .HasForeignKey(i => i.SellerId)
+                    .IsRequired();
+                item.HasOne<User>(i => i.Buyer)
+                    .WithMany(u => u.BoughtItems)
+                    .HasForeignKey(i => i.BuyerId);
+            });
+
+            modelBuilder.Entity<Bid>(bid =>
+            {
+                bid.HasKey(b => b.Id);
+                bid.Property(b => b.BidAmount).IsRequired().HasColumnType("decimal(10,2)");
+                bid.HasOne<User>(b => b.Bider)
+                    .WithMany(u => u.Bids)
+                    .HasForeignKey(b => b.BiderId)
+                    .IsRequired();
+                bid.HasOne<Item>(b => b.Item)
+                    .WithMany(i => i.Bids)
+                    .HasForeignKey(b => b.ItemId)
+                    .IsRequired();
+            });
         }
     }
 }
