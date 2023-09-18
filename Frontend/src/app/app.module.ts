@@ -4,9 +4,9 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { SharedModule } from './shared/shared.module';
-import { JwtInterceptorService } from './services/jwt-interceptor.service';
-import { GreenbayModule } from './greenbay/greenbay.module';
+import { LayoutModule } from './shared/layout/layout.module';
+import { JwtInterceptorService } from './core/services/jwt-interceptor.service';
+import { FeaturesModule } from './features/features.module';
 import { FormlyModule } from '@ngx-formly/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
@@ -15,8 +15,8 @@ import { FormlyBootstrapModule } from '@ngx-formly/bootstrap';
   declarations: [AppComponent],
   imports: [
     AppRoutingModule,
-    SharedModule,
-    GreenbayModule,
+    LayoutModule,
+    FeaturesModule,
     FormlyModule.forRoot(),
     ReactiveFormsModule,
     FormlyBootstrapModule,
