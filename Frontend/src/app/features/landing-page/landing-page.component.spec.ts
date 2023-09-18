@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LandingPageComponent } from './landing-page.component';
-import { MaterialModule } from '../../material/material.module';
+import { MaterialModule } from '../../shared/material/material.module';
 
 describe('LandingPageComponent', () => {
   let component: LandingPageComponent;
