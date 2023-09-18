@@ -2,7 +2,7 @@ name: Continous Deployment - Backend - Production
 
 on:
   push:
-    branches: ["master"]
+    branches: ["main", "master"]
   workflow_dispatch:
 
 jobs:
