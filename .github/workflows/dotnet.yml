@@ -5,9 +5,9 @@ name: Continous Integration - Backend
 
 on:
   push:
-    branches: ["dev", "main"]
+    branches: ["dev", "main", "marter"]
   pull_request:
-    branches: ["dev", "main"]
+    branches: ["dev", "main", "master"]
 
 defaults:
   run:
