@@ -14,28 +14,28 @@ namespace src.helpers
         public MapperConfig()
         {
             // <src,des>
-            CreateMap<UserResponseDto, User>().ReverseMap();
+            CreateMap<User, UserResponseDto>().ReverseMap();
+
+            CreateMap<Bid, BidRequestDto>().ReverseMap();
 
             CreateMap<Bid, BidResponseDto>()
-                .ForMember(dest => dest.BiderName, opt => opt.MapFrom(src => src.Bider!.Name));
+                .ForMember(dest => dest.BiderName, opt => opt.MapFrom(src => src.Bider.Name));
 
             CreateMap<ItemRequestDto, Item>();
 
             CreateMap<Item, ItemResponseDto>()
                  .ForMember(dest => dest.SellerName, opt => opt.MapFrom(src => src.Seller!.Name))
-             .ForMember(dest => dest.Bids, opt => opt.MapFrom(src => src.Bids)); // Map the Bids property
-
-            CreateMap<Bid, BidRequestDto>().ReverseMap();
+             .ForMember(dest => dest.Bids, opt => opt.MapFrom(src => src.Bids)); // Map the Bids property   
 
             CreateMap<List<Claim>, UserResponseDto>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src =>
-                int.Parse(src.FirstOrDefault(c => c.Type == "userId")!.Value)))
+                    int.Parse(src.FirstOrDefault(c => c.Type == "userId")!.Value)))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src =>
-                src.FirstOrDefault(c => c.Type == "name")!.Value))
+                    src.FirstOrDefault(c => c.Type == "name")!.Value))
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src =>
-                src.FirstOrDefault(c => c.Type == "email")!.Value))
+                    src.FirstOrDefault(c => c.Type == "email")!.Value))
                 .ForMember(dest => dest.Role, opt => opt.MapFrom(src =>
-                src.FirstOrDefault(c => c.Type == ClaimTypes.Role)!.Value))
+                    src.FirstOrDefault(c => c.Type == ClaimTypes.Role)!.Value))
                 .ForMember(dest => dest.Money, opt => opt
                 .MapFrom(src => MapMoneyClaim(src)));
         }
