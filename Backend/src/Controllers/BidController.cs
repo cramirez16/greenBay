@@ -66,7 +66,7 @@ namespace src.Controllers
                     return BadRequest(new { userNotFound = true });
                 }
                 // --- user exists ---
-                var itemToBid = await _itemRepo.FindItemById(bidRequestDto.ItemId);
+                var itemToBid = await _itemRepo.FindItemByIdAsync(bidRequestDto.ItemId);
                 if (itemToBid == null)
                 {
                     _logger.LogInformation("Item not found.");

@@ -12,7 +12,7 @@ namespace src.Repository.IRepository
     {
         Task<List<Item>> GetItemsAsync();
         Task<Item?> GetItemByIdAsync(int id);
-        Task<Item?> FindItemById(int id);
+        Task<Item?> FindItemByIdAsync(int id);
         Task SaveItemAsync(Item item);
         Task<PagedList<Item>> GetItemsPaginatedAsync(Parameters parameters);
     }
