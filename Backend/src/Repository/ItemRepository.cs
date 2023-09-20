@@ -38,7 +38,7 @@ namespace src.Repository
                             .FirstOrDefaultAsync(item => item.Id == id);
         }
 
-        public async Task<Item?> FindItemById(int id)
+        public async Task<Item?> FindItemByIdAsync(int id)
         {
             return await _context.TblItems.FindAsync(id);
         }
