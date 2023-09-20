@@ -22,18 +22,18 @@ namespace src.Controllers
     public class UserController : ControllerBase
     {
         private readonly ILogger<UserController> _logger;
-        private readonly IJWTService _tokenHandler;
+        private readonly IJWTService _jwtService;
         private readonly IMapper _automapper;
         private readonly IUserRepository _userRepo;
 
         public UserController(
-            IJWTService tokenHandler,
+            IJWTService jwtService,
             ILogger<UserController> logger,
             IMapper automapper,
             IUserRepository userRepo
         )
         {
-            _tokenHandler = tokenHandler;
+            _jwtService = jwtService;
             _logger = logger;
             _automapper = automapper;
             _userRepo = userRepo;
@@ -43,27 +43,27 @@ namespace src.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> Login([FromBody] LoginRequestDto loginDto)
+        public async Task<IActionResult> Login([FromBody] LoginRequestDto loginRequestDto)
         {
             // Given any parameters missing, the user can't sign in and the application
             // displays a message listing the missing parameters
 
-            if (loginDto.Email == null)
+            if (loginRequestDto.Email == null)
             {
                 _logger.LogInformation("Login rejected, missing parameter (email) in the request.");
                 return BadRequest(new { missingEmail = true });
             }
 
-            if (loginDto.Password == null)
+            if (loginRequestDto.Password == null)
             {
                 _logger.LogInformation("Login rejected, missing parameter (password) in the request.");
                 return BadRequest(new { missingPassword = true });
             }
 
             // Read from the database the user data with the email = loginDto.Email 
-            User? userByEmail = await _userRepo.FindUserByEmail(loginDto.Email);
+            User? userByEmail = await _userRepo.FindUserByEmail(loginRequestDto.Email);
 
-            // Given the username is not existing, 
+            // Given the usere mail dosent exists, 
             // the user can't sign in and the application displays a message about it
             if (userByEmail == null)
             {
@@ -71,10 +71,9 @@ namespace src.Controllers
                 return Unauthorized(new { wrongEmail = true });
             }
 
-            // Given the password is not matching the one stored with the username,
+            // Given the password is not matching the one stored with the user email,
             // the user can't sign in and the application displays message that the password is wrong
-
-            if (!BCrypt.Net.BCrypt.Verify(loginDto.Password, userByEmail.Password))
+            if (!BCrypt.Net.BCrypt.Verify(loginRequestDto.Password, userByEmail.Password))
             {
                 _logger.LogInformation("Login rejected, wrong Password.");
                 return Unauthorized(new { wrongPassword = true });
@@ -92,7 +91,7 @@ namespace src.Controllers
             };
 
             _logger.LogInformation("Login was successfully.");
-            return Ok(new { tokenKey = _tokenHandler.CreateToken(jwtPayLoad) });
+            return Ok(new { tokenKey = _jwtService.CreateToken(jwtPayLoad) });
         }
 
         [HttpPost("register")]
