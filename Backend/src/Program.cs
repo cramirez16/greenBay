@@ -10,15 +10,19 @@ using src.Services.IServices;
 using src.Repository;
 using src.Repository.IRepository;
 
+// create an instance of WebApplicationBuilder class.
 var builder = WebApplication.CreateBuilder(args);
+// to access configuration settings stored in appsettings.json file...
 var config = builder.Configuration;
 
-// Add services to the container.
-
+// Add services to dependency injection container.
+// https://learn.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-7.0
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddHttpContextAccessor();
+// Configuring Swagger to generate domcumentation for the API.
+// Defining security requirements for JWT authentication.
 builder.Services.AddSwaggerGen(c =>
 {
     c.AddSecurityDefinition(
@@ -50,6 +54,8 @@ builder.Services.AddSwaggerGen(c =>
     );
 });
 
+// Allowing access from any source in cors (developmen purpouse),
+// is a better practice to specify the url address allowed to access the server.
 builder.Services.AddCors(
     options =>
         options.AddDefaultPolicy(builder =>
@@ -77,7 +83,7 @@ builder.Services.AddDbContext<GreenBayDbContext>(option =>
         ?? config["ConnectionStrings:DefaultConnection"];
     option.UseNpgsql(connectionString);
 });
-
+// Configuring authentication with JWT token.
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -115,6 +121,7 @@ if (app.Environment.IsDevelopment())
 var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
 builder.WebHost.UseUrls($"http://*:{port}");
 
+// configuring http pipeline
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
