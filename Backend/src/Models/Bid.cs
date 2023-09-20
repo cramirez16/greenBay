@@ -24,12 +24,12 @@ namespace src.Models
         // navigation properties
         [ForeignKey("BiderId")]
         [Required]
-        public User? Bider { get; set; }
+        public required User Bider { get; set; }
 
         [ForeignKey("ItemId")]
         [JsonIgnore]
         [Required]
-        public Item? Item { get; set; }
+        public required Item Item { get; set; }
 
     }
 }

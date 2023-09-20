@@ -48,5 +48,6 @@ namespace src.Models
         public User? Buyer { get; set; }
 
         public List<Bid>? Bids { get; set; }
+
     }
 }
