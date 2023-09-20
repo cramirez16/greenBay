@@ -105,6 +105,7 @@ namespace src.Controllers
                     Bid newBid = _automapper.Map<Bid>(bidRequestDto);
                     _logger.LogInformation("Bid added.");
                     await _bidRepo.AddBidAsync(newBid);
+                    await _bidRepo.SaveChangesAsync();
                     return Ok(new { bidSuccess = true });
                 }
 
@@ -124,6 +125,7 @@ namespace src.Controllers
                     // save the bid ---> insert data into bid table
                     Bid newBid = _automapper.Map<Bid>(bidRequestDto);
                     await _bidRepo.AddBidAsync(newBid);
+                    await _bidRepo.SaveChangesAsync();
                     _logger.LogInformation("Item Sold.");
                     return Ok(new { itemSold = true, userMoney = bider.Money });
                 }
@@ -133,6 +135,7 @@ namespace src.Controllers
                     // bid list is empty, add the bid.
                     Bid newBid = _automapper.Map<Bid>(bidRequestDto);
                     await _bidRepo.AddBidAsync(newBid);
+                    await _bidRepo.SaveChangesAsync();
                     _logger.LogInformation("Bid added.");
                     return Ok(new { bidSuccess = true });
                 }
