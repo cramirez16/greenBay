@@ -28,13 +28,20 @@ namespace src.Repository
                     Id = bid.Id,
                     BidAmount = bid.BidAmount,
                     BiderId = bid.BiderId,
-                    ItemId = bid.ItemId
+                    ItemId = bid.ItemId,
+                    Item = bid.Item,
+                    Bider = bid.Bider
                 })
                 .FirstOrDefaultAsync();
         }
         public async Task AddBidAsync(Bid newBid)
         {
-            _context.TblBids.Add(newBid);
+            await _context.TblBids.AddAsync(newBid);
+            //await _context.SaveChangesAsync();
+        }
+
+        public async Task SaveChangesAsync()
+        {
             await _context.SaveChangesAsync();
         }
 
