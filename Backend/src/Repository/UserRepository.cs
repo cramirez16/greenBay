@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using src.Data;
-using src.Models;
-using src.Repository.IRepository;
+using Src.Data;
+using Src.Models;
+using Src.Repository.IRepository;
 
-namespace src.Repository
+namespace Src.Repository
 {
     public class UserRepository : IUserRepository
     {

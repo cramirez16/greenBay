@@ -4,18 +4,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using src.Data;
-using src.Models.Dtos;
-using src.Services;
-using src.Models;
+using Src.Data;
+using Src.Models.Dtos;
+using Src.Services;
+using Src.Models;
 using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Authorization;
 using AutoMapper;
-using src.Services.IServices;
-using src.Models.Specifications;
-using src.Repository.IRepository;
+using Src.Services.IServices;
+using Src.Models.Specifications;
+using Src.Repository.IRepository;
 
-namespace src.Controllers
+namespace Src.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using src.Data;
+using Src.Data;
 
 #nullable disable
 
@@ -22,7 +22,7 @@ namespace Backend.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("src.Models.Bid", b =>
+            modelBuilder.Entity("Src.Models.Bid", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -48,7 +48,7 @@ namespace Backend.Migrations
                     b.ToTable("TblBids");
                 });
 
-            modelBuilder.Entity("src.Models.Item", b =>
+            modelBuilder.Entity("Src.Models.Item", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -126,7 +126,7 @@ namespace Backend.Migrations
                         });
                 });
 
-            modelBuilder.Entity("src.Models.User", b =>
+            modelBuilder.Entity("Src.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -188,15 +188,15 @@ namespace Backend.Migrations
                         });
                 });
 
-            modelBuilder.Entity("src.Models.Bid", b =>
+            modelBuilder.Entity("Src.Models.Bid", b =>
                 {
-                    b.HasOne("src.Models.User", "Bider")
+                    b.HasOne("Src.Models.User", "Bider")
                         .WithMany("Bids")
                         .HasForeignKey("BiderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("src.Models.Item", "Item")
+                    b.HasOne("Src.Models.Item", "Item")
                         .WithMany("Bids")
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -207,13 +207,13 @@ namespace Backend.Migrations
                     b.Navigation("Item");
                 });
 
-            modelBuilder.Entity("src.Models.Item", b =>
+            modelBuilder.Entity("Src.Models.Item", b =>
                 {
-                    b.HasOne("src.Models.User", "Buyer")
+                    b.HasOne("Src.Models.User", "Buyer")
                         .WithMany("BoughtItems")
                         .HasForeignKey("BuyerId");
 
-                    b.HasOne("src.Models.User", "Seller")
+                    b.HasOne("Src.Models.User", "Seller")
                         .WithMany("SellingItems")
                         .HasForeignKey("SellerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -224,12 +224,12 @@ namespace Backend.Migrations
                     b.Navigation("Seller");
                 });
 
-            modelBuilder.Entity("src.Models.Item", b =>
+            modelBuilder.Entity("Src.Models.Item", b =>
                 {
                     b.Navigation("Bids");
                 });
 
-            modelBuilder.Entity("src.Models.User", b =>
+            modelBuilder.Entity("Src.Models.User", b =>
                 {
                     b.Navigation("Bids");
 

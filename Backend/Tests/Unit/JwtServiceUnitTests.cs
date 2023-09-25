@@ -3,9 +3,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Http;
 using AutoMapper;
 using Moq;
-using src.Services;
-using src.Models;
-using src.Models.Dtos;
+using Src.Services;
+using Src.Models;
+using Src.Models.Dtos;
 using System.Security.Claims;
 
 

@@ -1,14 +1,14 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
-using src.Models;
-using src.Models.Dtos;
-using src.Services.IServices;
+using Src.Models;
+using Src.Models.Dtos;
+using Src.Services.IServices;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace src.Services;
+namespace Src.Services;
 
 public class JWTService : IJWTService
 {

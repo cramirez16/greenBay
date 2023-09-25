@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using src.Models;
-using src.Models.Dtos;
-using src.Models.Specifications;
-using src.Repository.IRepository;
+using Src.Models;
+using Src.Models.Dtos;
+using Src.Models.Specifications;
+using Src.Repository.IRepository;
 
-namespace src.Controllers
+namespace Src.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

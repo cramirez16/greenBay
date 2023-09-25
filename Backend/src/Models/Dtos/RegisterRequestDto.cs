@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using src.Services;
+using Src.Services;
 
-namespace src.Models.Dtos
+namespace Src.Models.Dtos
 {
     public class RegisterRequestDto
     {

@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using src.Data;
-using src.helpers;
-using src.Services;
-using src.Services.IServices;
-using src.Repository;
-using src.Repository.IRepository;
+using Src.Data;
+using Src.helpers;
+using Src.Services;
+using Src.Services.IServices;
+using Src.Repository;
+using Src.Repository.IRepository;
 
 // create an instance of WebApplicationBuilder class.
 var builder = WebApplication.CreateBuilder(args);
@@ -83,6 +83,7 @@ builder.Services.AddDbContext<GreenBayDbContext>(option =>
         ?? config["ConnectionStrings:DefaultConnection"];
     option.UseNpgsql(connectionString);
 });
+
 // Configuring authentication with JWT token.
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

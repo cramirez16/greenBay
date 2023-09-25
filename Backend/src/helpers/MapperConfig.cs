@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using src.Models;
-using src.Models.Dtos;
+using Src.Models;
+using Src.Models.Dtos;
 using System.Security.Claims;
 
-namespace src.helpers
+namespace Src.helpers
 {
     public class MapperConfig : Profile
     {

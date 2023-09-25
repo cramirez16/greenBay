@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Text.Json.Serialization;
 
-namespace src.Models
+namespace Src.Models
 {
     public class User
     {

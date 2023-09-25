@@ -8,12 +8,11 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using src.Data;
-using src.Models;
-using src.Models.Dtos;
-using src.Repository.IRepository;
+using Src.Models;
+using Src.Models.Dtos;
+using Src.Repository.IRepository;
 
-namespace src.Controllers
+namespace Src.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using src.Models;
-using src.Models.Dtos;
+using Src.Models;
+using Src.Models.Dtos;
 
-namespace src.Services.IServices
+namespace Src.Services.IServices
 {
     public interface IJWTService
     {

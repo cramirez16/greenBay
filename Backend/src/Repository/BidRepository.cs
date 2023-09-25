@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using src.Models;
-using src.Repository.IRepository;
-using src.Data;
+using Src.Models;
+using Src.Repository.IRepository;
+using Src.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace src.Repository
+namespace Src.Repository
 {
     public class BidRepository : IBidRepository
     {

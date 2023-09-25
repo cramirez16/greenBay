@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
-using src.Models;
+using Src.Models;
 
-namespace src.Data
+namespace Src.Data
 {
     public class GreenBayDbContext : DbContext
     {
@@ -76,20 +76,6 @@ namespace src.Data
                     UpdateDate = DateTime.UtcNow.AddDays(1)
                 }
             );
-
-            // modelBuilder.Entity<UserBid>()
-            //     .HasKey(ub => new { ub.UserId, ub.BidId });
-
-            // modelBuilder.Entity<UserBid>()
-            //             .HasOne<User>(ub => ub.User)
-            //             .WithMany(u => u.UserToUserBids)
-            //             .HasForeignKey(ub => ub.UserId);
-            // modelBuilder.Entity<UserBid>()
-            //             .HasOne<Bid>(ub => ub.Bid)
-            //             .WithMany(b => b.BidToUserBids)
-            //             .HasForeignKey(ub => ub.BidId);
-
-            //Configure the one-to-many relationship between User and Item
 
             modelBuilder.Entity<User>(user =>
             {

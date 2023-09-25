@@ -2,14 +2,14 @@
 // version 1: Using Microsoft.EntityFrameworkCore.Sqlite
 // -----------------------------------------------------
 using System.Data.Common;
-using src.Data;
+using Src.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using src.Services.IServices;
-using src.Services;
+using Src.Services.IServices;
+using Src.Services;
 
 
 namespace BackendNUnitTest

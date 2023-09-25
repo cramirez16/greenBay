@@ -5,12 +5,12 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using src.Data;
-using src.Models;
-using src.Models.Specifications;
-using src.Repository.IRepository;
+using Src.Data;
+using Src.Models;
+using Src.Models.Specifications;
+using Src.Repository.IRepository;
 
-namespace src.Repository
+namespace Src.Repository
 {
     public class ItemRepository : IItemRepository
     {
