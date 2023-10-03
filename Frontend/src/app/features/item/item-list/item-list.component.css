@@ -60,6 +60,23 @@ img:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  overflow: scroll;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.mat-mdc-card-footer::-webkit-scrollbar {
+  display: none;
+}
+.text-footer {
+  width: 90%;
+  height: 90%;
+  overflow: scroll;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.text-footer::-webkit-scrollbar {
+  display: none;
 }
 mat-card-img {
   object-fit: cover; /*this makes the image in src fit to the size specified below*/
