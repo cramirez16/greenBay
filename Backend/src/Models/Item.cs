@@ -9,6 +9,7 @@ namespace Src.Models
 {
     public class Item
     {
+        // Using data annotations to configure a model / can be override by core fluent api in dbContext.
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -47,6 +48,7 @@ namespace Src.Models
         [ForeignKey("BuyerId")]
         public User? Buyer { get; set; }
 
+        // navigation property
         public List<Bid>? Bids { get; set; }
 
     }

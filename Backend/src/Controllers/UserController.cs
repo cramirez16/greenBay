@@ -31,6 +31,9 @@ namespace Src.Controllers
             ILogger<UserController> logger,
             IMapper automapper,
             IUserRepository userRepo
+        // if we dont use container dependency injection/service provider....
+        // IUserRepository userRepo = new UserRepository(new GreenBayDbContext())
+        // source: https://www.youtube.com/watch?v=oKyzza01rzA
         )
         {
             _jwtService = jwtService;

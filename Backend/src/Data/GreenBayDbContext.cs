@@ -82,7 +82,8 @@ namespace Src.Data
                 user.HasKey(u => u.Id);
             });
 
-
+            // Using Core Fluent API to configure dabase schema and specify relation ships between entities.
+            // Defining the mapping between the object-oriented model and the underlying database.
             modelBuilder.Entity<Item>(item =>
             {
                 item.HasKey(i => i.Id);
