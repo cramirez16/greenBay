@@ -37,12 +37,15 @@ jobs:
             exit 1
           fi
       - name: Debug Environment Variables
-        run: |
-          echo "JWT_KEY: $JWTSettings__Key"
-          echo "DB_CONNECTION_STRING: $ConnectionStrings__DefaultConnection"
         env:
           JwtSettings__Key: ${{ secrets.JWT_KEY }}
           ConnectionStrings__DefaultConnection: ${{ secrets.DB_CONECTION_STRING }}
+        run: |
+          echo "JWT_KEY:"
+          echo ${{ secrets.JWT_KEY }}
+          echo "DB_CONNECTION_STRING:"
+          echo ${{ secrets.DB_CONECTION_STRING }}
+
       - name: Build
         run: dotnet build --no-restore
         env:
