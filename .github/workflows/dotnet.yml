@@ -11,7 +11,7 @@ on:
 
 defaults:
   run:
-    working-directory: ../Backend
+    working-directory: Backend
 
 jobs:
   build:
@@ -24,7 +24,7 @@ jobs:
         with:
           dotnet-version: 7.0.x
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore Src/Backend.csproj
       - name: Check code format
         run: |
           dotnet format
@@ -37,6 +37,6 @@ jobs:
             exit 1
           fi
       - name: Build
-        run: dotnet build --no-restore
+        run: dotnet build Backend.sln --no-restore
       - name: Test
         run: dotnet test --no-build --verbosity normal
