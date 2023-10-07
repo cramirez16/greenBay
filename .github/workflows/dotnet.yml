@@ -24,7 +24,7 @@ jobs:
         with:
           dotnet-version: 7.0.x
       - name: Restore dependencies
-        run: dotnet restore Src/Backend.csproj
+        run: dotnet restore ./Src/Backend.csproj
       - name: Check code format
         run: |
           dotnet format
