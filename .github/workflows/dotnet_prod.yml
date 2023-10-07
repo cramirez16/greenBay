@@ -1,13 +1,13 @@
 # This workflow will build a .NET project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
 
-name: Continous Integration - Backend
+name: Continous Integration - Backend - Production
 
 on:
   push:
-    branches: ["dev", "main", "marter"]
+    branches: ["main", "marter"]
   pull_request:
-    branches: ["dev", "main", "master"]
+    branches: ["main", "master"]
 
 defaults:
   run:
@@ -37,21 +37,10 @@ jobs:
             echo "at $incorrect_format"
             exit 1
           fi
-      - name: Debug Environment Variables
-        env:
-          JwtSettings__Key: ${{secrets.JWT_KEY}}
-          ConnectionStrings__DefaultConnection: ${{secrets.DB_CONECTION_STRING}}
-        run: |
-          echo "JWT_KEY:"
-          echo ${{secrets.JWT_KEY}}
-          echo "DB_CONNECTION_STRING:"
-          echo ${{secrets.DB_CONECTION_STRING}}
 
-      - name: Build
-        run: dotnet build --no-restore
-        env:
-          JwtSettings__Key: ${{ secrets.JWT_KEY }}
-          ConnectionStrings__DefaultConnection: ${{ secrets.DB_CONECTION_STRING }}
+      - name: Build Production
+        run: dotnet build --no-restore --configuration Release
+
       - name: Test
         run: dotnet test --no-build --verbosity normal
         env:
