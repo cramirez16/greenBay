@@ -43,3 +43,6 @@ jobs:
           ConnectionStrings__DefaultConnection: ${{ secrets.DB_CONECTION_STRING}}
       - name: Test
         run: dotnet test --no-build --verbosity normal
+        env:
+          JwtSettings__Key: ${{ secrets.JWT_KEY }}
+          ConnectionStrings__DefaultConnection: ${{ secrets.DB_CONECTION_STRING}}
