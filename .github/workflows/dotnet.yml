@@ -39,7 +39,7 @@ jobs:
       - name: Build
         run: dotnet build --no-restore
         env:
-          JwtSettings:Key: ${{ secrets.JWT_KEY }}
-          ConnectionStrings:DefaultConnection: ${{ secrets.DB_CONECTION_STRING}}
+          JwtSettings__Key: ${{ secrets.JWT_KEY }}
+          ConnectionStrings__DefaultConnection: ${{ secrets.DB_CONECTION_STRING}}
       - name: Test
         run: dotnet test --no-build --verbosity normal

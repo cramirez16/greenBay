@@ -80,6 +80,7 @@ builder.Services.AddDbContext<GreenBayDbContext>(option =>
 {
     var connectionString =
         Environment.GetEnvironmentVariable("ConnectionStrings:DefaultConnection")
+        ?? Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection")
         ?? config["ConnectionStrings:DefaultConnection"];
     option.UseNpgsql(connectionString);
 });
@@ -94,7 +95,7 @@ builder.Services
             //ValidIssuer = config["JwtSettings:Issuer"],
             //ValidAudience = config["JwtSettings:Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(config["JwtSettings:Key"]!)
+                Encoding.UTF8.GetBytes(config["JwtSettings:Key"] ?? Environment.GetEnvironmentVariable("JwtSettings__Key")!)
             ),
             ValidateIssuer = false,
             ValidateAudience = false,
