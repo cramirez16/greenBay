@@ -9,6 +9,8 @@ using Src.Services;
 using Src.Services.IServices;
 using Src.Repository;
 using Src.Repository.IRepository;
+using src.Services;
+using src.Services.IServices;
 
 // create an instance of WebApplicationBuilder class.
 var builder = WebApplication.CreateBuilder(args);
@@ -67,6 +69,8 @@ builder.Services.AddCors(
 );
 
 builder.Services.AddScoped<IJWTService, JWTService>();
+
+builder.Services.AddScoped<IHassingService, HassingService>();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 

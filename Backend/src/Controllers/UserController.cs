@@ -14,6 +14,7 @@ using AutoMapper;
 using Src.Services.IServices;
 using Src.Models.Specifications;
 using Src.Repository.IRepository;
+using src.Services.IServices;
 
 namespace Src.Controllers
 {
@@ -23,11 +24,13 @@ namespace Src.Controllers
     {
         private readonly ILogger<UserController> _logger;
         private readonly IJWTService _jwtService;
+        private readonly IHassingService _hassingService;
         private readonly IMapper _automapper;
         private readonly IUserRepository _userRepo;
 
         public UserController(
             IJWTService jwtService,
+            IHassingService hassingService,
             ILogger<UserController> logger,
             IMapper automapper,
             IUserRepository userRepo
@@ -37,6 +40,7 @@ namespace Src.Controllers
         )
         {
             _jwtService = jwtService;
+            _hassingService = hassingService;
             _logger = logger;
             _automapper = automapper;
             _userRepo = userRepo;
@@ -76,7 +80,8 @@ namespace Src.Controllers
 
             // Given the password is not matching the one stored with the user email,
             // the user can't sign in and the application displays message that the password is wrong
-            if (!BCrypt.Net.BCrypt.Verify(loginRequestDto.Password, userByEmail.Password))
+            // if (!BCrypt.Net.BCrypt.Verify(loginRequestDto.Password, userByEmail.Password))
+            if (!_hassingService.VerifyHash(loginRequestDto.Password, userByEmail.Password))
             {
                 _logger.LogInformation("Login rejected, wrong Password.");
                 return Unauthorized(new { wrongPassword = true });
@@ -129,7 +134,8 @@ namespace Src.Controllers
                 return Conflict(new { takenEmail = true });
             }
 
-            var passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
+            // var passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
+            var passwordHash = _hassingService.CreateHash(request.Password);
 
             var createdUser = new User
             {
@@ -250,7 +256,8 @@ namespace Src.Controllers
                 return Conflict(new { takenEmail = true });
             }
 
-            var passwordHash = BCrypt.Net.BCrypt.HashPassword(user.Password);
+            //var passwordHash = BCrypt.Net.BCrypt.HashPassword(user.Password);
+            var passwordHash = _hassingService.CreateHash(user.Password);
 
             userById.UpdateDate = DateTime.UtcNow;
             userById.Name = user.Name;
@@ -332,7 +339,8 @@ namespace Src.Controllers
                 _logger.LogInformation("Check password forbidden, invalid user Id");
                 return Forbid();
             }
-            var passwordMatch = BCrypt.Net.BCrypt.Verify(parameters.Password, userFound.Password);
+            //var passwordMatch = BCrypt.Net.BCrypt.Verify(parameters.Password, userFound.Password);
+            var passwordMatch = _hassingService.VerifyHash(parameters.Password, userFound.Password);
             if (!passwordMatch)
             {
                 _logger.LogInformation("Check password forbidden, invalid password");
