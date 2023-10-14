@@ -1,20 +1,12 @@
 using NUnit.Framework;
-using Src.Controllers;
 using System.Net;
-using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Json;
-using Src.Data;
 using Src.Models.Dtos;
-using Newtonsoft.Json;
 using System.Net.Http.Headers;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Src.Models;
-using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
-using System.Text;
 using Src.Services.IServices;
 using Microsoft.AspNetCore.Http;
+using Integration;
 
 
 namespace BackendNUnitTest
@@ -230,7 +222,7 @@ namespace BackendNUnitTest
             };
             // Act - User try a bid of a not sallabel item.
             var responseBid = await client.PostAsJsonAsync("/api/bid", newBid);
-            var responseBidData = await responseBid.Content.ReadFromJsonAsync<EndpointResponseDto>();
+            var responseBidData = await responseBid.Content.ReadFromJsonAsync<BidTestResponse>();
             // Assert -> Bid not acepted.
             Assert.That(responseBid.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
             Assert.That(responseBidData!.notSallabel, Is.True);
@@ -272,7 +264,7 @@ namespace BackendNUnitTest
             };
             // Act - User try a bid of a not sallabel item.
             var responseBid = await client.PostAsJsonAsync("/api/bid", newBid);
-            var responseBidData = await responseBid.Content.ReadFromJsonAsync<EndpointResponseDto>();
+            var responseBidData = await responseBid.Content.ReadFromJsonAsync<BidTestResponse>();
             // Assert -> Bid not acepted.
             Assert.That((int)responseBid.StatusCode, Is.EqualTo(402));
             Assert.That(responseBidData!.notEnoughtMoneyToBid, Is.True);
