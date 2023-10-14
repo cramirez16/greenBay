@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Src.Models;
 using Src.Models.Dtos;
 using Src.Repository.IRepository;
@@ -47,9 +47,7 @@ namespace Src.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status402PaymentRequired)]
-        public async Task<ActionResult<BidRequestDto>> BidItem([FromBody] BidRequestDto bidRequestDto)
-        //Using ActionResult (Type) instead of IActionResult (interface), allow to specify the 
-        // type of the Response ---> will be documented in Swagger.
+        public async Task<IActionResult> BidItem([FromBody] BidRequestDto bidRequestDto)
         {
             if (bidRequestDto.BidAmount <= 0)
             {
