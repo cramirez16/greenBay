@@ -137,6 +137,11 @@ namespace Src.Controllers
             // var passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
             var passwordHash = _hassingService.CreateHash(request.Password);
 
+            // stored generated pattern, when the new user is created in the database, EF
+            // will update the value createdUser.Id property.
+            // in User model ---> [Key] [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+            // public int Id { get; set; }
+
             var createdUser = new User
             {
                 Name = request.Name,
@@ -159,7 +164,13 @@ namespace Src.Controllers
                 CreationDate = createdUser.CreationDate
             };
             _logger.LogInformation("New user registered.");
-            return CreatedAtAction(nameof(GetUser), new { id = createdUser.Id }, createdUserDto);
+            // Using http Get by id method to read from the database the new user created data.
+            //                 ( string actionName, object routeValue          , object value )
+            // return status 201 and the data of the user data (Id, Email, Name, CreationDate)
+            var actionName = nameof(GetUser);
+            var routeValues = new { id = createdUser.Id };
+            var createdResource = createdUserDto;
+            return CreatedAtAction(actionName, routeValues, createdResource);
         }
 
         [HttpGet()] // localhost/api/User
