@@ -50,7 +50,7 @@ namespace Src.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> Login([FromBody] LoginRequestDto loginRequestDto)
+        public async Task<ActionResult<LoginResponseDto>> Login([FromBody] LoginRequestDto loginRequestDto)
         {
             // Given any parameters missing, the user can't sign in and the application
             // displays a message listing the missing parameters
@@ -99,14 +99,18 @@ namespace Src.Controllers
             };
 
             _logger.LogInformation("Login was successfully.");
-            return Ok(new { tokenKey = _jwtService.CreateToken(jwtPayLoad) });
+            var token = new LoginResponseDto
+            {
+                TokenKey = _jwtService.CreateToken(jwtPayLoad)
+            };
+            return Ok(token);
         }
 
         [HttpPost("register")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status409Conflict)]
-        public async Task<IActionResult> Register([FromBody] RegisterRequestDto request)
+        public async Task<ActionResult<RegisterResponseDto>> Register([FromBody] RegisterRequestDto request)
         {
             if (request.Name == null)
             {
@@ -164,13 +168,23 @@ namespace Src.Controllers
                 CreationDate = createdUser.CreationDate
             };
             _logger.LogInformation("New user registered.");
-            // Using http Get by id method to read from the database the new user created data.
-            //                 ( string actionName, object routeValue          , object value )
-            // return status 201 and the data of the user data (Id, Email, Name, CreationDate)
-            var actionName = nameof(GetUser);
-            var routeValues = new { id = createdUser.Id };
+            string? actionName = nameof(GetUser); // http://localhost:5000/api/User/
+            var routeValues = new { id = createdUser.Id }; // 8 (for example)
             var createdResource = createdUserDto;
             return CreatedAtAction(actionName, routeValues, createdResource);
+            //                    ( string actionName, object routeValue, object value )
+            // return status 201 and the data of the new user created (Id, Email, Name, CreationDate)
+            // and location header with url to the location of the newly created user resource
+            //
+            // Response headers in swagger
+            // access-control-allow-origin: * 
+            // content-type: application/json; charset=utf-8 
+            // date: Sat,14 Oct 2023 13:04:36 GMT 
+            // location: http://localhost:5000/api/User/8 
+            // server: Kestrel 
+            // transfer-encoding: chunked 
+            //
+            // source: https://hamidmosalla.com/2017/03/29/asp-net-core-action-results-explained/
         }
 
         [HttpGet()] // localhost/api/User
