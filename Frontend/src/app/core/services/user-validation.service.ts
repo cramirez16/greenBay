@@ -27,13 +27,6 @@ export class UserValidationService {
     return null;
   }
 
-  validEmailLogin(control: AbstractControl): boolean {
-    const value = control.value;
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-    return emailRegex.test(value);
-  }
-
   validPassword(control: AbstractControl): ValidationErrors | null {
     const value = control.value;
     const passwordLetter = /[a-zA-Z]+/;
