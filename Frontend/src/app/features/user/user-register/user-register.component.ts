@@ -124,8 +124,8 @@ export class UserRegisterComponent {
   }
 
   bannerUser(user: IUserRegisterRequestDto) {
-    const message1 = `Thank you for registering!\nHello ${user.name}\n`;
-    const message2 = `You just have been registered with\n${user.email}\nto GreenBay Service!\n`;
+    const message1 = `Hello ${user.name}\nYou just have been registered with\n${user.email}\nto GreenBay Service!\n`;
+    const message2 = `Thank you for registering!\n`;
     this.dialog.open(GenericBannerComponent, {
       data: { titleSection: message1, messageSection: message2 },
     });
