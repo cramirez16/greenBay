@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { IItemResponseDto } from '../../../core/models/IItemResponseDto';
-import { AccountService } from '../../../core/services/account.service';
 import { ItemService } from '../../../core/services/item.service';
 import { MaterialModule } from '../../../shared/material/material.module';
 import { BidService } from '../../../core/services/bid.service';
@@ -21,7 +20,7 @@ import { GenericBannerComponent } from '../../generic-banner/generic-banner.comp
 export class ItemDetailedViewComponent implements OnInit {
   bid = new FormControl('', [
     Validators.required,
-    this.itemValidator.validPrice,
+    this._itemValidator.validPrice,
   ]);
   // Store items list component which we can display after get the list from the server.
   item: IItemResponseDto = {
@@ -44,13 +43,12 @@ export class ItemDetailedViewComponent implements OnInit {
   gridCols: number = 3;
 
   constructor(
-    private itemService: ItemService,
-    private bidService: BidService,
-    public accountService: AccountService,
-    public _localStorage: LocalStorageService,
-    private router: Router,
-    private itemValidator: ItemValidationService,
-    private dialog: MatDialog
+    private _itemService: ItemService,
+    private _bidService: BidService,
+    private _localStorage: LocalStorageService,
+    private _router: Router,
+    private _itemValidator: ItemValidationService,
+    private _dialog: MatDialog
   ) {}
 
   getErrorMessage(
@@ -74,7 +72,7 @@ export class ItemDetailedViewComponent implements OnInit {
 
   ngOnInit() {
     this.itemId = this._localStorage.get('itemId');
-    this.itemService.getItemById(this.itemId).subscribe({
+    this._itemService.getItemById(this.itemId).subscribe({
       next: (response: any) => {
         this.item = response as IItemResponseDto;
       },
@@ -91,7 +89,7 @@ export class ItemDetailedViewComponent implements OnInit {
 
     this.item.bid = Number(this.bid.value!);
 
-    this.bidService.bidItem(this.item.bid).subscribe({
+    this._bidService.bidItem(this.item.bid).subscribe({
       next: (response: any) => {
         if (response.bidLow) {
           this.bannerItem({
@@ -112,7 +110,6 @@ export class ItemDetailedViewComponent implements OnInit {
             bidAmount: this.item.bid,
             message: 'Congratulations, you bought the item!',
           });
-          console.log(response);
           this._localStorage.set('money', `${response.userMoney}`);
           this.onBackClick();
         }
@@ -133,12 +130,12 @@ export class ItemDetailedViewComponent implements OnInit {
   bannerItem(bid: { bidAmount: number; message: string }) {
     const message1 = `Bid amount: ${bid.bidAmount}\n`;
     const message2 = `${bid.message}\n`;
-    this.dialog.open(GenericBannerComponent, {
+    this._dialog.open(GenericBannerComponent, {
       data: { titleSection: message1, messageSection: message2 },
     });
   }
 
   onBackClick() {
-    this.router.navigate(['items']);
+    this._router.navigate(['items']);
   }
 }
