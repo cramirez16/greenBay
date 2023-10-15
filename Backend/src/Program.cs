@@ -14,7 +14,7 @@ using src.Services.IServices;
 
 // create an instance of WebApplicationBuilder class.
 var builder = WebApplication.CreateBuilder(args);
-// to access configuration settings stored in appsettings.json file...
+// to access configuration settings stored in appsettings.json file, dotnet user-secrets...
 var config = builder.Configuration;
 
 // Add services to dependency injection container.
