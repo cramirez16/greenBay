@@ -16,13 +16,13 @@ namespace Src.Controllers
     [Route("api/[controller]")]
     public class ItemController : ControllerBase
     {
-        private readonly ILogger<UserController> _logger;
+        private readonly ILogger<ItemController> _logger;
         private readonly IMapper _automapper;
         private readonly IItemRepository _itemRepo;
         private readonly IBidRepository _ibidRepo;
 
         public ItemController(
-            ILogger<UserController> logger,
+            ILogger<ItemController> logger,
             IMapper automapper,
             IItemRepository itemRepo,
             IBidRepository ibidRepo
@@ -49,6 +49,7 @@ namespace Src.Controllers
             }
             catch (Exception)
             {
+                _logger.LogInformation("Server Error GetItems()");
                 return StatusCode(StatusCodes.Status503ServiceUnavailable, "An unexpected error occurred. Please try again later.");
             }
 
@@ -91,6 +92,7 @@ namespace Src.Controllers
             }
             catch (Exception)
             {
+                _logger.LogInformation("Server Error GetItemById()");
                 return StatusCode(StatusCodes.Status503ServiceUnavailable, "An unexpected error occurred. Please try again later.");
             }
 
@@ -98,7 +100,7 @@ namespace Src.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Admin,User")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         //in body { 'itemRequestDto', object }, url: http://localhost:5000/api/item 
         public async Task<ActionResult<ItemResponseDto>> PostItem([FromBody] ItemRequestDto itemRequestDto)
@@ -108,10 +110,14 @@ namespace Src.Controllers
                 Item? itemEntities = _automapper.Map<Item>(itemRequestDto);
                 await _itemRepo.SaveItemAsync(itemEntities);
                 _logger.LogInformation("Created new item.");
-                return Ok(_automapper.Map<ItemResponseDto>(itemEntities));
+                string? actionName = nameof(GetItemById); // http://localhost:5000/api/Item/
+                var routeValues = new { id = itemEntities.Id };
+                var createdResource = _automapper.Map<ItemResponseDto>(itemEntities);
+                return CreatedAtAction(actionName, routeValues, createdResource);
             }
             catch (Exception)
             {
+                _logger.LogInformation("Server Error PostItem()");
                 return StatusCode(StatusCodes.Status503ServiceUnavailable, "An unexpected error occurred. Please try again later.");
             }
         }
@@ -140,6 +146,7 @@ namespace Src.Controllers
             }
             catch (Exception)
             {
+                _logger.LogInformation("Server Error GetItemsPaginated()");
                 return StatusCode(StatusCodes.Status503ServiceUnavailable, "An unexpected error occurred. Please try again later.");
             }
         }
