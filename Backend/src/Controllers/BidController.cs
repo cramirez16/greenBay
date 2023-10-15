@@ -142,6 +142,7 @@ namespace Src.Controllers
             }
             catch (Exception)
             {
+                _logger.LogInformation("BidController Error");
                 return StatusCode(StatusCodes.Status503ServiceUnavailable, "An unexpected error occurred. Please try again later.");
             }
         }
