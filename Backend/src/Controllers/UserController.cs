@@ -130,6 +130,7 @@ namespace Src.Controllers
                 return BadRequest(new { missingPassword = true });
             }
 
+            // cheking if the email address already exists in the database.
             var userByEmail = await _userRepo.FindUserByEmail(request.Email);
 
             if (userByEmail != null)
@@ -138,6 +139,7 @@ namespace Src.Controllers
                 return Conflict(new { takenEmail = true });
             }
 
+            // example of a hard dependency:
             // var passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
             var passwordHash = _hassingService.CreateHash(request.Password);
 
@@ -192,10 +194,16 @@ namespace Src.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<UserResponseDto>>> List()
         {
-            IEnumerable<User> users = await _userRepo.GetUsers();
-
-            _logger.LogInformation("User list sent.");
-            return Ok(_automapper.Map<IEnumerable<UserResponseDto>>(users));
+            try
+            {
+                IEnumerable<User> users = await _userRepo.GetUsers();
+                _logger.LogInformation("User list sent.");
+                return Ok(_automapper.Map<IEnumerable<UserResponseDto>>(users));
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status503ServiceUnavailable, "An unexpected error occurred. Please try again later.");
+            }
         }
 
         [HttpGet("{id}")] // localhost/api/User/{id}
