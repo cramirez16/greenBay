@@ -87,9 +87,8 @@ builder.Services.AddAutoMapper(typeof(MapperConfig));
 builder.Services.AddDbContext<GreenBayDbContext>(option =>
 {
     var connectionString =
-        Environment.GetEnvironmentVariable("ConnectionStrings:DefaultConnection")
-        ?? Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection")
-        ?? config["ConnectionStrings:DefaultConnection"];
+        Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection")
+        ?? config["ConnectionStrings__DefaultConnection"];
     option.UseNpgsql(connectionString);
 });
 
@@ -103,7 +102,7 @@ builder.Services
             //ValidIssuer = config["JwtSettings:Issuer"],
             //ValidAudience = config["JwtSettings:Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(config["JwtSettings:Key"] ?? Environment.GetEnvironmentVariable("JwtSettings__Key")!)
+                Encoding.UTF8.GetBytes(config["JwtSettings__Key"] ?? Environment.GetEnvironmentVariable("JwtSettings__Key")!)
             ),
             ValidateIssuer = false,
             ValidateAudience = false,
