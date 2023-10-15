@@ -206,7 +206,7 @@ namespace BackendNUnitTest
             // Act --> Post / save a new item in the database.
             var response = await client.PostAsJsonAsync("api/item", _newItem);
             // Assert --> Post was ok!
-            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Created));
         }
     }
 }

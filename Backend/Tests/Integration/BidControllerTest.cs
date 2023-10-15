@@ -212,7 +212,7 @@ namespace BackendNUnitTest
             var responseNewItem = await client.PostAsJsonAsync("/api/item", _newItem);
             // Assert
             Assert.That(responseNewItem, Is.Not.Null);
-            Assert.That(responseNewItem.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+            Assert.That(responseNewItem.StatusCode, Is.EqualTo(HttpStatusCode.Created));
 
             var newBid = new BidRequestDto
             {
@@ -254,7 +254,7 @@ namespace BackendNUnitTest
             var responseNewItem = await client.PostAsJsonAsync("/api/item", _newItem);
             // Assert
             Assert.That(responseNewItem, Is.Not.Null);
-            Assert.That(responseNewItem.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+            Assert.That(responseNewItem.StatusCode, Is.EqualTo(HttpStatusCode.Created));
 
             var newBid = new BidRequestDto
             {
