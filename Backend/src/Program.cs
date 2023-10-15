@@ -22,6 +22,10 @@ var config = builder.Configuration;
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+// registers services that expose information about our endpoints, 
+// used by Swagger and any other API documentation tool to generate documentation for our API 
+
+// Give access to current HTTP request and response context.
 builder.Services.AddHttpContextAccessor();
 // Configuring Swagger to generate domcumentation for the API.
 // Defining security requirements for JWT authentication.
