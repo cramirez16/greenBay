@@ -35,7 +35,7 @@ public class JWTService : IJWTService
             new Claim("money", jwtPayLoad.Money)
         };
 
-        var secretKey = _configuration["JwtSettings__Key"];
+        var secretKey = _configuration["JwtSettings__Key"] ?? Environment.GetEnvironmentVariable("JwtSettings__Key")!;
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey!));
 
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
