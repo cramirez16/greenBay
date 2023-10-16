@@ -72,8 +72,9 @@ builder.Services.AddCors(
         })
 );
 
-//var jwtKey = config["JwtSettings__Key"] ?? Environment.GetEnvironmentVariable("JwtSettings__Key")!;
-var jwtKey = config["JwtSettings__Key"];
+// config is used to read from user-secrets ---> json object ---> local development.
+// GetEnvironment... to read enviroment variables --> Remote execution, Railways for example.
+var jwtKey = config["JwtSettings__Key"] ?? Environment.GetEnvironmentVariable("JwtSettings__Key")!;
 builder.Services.AddScoped<IJWTService>(provider =>
   {
       var httpContextAccessor = provider.GetRequiredService<IHttpContextAccessor>();

@@ -1,5 +1,4 @@
 using NUnit.Framework;
-using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Http;
 using AutoMapper;
 using Moq;
@@ -17,16 +16,15 @@ namespace UnitTests
         public class JWTServiceTests
         {
             private JWTService _jwtService;
-            private IConfiguration _configuration;
+            private string _jwtKey;
             private IHttpContextAccessor _httpContextAccessor;
             private IMapper _mapper;
 
             [SetUp]
             public void Setup()
             {
-                // Mock IConfiguration
-                var configurationMock = new Mock<IConfiguration>();
-                configurationMock.Setup(x => x["JwtSettings:Key"]).Returns("DfRVw5b0ahmA2fPYRScOj2uvPDEiokpu3MxBLRnw");
+                // Mock jwtKey
+                _jwtKey = "DfRVw5b0ahmA2fPYRScOj2uvPDEiokpu3MxBLRnw";
 
                 // Mock IHttpContextAccessor
                 var httpContextAccessorMock = new Mock<IHttpContextAccessor>();
@@ -34,11 +32,10 @@ namespace UnitTests
                 // Mock IMapper
                 var mapperMock = new Mock<IMapper>();
 
-                _configuration = configurationMock.Object;
                 _httpContextAccessor = httpContextAccessorMock.Object;
                 _mapper = mapperMock.Object;
 
-                _jwtService = new JWTService(_configuration, _httpContextAccessor, _mapper);
+                _jwtService = new JWTService(_jwtKey, _httpContextAccessor, _mapper);
             }
 
             [Test]
@@ -84,7 +81,7 @@ namespace UnitTests
                           .Returns(expectedDto);
 
                 // Create the JWTService with the IMapper mock
-                var jwtService = new JWTService(_configuration, _httpContextAccessor, mapperMock.Object);
+                var jwtService = new JWTService(_jwtKey, _httpContextAccessor, mapperMock.Object);
 
                 // Act
                 var userResponseDto = jwtService.GetClaimsFromToken(jwtToken);

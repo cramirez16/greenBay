@@ -8,8 +8,6 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Src.Services.IServices;
-using Src.Services;
 
 
 namespace BackendNUnitTest
@@ -43,7 +41,6 @@ namespace BackendNUnitTest
                 using var scope = services.BuildServiceProvider().CreateScope();
                 var context = scope.ServiceProvider.GetRequiredService<GreenBayDbContext>();
                 context.Database.Migrate();
-                services.AddScoped<IJWTService, JWTService>();
             }
             );
             builder.UseEnvironment("Development");

@@ -1,17 +1,11 @@
 using NUnit.Framework;
-using Src.Controllers;
 using System.Net;
-using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Json;
-using Src.Data;
 using Src.Models.Dtos;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Src.Models;
-using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
 using System.Text;
 using Src.Services.IServices;
 
