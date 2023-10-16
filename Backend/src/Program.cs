@@ -72,7 +72,15 @@ builder.Services.AddCors(
         })
 );
 
-builder.Services.AddScoped<IJWTService, JWTService>();
+//var jwtKey = config["JwtSettings__Key"] ?? Environment.GetEnvironmentVariable("JwtSettings__Key")!;
+var jwtKey = config["JwtSettings__Key"];
+builder.Services.AddScoped<IJWTService>(provider =>
+  {
+      var httpContextAccessor = provider.GetRequiredService<IHttpContextAccessor>();
+      var mapper = provider.GetRequiredService<AutoMapper.IMapper>();
+      return new JWTService(jwtKey!, httpContextAccessor, mapper);
+  }
+);
 
 builder.Services.AddScoped<IHassingService, HassingService>();
 
@@ -102,7 +110,7 @@ builder.Services
             //ValidIssuer = config["JwtSettings:Issuer"],
             //ValidAudience = config["JwtSettings:Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(config["JwtSettings__Key"] ?? Environment.GetEnvironmentVariable("JwtSettings__Key")!)
+                Encoding.UTF8.GetBytes(jwtKey!)
             ),
             ValidateIssuer = false,
             ValidateAudience = false,

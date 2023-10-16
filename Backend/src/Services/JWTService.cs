@@ -1,5 +1,4 @@
 using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Src.Models;
 using Src.Models.Dtos;
@@ -12,13 +11,13 @@ namespace Src.Services;
 
 public class JWTService : IJWTService
 {
-    private readonly IConfiguration _configuration;
+    private readonly string _jwtKey;
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IMapper _mapper;
 
-    public JWTService(IConfiguration configuration, IHttpContextAccessor httpContextAccessor, IMapper mapper)
+    public JWTService(string jwtKey, IHttpContextAccessor httpContextAccessor, IMapper mapper)
     {
-        _configuration = configuration;
+        _jwtKey = jwtKey;
         _httpContextAccessor = httpContextAccessor;
         _mapper = mapper;
     }
@@ -35,8 +34,7 @@ public class JWTService : IJWTService
             new Claim("money", jwtPayLoad.Money)
         };
 
-        var secretKey = _configuration["JwtSettings__Key"] ?? Environment.GetEnvironmentVariable("JwtSettings__Key")!;
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey!));
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtKey));
 
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
