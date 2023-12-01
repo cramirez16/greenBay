@@ -2,6 +2,24 @@
 
 ### Final project - Green Fox Academy - Junior Web Developer Certification
 
+<details>
+<summary><h3>Project description</h3></summary><br>
+<hr>
+1. Frontend<br><span>          </span>
+Implemented with Angular, Angular Material and animations with Gsap.<br><span>          </span>
+Testing implemented with Jest, unit test and e2e.<br><br>
+2. Jason Web Token for authentication<br><span>          </span>
+Token stored in web browser localstorage<br><br>
+3. Backend<br><span>          </span>
+Implemented a restful web api with net core<br><span>          </span>
+Wep api documented with swagger<br><span>          </span>
+Tested with NUnit, unit & integration test.<br><span>          </span>
+Enviroment variables on github, railways<br><span>          </span>
+Dotnet secrets -> local computer<br><br>
+4. Data storage:<br><span>          </span>
+Entity Frame Work as ORM<br><span>          </span>
+PostgreSQL as database<br><br>
+</details>
 <br>
 
 <a href="https://greenbayfrontend-development.up.railway.app/" target="_blank" rel="noreferrer">
@@ -63,9 +81,9 @@
 
 ## Workflow
 
-<table style="border: rgba(0,0,0,1)">
-<tr style="border: rgba(0,0,0,1)">
-<td style="border: rgba(0,0,0,1)">
+<table>
+<tr>
+<td>
 <a href="https://code.visualstudio.com/" target="_blank" rel="noreferrer" title="Visual Studio Code">
     <img src="https://raw.githubusercontent.com/cramirez16/greenBay/animation/assets/img/vscode.svg" alt="vscode"  width="60"/>
 </a><br>
@@ -110,23 +128,4 @@ Automated with github actions.<br><br>
 3.2. Continuos deploy:<br><span>          </span>
 If CI was suscess, run more test and on success deploy!<br><span>          </span>
 Automated with github actions.
-</details>
-
-<details>
-<summary><h3>Project description</h3></summary><br>
-<hr>
-1. Frontend<br><span>          </span>
-Implemented with Angular, Angular Material and animations with Gsap.<br><span>          </span>
-Testing implemented with Jest, unit test and e2e.<br><br>
-2. Jason Web Token for authentication<br><span>          </span>
-Token stored in web browser localstorage<br><br>
-3. Backend<br><span>          </span>
-Implemented a resful web api with net core<br><span>          </span>
-Wep api documented with swagger<br><span>          </span>
-Tested with NUnit, unit & integration test.<br><span>          </span>
-Enviroment variables on github, railways<br><span>          </span>
-Dotnet secrets -> local computer<br><br>
-4. Data storage:<br><span>          </span>
-Entity Frame Work as ORM<br><span>          </span>
-PostgreSQL as database<br><br>
 </details>
