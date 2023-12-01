@@ -58,8 +58,8 @@ Final project - Green Fox Academy<br>Junior Web Developer Certification
 </table>
 <br>
 
-### Project description
-
+<details>
+<summary style="font-size: 20px">Project description</summary><br>
 1 Frontend<br><span>          </span>
 Implemented with Angular, Angular Material and animations with Gsap.<br><span>          </span>
 Testing implemented with Jest, unit test and e2e.<br><br>
@@ -74,6 +74,7 @@ Dotnet secrets -> local computer<br><br>
 4 Data storage:<br><span>          </span>
 Entity Frame Work as ORM<br><span>          </span>
 PostgreSQL as database<br><br>
+</details>
 
 ## Workflow
 
@@ -112,14 +113,15 @@ PostgreSQL as database<br><br>
 </tr>
 </table>
 
-### Workflow description
-
-1 Coded and containerized locally, linter applied.<br>
-2 Tested locally, unit test, integration test & e2e.<br>
-3 Upload to github wich run some actions:<br>
+<details>
+<summary style="font-size: 20px">Workflow description</summary><br>
+1 Coded and containerized locally, linter applied.<br><br>
+2 Tested locally, unit test, integration test & e2e.<br><br>
+3 Upload to github wich run some actions:<br><br>
 3.1 Continuos integration:<br><span>          </span>
 If test run suscefully, merge it!<br><span>          </span>
-automated with github actions.<br>
+automated with github actions.<br><br>
 3.2 Continuos deploy:<br><span>          </span>
 If CI was suscess, run more test and on success deploy!<br><span>          </span>
 automated with github actions.
+</details>
