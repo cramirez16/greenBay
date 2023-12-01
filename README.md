@@ -81,32 +81,32 @@ PostgreSQL as database<br><br>
 <tr>
 <td>
 <a href="https://code.visualstudio.com/" target="_blank" rel="noreferrer" title="Visual Studio Code">
-    <img src="https://github.com/devicons/devicon/raw/master/icons/vscode/vscode-original.svg" alt="vscode"  width="60"/>
+    <img src="https://raw.githubusercontent.com/cramirez16/greenBay/animation/assets/img/vscode.svg" alt="vscode"  width="60"/>
 </a><br>
 <a href="https://www.docker.com/" target="_blank" rel="noreferrer" title="Docker">
-    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-plain.svg" alt="Docker"  width="60"/>
+    <img src="https://raw.githubusercontent.com/cramirez16/greenBay/animation/assets/img/docker.svg" alt="Docker"  width="60"/>
 </a>
 
 </td>
 <td><span>        </span></td>
 
 <td>
-<img src="https://assets.cdn.prod.twilio.com/images/1pafGbI1FKxvy_xUcTOiEruKNtMWadUCAI_v47hYnsrWgj.width-800_XlISurb.png" alt="testing" title="Testing" width="120" height="120"/>
+<img src="https://raw.githubusercontent.com/cramirez16/greenBay/animation/assets/img/github.svg" alt="Testing" title="Testing" width="120" height="120"/>
 </td>
 <td><span>        </span></td>
 <td>
 <a href="https://github.com/" target="_blank" rel="noreferrer" title="GitHub">
-    <img src="https://www.svgrepo.com/show/331724/github-code-source.svg" alt="GitHub"  width="60"/>
+    <img src="https://raw.githubusercontent.com/cramirez16/greenBay/animation/assets/img/github.svg" alt="GitHub"  width="60"/>
 </a>
 </td>
 <td><span>        </span></td>
 <td>
-<img src="https://assets.cdn.prod.twilio.com/images/1pafGbI1FKxvy_xUcTOiEruKNtMWadUCAI_v47hYnsrWgj.width-800_XlISurb.png" alt="testing" title="Testing" width="120" height="120"/>
+<img src="https://raw.githubusercontent.com/cramirez16/greenBay/animation/assets/img/testing.png" alt="Testing" title="Testing" width="120" height="120"/>
 </td>
 <td><span>        </span></td>
 <td>
 <a href="https://railway.app/" target="_blank" rel="noreferrer" title="Railway">
-    <img src="https://raw.githubusercontent.com/cramirez16/greenBay/animation/assets/img/railway-logo-blue.svg" alt="Railway"  width="60"/>
+    <img src="https://raw.githubusercontent.com/cramirez16/greenBay/animation/assets/img/railway.svg" alt="Railway"  width="60"/>
 </a>
 </td>
 </tr>
