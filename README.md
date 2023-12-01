@@ -96,7 +96,8 @@
 </table>
 
 <details>
-<summary>Workflow description</summary><br>
+<summary><h3>Workflow description</h3></summary><br>
+<hr>
 1 Coded and containerized locally, linter applied.<br><br>
 2 Tested locally, unit test, integration test & e2e.<br><br>
 3 Upload to github wich run some actions:<br><br>
