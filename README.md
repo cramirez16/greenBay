@@ -10,11 +10,12 @@ Final project - Green Fox Academy - Junior Web Developer Certification
 
 ## Technologies Used
 
-<table>
+<table style="border: none">
 <tr>
 <td>
+<img src="https://upload.wikimedia.org/wikipedia/commons/0/02/Transparent_square.svg" width="30" height="30"/>
 <a href="https://angular.io//" target="_blank" rel="noreferrer">
-    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/angularjs/angularjs-original.svg" alt="netcore" title="angular" width="30" height="30"  style="margin-left: 30px;"/>
+    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/angularjs/angularjs-original.svg" alt="netcore" title="angular" width="30" height="30"/>
 </a><br>
 <a href="https://material.angular.io/" target="_blank" rel="noreferrer">
     <img src="https://material.angular.io/assets/img/angular-material-logo.svg" alt="netcore" title="angular material" width="30" height="30"/>
