@@ -29,6 +29,7 @@
     "@auth0/angular-jwt": "^5.1.2",
     "@ngx-formly/bootstrap": "^6.0.0",
     "@ngx-formly/core": "^6.0.0",
+    "gsap": "^3.12.2",
     "rxjs": "~7.8.0",
     "save-dev": "^0.0.1-security",
     "ts-node": "^10.9.1",

@@ -215,6 +215,10 @@ namespace Src.Controllers
         {
             // id never is null, if id is not in the url, the request never arrive to this endpoint.
             // get localhost/api/User/{id} , no id => get localhost/api/User
+
+            // https://learn.microsoft.com/en-us/aspnet/core/fundamentals/use-http-context?view=aspnetcore-7.0#user
+            // "The HttpContext.User property is used to get or set the user, represented by ClaimsPrincipal, for the 
+            // request. The ClaimsPrincipal is typically set by ASP.NET Core authentication."
             var authenticatedUser = HttpContext.User;
             var userIdClaim = authenticatedUser.Claims.FirstOrDefault(
                 claim => claim.Type == "userId"

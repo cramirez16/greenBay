@@ -27,6 +27,7 @@ builder.Services.AddEndpointsApiExplorer();
 
 // Give access to current HTTP request and response context.
 builder.Services.AddHttpContextAccessor();
+
 // Configuring Swagger to generate domcumentation for the API.
 // Defining security requirements for JWT authentication.
 builder.Services.AddSwaggerGen(c =>

@@ -27,6 +27,7 @@ namespace Src.Repository
                 .Include(item => item.Seller)
                 .Include(item => item.Bids)
                 .Where(item => item.IsSellable)
+                .AsNoTracking()
                 .ToListAsync();
         }
 

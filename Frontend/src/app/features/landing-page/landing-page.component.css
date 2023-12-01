@@ -98,3 +98,21 @@ mat-card {
     gap: 30px;
   }
 }
+
+ul.transition {
+  display: flex;
+  position: absolute;
+  z-index: 10;
+  height: calc(100vh - 20px);
+  width: 100%;
+  top: 0;
+  left: 0;
+  margin: 0;
+  pointer-events: none;
+}
+
+ul.transition li {
+  transform: scaleY(1);
+  background: lightblue;
+  width: 20%;
+}
