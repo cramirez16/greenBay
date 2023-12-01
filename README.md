@@ -27,6 +27,13 @@ Final project - Green Fox Academy - Junior Web Developer Certification
     <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/jest/jest-plain.svg" alt="netcore" title="Jest" width="30" height="30"/>
 </a>
 </td>
+
+<td>
+<a href="https://jwt.io/" target="_blank" rel="noreferrer" title="Jason Web Token">
+    <img src="https://jwt.io/img/pic_logo.svg" alt="Jason Web Token"  width="30" height="30"/>
+    <img src="https://jwt.io/img/logo.svg" alt="Jason Web Token" width="30" height="30"/>
+</a>
+</td>
 <td>
 <img src="https://upload.wikimedia.org/wikipedia/commons/0/02/Transparent_square.svg" width="30" height="30"/>
 <a href="https://learn.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core?view=aspnetcore-8.0" target="_blank" rel="noreferrer">
@@ -42,7 +49,12 @@ Final project - Green Fox Academy - Junior Web Developer Certification
     <img src="https://avatars.githubusercontent.com/u/2678858?s=280&v=4" alt="EntityFrameWork" title="NUnit" width="30" height="30"/>
 </a>
 </td>
+<td>
+<a href="https://www.postgresql.org/" target="_blank" rel="noreferrer" title="PostgreSQL">
+    <img src="https://www.postgresql.org/media/img/about/press/elephant.png" alt="Jason Web Token"  width="30" height="30"/>
+</a>
+</td>
 </tr>
 </table>
 <br>
-docker - Postgresql - integration testing - e2e testing - CI/CD - GitHub - unit testing - Deploy to Railways
+JWT - Postgresql - integration testing - e2e testing - Docker - CI/CD - GitHub - unit testing - Deploy to Railways
