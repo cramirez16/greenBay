@@ -9,7 +9,7 @@
 </a>
 <br><br>
 <p>&ThickSpace;&ThickSpace;&ThickSpace;&ThickSpace;&ThickSpace;&ThickSpace;&ThickSpace;&ThickSpace;&ThickSpace;&ThickSpace;&ThickSpace;&ThickSpace;&ThickSpace;&ThickSpace;&ThickSpace;&ThickSpace;&ThickSpace;&ThickSpace;&ThickSpace;&ThickSpace;&ThickSpace;&ThickSpace;&ThickSpace;&ThickSpace;&ThickSpace;&ThickSpace;&ThickSpace;&copy; Carlos Ramirez - 2023 Hungary</p>
-</div>
+<br>
 
 ## Technologies Used
 
@@ -64,8 +64,8 @@
 ## Workflow
 
 <table>
-<tr>
-<td>
+<tr style="border: none;">
+<td style="border: none;">
 <a href="https://code.visualstudio.com/" target="_blank" rel="noreferrer" title="Visual Studio Code">
     <img src="https://raw.githubusercontent.com/cramirez16/greenBay/animation/assets/img/vscode.svg" alt="vscode"  width="60"/>
 </a><br>
