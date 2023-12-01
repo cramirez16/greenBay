@@ -13,7 +13,7 @@
 <table style="border: none">
 <tr>
 <td>
-<img src="https://upload.wikimedia.org/wikipedia/commons/0/02/Transparent_square.svg" width="50" height="50"/>
+<img src="https://raw.githubusercontent.com/cramirez16/greenBay/animation/assets/img/Transparent_square.svg" width="50" height="50"/>
 <a href="https://angular.io//" target="_blank" rel="noreferrer">
     <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/angularjs/angularjs-original.svg" alt="netcore" title="angular" width="50" height="50"/>
 </a><br>
@@ -35,7 +35,7 @@
 </a>
 </td>
 <td>
-<img src="https://upload.wikimedia.org/wikipedia/commons/0/02/Transparent_square.svg" width="50" height="50"/>
+<img src="https://raw.githubusercontent.com/cramirez16/greenBay/animation/assets/img/" width="50" height="50"/>
 <a href="https://learn.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core?view=aspnetcore-8.0" target="_blank" rel="noreferrer">
     <img src="https://raw.githubusercontent.com/dotnet/docs/cb475ed45f881e9462e34764480d3b0ebce85e91/docs/images/hub/netcore.svg" alt="netcore" title="ASP.NET core" width="50" height="50"/>
 </a><br>
@@ -71,7 +71,7 @@
 </a>
 
 </td>
-<td><span>        </span></td>
+<td><img src="https://raw.githubusercontent.com/cramirez16/greenBay/animation/assets/img/right-arrow.svg" alt="arrow"  width="30"/></td>
 
 <td>
 <img src="https://raw.githubusercontent.com/cramirez16/greenBay/animation/assets/img/testing.png" alt="Testing" title="Testing" width="120" height="120"/>
@@ -98,32 +98,32 @@
 <details>
 <summary><h3>Workflow description</h3></summary><br>
 <hr>
-1 Coded and containerized locally, linter applied.<br><br>
-2 Tested locally, unit test, integration test & e2e.<br><br>
-3 Upload to github wich run some actions:<br><br>
-3.1 Continuos integration:<br><span>          </span>
+1. Coded and containerized locally, linter applied.<br><br>
+2. Tested locally, unit test, integration test & e2e.<br><br>
+3. Upload to github wich run some actions:<br><br>
+3.1. Continuos integration:<br><span>          </span>
 If test run suscefully, merge it!<br><span>          </span>
-automated with github actions.<br><br>
-3.2 Continuos deploy:<br><span>          </span>
+Automated with github actions.<br><br>
+3.2. Continuos deploy:<br><span>          </span>
 If CI was suscess, run more test and on success deploy!<br><span>          </span>
-automated with github actions.
+Automated with github actions.
 </details>
 
 <details>
 <summary><h3>Project description</h3></summary><br>
 <hr>
-1 Frontend<br><span>          </span>
+1. Frontend<br><span>          </span>
 Implemented with Angular, Angular Material and animations with Gsap.<br><span>          </span>
 Testing implemented with Jest, unit test and e2e.<br><br>
-2 Jason Web Token for authentication<br><span>          </span>
+2. Jason Web Token for authentication<br><span>          </span>
 Token stored in web browser localstorage<br><br>
-3 Backend<br><span>          </span>
+3. Backend<br><span>          </span>
 Implemented a resful web api with net core<br><span>          </span>
 Wep api documented with swagger<br><span>          </span>
 Tested with NUnit, unit & integration test.<br><span>          </span>
 Enviroment variables on github, railways<br><span>          </span>
 Dotnet secrets -> local computer<br><br>
-4 Data storage:<br><span>          </span>
+4. Data storage:<br><span>          </span>
 Entity Frame Work as ORM<br><span>          </span>
 PostgreSQL as database<br><br>
 </details>
