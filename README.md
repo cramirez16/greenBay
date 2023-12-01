@@ -63,9 +63,9 @@
 
 ## Workflow
 
-<table>
-<tr style="border: none;">
-<td style="border: none;">
+<table style="border: rgba(0,0,0,1)">
+<tr style="border: rgba(0,0,0,1)">
+<td style="border: rgba(0,0,0,1)">
 <a href="https://code.visualstudio.com/" target="_blank" rel="noreferrer" title="Visual Studio Code">
     <img src="https://raw.githubusercontent.com/cramirez16/greenBay/animation/assets/img/vscode.svg" alt="vscode"  width="60"/>
 </a><br>
