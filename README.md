@@ -10,9 +10,10 @@ Final project - Green Fox Academy - Junior Web Developer Certification
 
 ## Technologies Used
 
-<table style="text-align: center">
-<tr style="display: flex; justify-content: center; align-items: flex-start">
+<table>
+<tr>
 <td>
+<img src="" width="30" height="30" style="visibility: hidden">
 <a href="https://angular.io//" target="_blank" rel="noreferrer">
     <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/angularjs/angularjs-original.svg" alt="netcore" title="angular" width="30" height="30"/>
 </a><br>
