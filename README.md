@@ -106,7 +106,7 @@ PostgreSQL as database<br><br>
 <td><span>        </span></td>
 <td>
 <a href="https://www.postgresql.org/" target="_blank" rel="noreferrer" title="Railway">
-    <img src="./assets/img/railway-logotype-dark.svg" alt="Railway"  width="60"/>
+    <img src="https://raw.githubusercontent.com/cramirez16/greenBay/animation/assets/img/railway-log-blue.svg" alt="Railway"  width="60"/>
 </a>
 </td>
 </tr>
