@@ -95,8 +95,8 @@ PostgreSQL as database<br><br>
 </td>
 <td><span>        </span></td>
 <td>
-<a href="https://www.postgresql.org/" target="_blank" rel="noreferrer" title="GitHub">
-    <img src="https://github.com/devicons/devicon/raw/master/icons/github/github-original.svg" alt="Jason Web Token"  width="60" style="filter: invert(1)"/>
+<a href="https://github.com/" target="_blank" rel="noreferrer" title="GitHub">
+    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/github/github-original-wordmark.svg" alt="GitHub"  width="60" style="filter: invert(1)"/>
 </a>
 </td>
 <td><span>        </span></td>
