@@ -84,7 +84,7 @@ PostgreSQL as database<br><br>
     <img src="https://github.com/devicons/devicon/raw/master/icons/vscode/vscode-original.svg" alt="vscode"  width="60"/>
 </a><br>
 <a href="https://www.docker.com/" target="_blank" rel="noreferrer" title="Docker">
-    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-plain.svg" alt="Docker"  width="60" style="filter:hue-rotate(20deg)" />
+    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-plain.svg" alt="Docker"  width="60"/>
 </a>
 
 </td>
@@ -96,7 +96,7 @@ PostgreSQL as database<br><br>
 <td><span>        </span></td>
 <td>
 <a href="https://github.com/" target="_blank" rel="noreferrer" title="GitHub">
-    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/github/github-original-wordmark.svg" alt="GitHub"  width="60" style="filter: invert(1)"/>
+    <img src="https://www.svgrepo.com/show/331724/github-code-source.svg" alt="GitHub"  width="60"/>
 </a>
 </td>
 <td><span>        </span></td>
@@ -106,7 +106,7 @@ PostgreSQL as database<br><br>
 <td><span>        </span></td>
 <td>
 <a href="https://www.postgresql.org/" target="_blank" rel="noreferrer" title="Railway">
-    <img src="https://railway.app/brand/logo-light.svg" alt="Railway"  width="60"/>
+    <img src="./assets/img/railway-logotype-dark.svg" alt="Railway"  width="60"/>
 </a>
 </td>
 </tr>
