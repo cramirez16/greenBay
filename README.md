@@ -13,7 +13,7 @@ Final project - Green Fox Academy - Junior Web Developer Certification
 <table>
 <tr>
 <td>
-<img src="" width="30" height="30" style="visibility: hidden">
+<span style="width: 30px; height: 30px; visibility: hidden">
 <a href="https://angular.io//" target="_blank" rel="noreferrer">
     <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/angularjs/angularjs-original.svg" alt="netcore" title="angular" width="30" height="30"/>
 </a><br>
