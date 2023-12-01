@@ -91,7 +91,7 @@ PostgreSQL as database<br><br>
 <td><span>        </span></td>
 
 <td>
-<img src="https://raw.githubusercontent.com/cramirez16/greenBay/animation/assets/img/github.svg" alt="Testing" title="Testing" width="120" height="120"/>
+<img src="https://raw.githubusercontent.com/cramirez16/greenBay/animation/assets/img/testing.png" alt="Testing" title="Testing" width="120" height="120"/>
 </td>
 <td><span>        </span></td>
 <td>
