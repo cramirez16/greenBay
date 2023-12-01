@@ -28,6 +28,7 @@ Final project - Green Fox Academy - Junior Web Developer Certification
 </a>
 </td>
 <td>
+<img src="https://upload.wikimedia.org/wikipedia/commons/0/02/Transparent_square.svg" width="30" height="30"/>
 <a href="https://learn.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core?view=aspnetcore-8.0" target="_blank" rel="noreferrer">
     <img src="https://raw.githubusercontent.com/dotnet/docs/cb475ed45f881e9462e34764480d3b0ebce85e91/docs/images/hub/netcore.svg" alt="netcore" title="ASP.NET core" width="30" height="30"/>
 </a><br>
@@ -43,4 +44,5 @@ Final project - Green Fox Academy - Junior Web Developer Certification
 </td>
 </tr>
 </table>
+<br>
 docker - Postgresql - integration testing - e2e testing - CI/CD - GitHub - unit testing - Deploy to Railways
