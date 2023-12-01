@@ -2,11 +2,13 @@
 
 ### Final project - Green Fox Academy - Junior Web Developer Certification
 
+<div>
 <a href="https://greenbayfrontend-development.up.railway.app/" target="_blank" rel="noreferrer">
     <img src="https://media.licdn.com/dms/image/D4D2DAQG6CDEvw8rtzA/profile-treasury-image-shrink_800_800/0/1698418263908?e=1702033200&v=beta&t=kZfLGPbaYICshuq7GNCg8aJoyrTpmiWY9bOZNv4rRcY" alt="netcore" width="500" title="Live Demo" height="250"/>
 </a>
 <br>
-<p style="width: 500px; text-align: center;">&copy; Carlos Ramirez - 2023 Hungary</p>
+<p align="center">&copy; Carlos Ramirez - 2023 Hungary</p>
+</div>
 
 ## Technologies Used
 
@@ -35,7 +37,7 @@
 </a>
 </td>
 <td>
-<img src="https://raw.githubusercontent.com/cramirez16/greenBay/animation/assets/img/" width="50" height="50"/>
+<img src="https://raw.githubusercontent.com/cramirez16/greenBay/animation/assets/img/Transparent_square.svg" width="50" height="50"/>
 <a href="https://learn.microsoft.com/en-us/aspnet/core/introduction-to-aspnet-core?view=aspnetcore-8.0" target="_blank" rel="noreferrer">
     <img src="https://raw.githubusercontent.com/dotnet/docs/cb475ed45f881e9462e34764480d3b0ebce85e91/docs/images/hub/netcore.svg" alt="netcore" title="ASP.NET core" width="50" height="50"/>
 </a><br>
@@ -71,22 +73,22 @@
 </a>
 
 </td>
-<td><img src="https://raw.githubusercontent.com/cramirez16/greenBay/animation/assets/img/right-arrow.svg" alt="arrow"  width="30"/></td>
+<td><img src="https://raw.githubusercontent.com/cramirez16/greenBay/animation/assets/img/right-arrow.svg" alt="arrow"  width="50"/></td>
 
 <td>
 <img src="https://raw.githubusercontent.com/cramirez16/greenBay/animation/assets/img/testing.png" alt="Testing" title="Testing" width="120" height="120"/>
 </td>
-<td><span>        </span></td>
+<td><img src="https://raw.githubusercontent.com/cramirez16/greenBay/animation/assets/img/right-arrow.svg" alt="arrow"  width="50"/></td>
 <td>
 <a href="https://github.com/" target="_blank" rel="noreferrer" title="GitHub">
     <img src="https://raw.githubusercontent.com/cramirez16/greenBay/animation/assets/img/github.svg" alt="GitHub"  width="60"/>
 </a>
 </td>
-<td><span>        </span></td>
+<td><img src="https://raw.githubusercontent.com/cramirez16/greenBay/animation/assets/img/right-arrow.svg" alt="arrow"  width="50"/></td>
 <td>
 <img src="https://raw.githubusercontent.com/cramirez16/greenBay/animation/assets/img/testing.png" alt="Testing" title="Testing" width="120" height="120"/>
 </td>
-<td><span>        </span></td>
+<td><img src="https://raw.githubusercontent.com/cramirez16/greenBay/animation/assets/img/right-arrow.svg" alt="arrow"  width="50"/></td>
 <td>
 <a href="https://railway.app/" target="_blank" rel="noreferrer" title="Railway">
     <img src="https://raw.githubusercontent.com/cramirez16/greenBay/animation/assets/img/railway.svg" alt="Railway"  width="60"/>
