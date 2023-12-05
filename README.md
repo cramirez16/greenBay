@@ -22,6 +22,8 @@ PostgreSQL as database<br><br>
 </details>
 <br>
 
+[<img src="assets/img/demo.gif" height="18">](https://greenbayfrontend-development.up.railway.app)
+
 <a href="https://greenbayfrontend-development.up.railway.app/" target="_blank" rel="noreferrer">
     <img src="https://media.licdn.com/dms/image/D4D2DAQG6CDEvw8rtzA/profile-treasury-image-shrink_800_800/0/1698418263908?e=1702033200&v=beta&t=kZfLGPbaYICshuq7GNCg8aJoyrTpmiWY9bOZNv4rRcY" alt="netcore" width="500" title="Live Demo" height="250"/>
 </a>
