@@ -1,0 +1,4 @@
+{
+  "appService.deploySubpath": "Backend\\src\\bin\\Release\\net7.0\\publish",
+  "appService.defaultWebAppToDeploy": "/subscriptions/f9788430-c461-4997-929f-f47798b1cc83/resourceGroups/GreenBay/providers/Microsoft.Web/sites/GreenBayAppAzure"
+}
